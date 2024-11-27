@@ -1,7 +1,7 @@
-import '/components/step_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/step_view/step_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
@@ -299,7 +299,16 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                         return;
                       }
 
-                      context.pushNamed('SecondStepPage');
+                      context.pushNamed(
+                        'SecondStepPage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.rightToLeft,
+                            duration: Duration(milliseconds: 200),
+                          ),
+                        },
+                      );
                     },
                     text: 'ถัดไป',
                     options: FFButtonOptions(
