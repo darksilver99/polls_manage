@@ -62,6 +62,7 @@ class _StepViewWidgetState extends State<StepViewWidget> {
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Kanit',
                       color: FlutterFlowTheme.of(context).primaryBackground,
+                      fontSize: 26.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -99,6 +100,7 @@ class _StepViewWidgetState extends State<StepViewWidget> {
                       color: widget!.currentStep! >= 2
                           ? FlutterFlowTheme.of(context).primaryBackground
                           : FlutterFlowTheme.of(context).secondaryText,
+                      fontSize: 26.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -136,6 +138,7 @@ class _StepViewWidgetState extends State<StepViewWidget> {
                       color: widget!.currentStep! >= 3
                           ? FlutterFlowTheme.of(context).primaryBackground
                           : FlutterFlowTheme.of(context).secondaryText,
+                      fontSize: 26.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
                     ),
