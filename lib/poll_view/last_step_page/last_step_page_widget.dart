@@ -5,6 +5,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/step_view/step_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -127,6 +129,264 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                 ),
               ),
               Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    final _datePicked1Date = await showDatePicker(
+                      context: context,
+                      initialDate: ((_model.startDate != null
+                              ? _model.startDate
+                              : getCurrentTimestamp) ??
+                          DateTime.now()),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2050),
+                      builder: (context, child) {
+                        return wrapInMaterialDatePickerTheme(
+                          context,
+                          child!,
+                          headerBackgroundColor:
+                              FlutterFlowTheme.of(context).primary,
+                          headerForegroundColor:
+                              FlutterFlowTheme.of(context).info,
+                          headerTextStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .override(
+                                fontFamily: 'Kanit',
+                                fontSize: 32.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                          pickerBackgroundColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          pickerForegroundColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          selectedDateTimeBackgroundColor:
+                              FlutterFlowTheme.of(context).primary,
+                          selectedDateTimeForegroundColor:
+                              FlutterFlowTheme.of(context).info,
+                          actionButtonForegroundColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          iconSize: 24.0,
+                        );
+                      },
+                    );
+
+                    if (_datePicked1Date != null) {
+                      safeSetState(() {
+                        _model.datePicked1 = DateTime(
+                          _datePicked1Date.year,
+                          _datePicked1Date.month,
+                          _datePicked1Date.day,
+                        );
+                      });
+                    }
+                    if (_model.datePicked1 != null) {
+                      _model.startDate = _model.datePicked1;
+                      safeSetState(() {});
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 57.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 16.0, 0.0),
+                          child: Container(
+                            width: 57.0,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(8.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(0.0),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Icon(
+                                Icons.calendar_month_sharp,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 36.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    _model.startDate != null
+                                        ? functions.dateTh(_model.startDate)
+                                        : 'เลือกวันที่เริ่มต้น',
+                                    '-',
+                                  ),
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    final _datePicked2Date = await showDatePicker(
+                      context: context,
+                      initialDate: ((_model.endDate != null
+                              ? _model.endDate
+                              : getCurrentTimestamp) ??
+                          DateTime.now()),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2050),
+                      builder: (context, child) {
+                        return wrapInMaterialDatePickerTheme(
+                          context,
+                          child!,
+                          headerBackgroundColor:
+                              FlutterFlowTheme.of(context).primary,
+                          headerForegroundColor:
+                              FlutterFlowTheme.of(context).info,
+                          headerTextStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .override(
+                                fontFamily: 'Kanit',
+                                fontSize: 32.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                          pickerBackgroundColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          pickerForegroundColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          selectedDateTimeBackgroundColor:
+                              FlutterFlowTheme.of(context).primary,
+                          selectedDateTimeForegroundColor:
+                              FlutterFlowTheme.of(context).info,
+                          actionButtonForegroundColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          iconSize: 24.0,
+                        );
+                      },
+                    );
+
+                    if (_datePicked2Date != null) {
+                      safeSetState(() {
+                        _model.datePicked2 = DateTime(
+                          _datePicked2Date.year,
+                          _datePicked2Date.month,
+                          _datePicked2Date.day,
+                        );
+                      });
+                    }
+                    if (_model.datePicked2 != null) {
+                      _model.endDate = _model.datePicked2;
+                      safeSetState(() {});
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 57.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 16.0, 0.0),
+                          child: Container(
+                            width: 57.0,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(8.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(0.0),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Icon(
+                                Icons.calendar_month_sharp,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 36.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    _model.endDate != null
+                                        ? functions.dateTh(_model.startDate)
+                                        : 'เลือกวันที่สิ้นสุด',
+                                    '-',
+                                  ),
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 6.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -165,29 +425,52 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                             await actions.hideKeyBoard(
                               context,
                             );
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: AlignmentDirectional(0.0, 0.0)
-                                      .resolve(Directionality.of(context)),
-                                  child: WebViewAware(
-                                    child: InfoCustomViewWidget(
-                                      title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                      status: 'success',
+                            if ((_model.startDate != null) &&
+                                (_model.endDate != null)) {
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: WebViewAware(
+                                      child: InfoCustomViewWidget(
+                                        title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                        status: 'success',
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
+                                  );
+                                },
+                              );
 
-                            await actions.pushReplacement(
-                              context,
-                              null,
-                            );
+                              await actions.pushReplacement(
+                                context,
+                                null,
+                              );
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: WebViewAware(
+                                      child: InfoCustomViewWidget(
+                                        title:
+                                            'กรุณาเลือกวันที่เริ่มต้น-สิ้นสุด',
+                                        status: 'warning',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
                           },
                           text: 'ยืนยันข้อมูล',
                           options: FFButtonOptions(
