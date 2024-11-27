@@ -272,7 +272,7 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                         context: context,
                         initialDate: ((_model.endDate != null
                                 ? _model.endDate
-                                : getCurrentTimestamp) ??
+                                : _model.startDate) ??
                             DateTime.now()),
                         firstDate: (_model.startDate ?? DateTime(1900)),
                         lastDate: DateTime(2050),
