@@ -168,8 +168,8 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                             extra: <String, dynamic>{
                               kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,
-                                transitionType: PageTransitionType.rightToLeft,
-                                duration: Duration(milliseconds: 200),
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 0),
                               ),
                             },
                           );
