@@ -126,55 +126,93 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                   currentStep: 3,
                 ),
               ),
-              Builder(
-                builder: (context) => Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (dialogContext) {
-                          return Dialog(
-                            elevation: 0,
-                            insetPadding: EdgeInsets.zero,
-                            backgroundColor: Colors.transparent,
-                            alignment: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            child: WebViewAware(
-                              child: InfoCustomViewWidget(
-                                title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                status: 'success',
-                              ),
-                            ),
-                          );
-                        },
-                      );
-
-                      await actions.pushReplacement(
-                        context,
-                        null,
-                      );
-                    },
-                    text: 'บันทึก',
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 57.0,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 6.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Kanit',
-                                color: Colors.white,
-                                fontSize: 28.0,
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderRadius: BorderRadius.circular(8.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          context.safePop();
+                        },
+                        text: 'กลับ',
+                        options: FFButtonOptions(
+                          height: 57.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Kanit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    letterSpacing: 0.0,
+                                  ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: Builder(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            await actions.hideKeyBoard(
+                              context,
+                            );
+                            await showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return Dialog(
+                                  elevation: 0,
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.transparent,
+                                  alignment: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  child: WebViewAware(
+                                    child: InfoCustomViewWidget(
+                                      title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                      status: 'success',
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+
+                            await actions.pushReplacement(
+                              context,
+                              null,
+                            );
+                          },
+                          text: 'ยืนยันข้อมูล',
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 57.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  color: Colors.white,
+                                  fontSize: 28.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ]
