@@ -317,7 +317,8 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                         });
                       }
                       if (_model.datePicked2 != null) {
-                        _model.endDate = _model.datePicked2;
+                        _model.endDate =
+                            functions.getEndDayTime(_model.datePicked2!);
                         safeSetState(() {});
                       }
                     },
