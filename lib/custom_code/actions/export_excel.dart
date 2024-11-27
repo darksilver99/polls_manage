@@ -130,16 +130,16 @@ Future exportExcel() async {
       ..value = TextCellValue("${dataRecord["detail"] ?? '-'}")
       ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
 
-    Color statusColor = functions.getColorStatus(dataRecord["status"]);
+    /*Color statusColor = functions.getColorStatus(dataRecord["status"]);
     String colorHex =
-        statusColor.value.toRadixString(16).substring(2).toUpperCase();
+        statusColor.value.toRadixString(16).substring(2).toUpperCase();*/
 
     sheetObject
         .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: i + 2))
       ..value = TextCellValue("${dataRecord["status"]}")
       ..cellStyle = CellStyle(
           horizontalAlign: HorizontalAlign.Center,
-          fontColorHex: ExcelColor.fromHexString(colorHex));
+          fontColorHex: ExcelColor.fromHexString("#1AFF1A"));
 
     sheetObject
         .cell(CellIndex.indexByColumnRow(columnIndex: 7, rowIndex: i + 2))
