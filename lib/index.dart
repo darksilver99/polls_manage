@@ -6,3 +6,9 @@ export '/landing_view/setting_page/setting_page_widget.dart'
 export '/landing_view/test_page/test_page_widget.dart' show TestPageWidget;
 export '/authen_view/register_page/register_page_widget.dart'
     show RegisterPageWidget;
+export '/poll_view/first_step_page/first_step_page_widget.dart'
+    show FirstStepPageWidget;
+export '/poll_view/second_step_page/second_step_page_widget.dart'
+    show SecondStepPageWidget;
+export '/poll_view/last_step_page/last_step_page_widget.dart'
+    show LastStepPageWidget;

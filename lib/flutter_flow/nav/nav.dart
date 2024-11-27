@@ -116,6 +116,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'RegisterPage',
           path: '/registerPage',
           builder: (context, params) => RegisterPageWidget(),
+        ),
+        FFRoute(
+          name: 'FirstStepPage',
+          path: '/firstStepPage',
+          builder: (context, params) => FirstStepPageWidget(),
+        ),
+        FFRoute(
+          name: 'SecondStepPage',
+          path: '/secondStepPage',
+          builder: (context, params) => SecondStepPageWidget(),
+        ),
+        FFRoute(
+          name: 'LastStepPage',
+          path: '/lastStepPage',
+          builder: (context, params) => LastStepPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
