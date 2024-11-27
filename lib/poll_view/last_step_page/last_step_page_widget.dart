@@ -67,7 +67,7 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: FlutterFlowTheme.of(context).warning,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Kanit',
@@ -477,7 +477,7 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                               );
                             }
                           },
-                          text: 'ยืนยันข้อมูล',
+                          text: 'ดูตัวอย่าง',
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 57.0,
