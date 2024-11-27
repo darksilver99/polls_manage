@@ -299,7 +299,16 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                         return;
                       }
 
-                      context.pushNamed('SecondStepPage');
+                      context.pushNamed(
+                        'SecondStepPage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.rightToLeft,
+                            duration: Duration(milliseconds: 200),
+                          ),
+                        },
+                      );
                     },
                     text: 'ถัดไป',
                     options: FFButtonOptions(

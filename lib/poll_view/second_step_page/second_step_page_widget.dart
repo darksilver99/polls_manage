@@ -128,7 +128,16 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    context.pushNamed('LastStepPage');
+                    context.pushNamed(
+                      'LastStepPage',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.rightToLeft,
+                          duration: Duration(milliseconds: 200),
+                        ),
+                      },
+                    );
                   },
                   text: 'ถัดไป',
                   options: FFButtonOptions(
