@@ -567,7 +567,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                     ),
                   ),
-                ],
+                ]
+                    .addToStart(SizedBox(height: 32.0))
+                    .addToEnd(SizedBox(height: 180.0)),
               ),
             ),
           ],
