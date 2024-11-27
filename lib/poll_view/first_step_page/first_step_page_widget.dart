@@ -277,7 +277,7 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                                     fontFamily: 'Kanit',
                                     letterSpacing: 0.0,
                                   ),
-                              maxLines: 3,
+                              maxLines: 5,
                               keyboardType: TextInputType.multiline,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
