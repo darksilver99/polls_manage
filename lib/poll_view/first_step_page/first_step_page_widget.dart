@@ -157,12 +157,14 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                                     .labelMedium
                                     .override(
                                       fontFamily: 'Kanit',
+                                      fontSize: 28.0,
                                       letterSpacing: 0.0,
                                     ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
                                       fontFamily: 'Kanit',
+                                      fontSize: 28.0,
                                       letterSpacing: 0.0,
                                     ),
                                 enabledBorder: OutlineInputBorder(
@@ -203,6 +205,7 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
+                                    fontSize: 28.0,
                                     letterSpacing: 0.0,
                                   ),
                               cursorColor:
@@ -229,12 +232,14 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                                     .labelMedium
                                     .override(
                                       fontFamily: 'Kanit',
+                                      fontSize: 28.0,
                                       letterSpacing: 0.0,
                                     ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
                                       fontFamily: 'Kanit',
+                                      fontSize: 28.0,
                                       letterSpacing: 0.0,
                                     ),
                                 enabledBorder: OutlineInputBorder(
@@ -275,6 +280,7 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
+                                    fontSize: 28.0,
                                     letterSpacing: 0.0,
                                   ),
                               maxLines: 5,

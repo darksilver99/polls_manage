@@ -186,6 +186,7 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                     }
                     if (_model.datePicked1 != null) {
                       _model.startDate = _model.datePicked1;
+                      _model.endDate = null;
                       safeSetState(() {});
                     }
                   },
@@ -257,135 +258,138 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    final _datePicked2Date = await showDatePicker(
-                      context: context,
-                      initialDate: ((_model.endDate != null
-                              ? _model.endDate
-                              : getCurrentTimestamp) ??
-                          DateTime.now()),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2050),
-                      builder: (context, child) {
-                        return wrapInMaterialDatePickerTheme(
-                          context,
-                          child!,
-                          headerBackgroundColor:
-                              FlutterFlowTheme.of(context).primary,
-                          headerForegroundColor:
-                              FlutterFlowTheme.of(context).info,
-                          headerTextStyle: FlutterFlowTheme.of(context)
-                              .headlineLarge
-                              .override(
-                                fontFamily: 'Kanit',
-                                fontSize: 32.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                          pickerBackgroundColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          pickerForegroundColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                          selectedDateTimeBackgroundColor:
-                              FlutterFlowTheme.of(context).primary,
-                          selectedDateTimeForegroundColor:
-                              FlutterFlowTheme.of(context).info,
-                          actionButtonForegroundColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                          iconSize: 24.0,
-                        );
-                      },
-                    );
+              if (_model.startDate != null)
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      final _datePicked2Date = await showDatePicker(
+                        context: context,
+                        initialDate: ((_model.endDate != null
+                                ? _model.endDate
+                                : getCurrentTimestamp) ??
+                            DateTime.now()),
+                        firstDate: (_model.startDate ?? DateTime(1900)),
+                        lastDate: DateTime(2050),
+                        builder: (context, child) {
+                          return wrapInMaterialDatePickerTheme(
+                            context,
+                            child!,
+                            headerBackgroundColor:
+                                FlutterFlowTheme.of(context).primary,
+                            headerForegroundColor:
+                                FlutterFlowTheme.of(context).info,
+                            headerTextStyle: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 32.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            pickerBackgroundColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            pickerForegroundColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            selectedDateTimeBackgroundColor:
+                                FlutterFlowTheme.of(context).primary,
+                            selectedDateTimeForegroundColor:
+                                FlutterFlowTheme.of(context).info,
+                            actionButtonForegroundColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            iconSize: 24.0,
+                          );
+                        },
+                      );
 
-                    if (_datePicked2Date != null) {
-                      safeSetState(() {
-                        _model.datePicked2 = DateTime(
-                          _datePicked2Date.year,
-                          _datePicked2Date.month,
-                          _datePicked2Date.day,
-                        );
-                      });
-                    }
-                    if (_model.datePicked2 != null) {
-                      _model.endDate = _model.datePicked2;
-                      safeSetState(() {});
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 57.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 16.0, 0.0),
-                          child: Container(
-                            width: 57.0,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(8.0),
-                                bottomRight: Radius.circular(0.0),
-                                topLeft: Radius.circular(8.0),
-                                topRight: Radius.circular(0.0),
-                              ),
-                            ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Icon(
-                                Icons.calendar_month_sharp,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 36.0,
-                              ),
-                            ),
-                          ),
+                      if (_datePicked2Date != null) {
+                        safeSetState(() {
+                          _model.datePicked2 = DateTime(
+                            _datePicked2Date.year,
+                            _datePicked2Date.month,
+                            _datePicked2Date.day,
+                          );
+                        });
+                      }
+                      if (_model.datePicked2 != null) {
+                        _model.endDate = _model.datePicked2;
+                        safeSetState(() {});
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 57.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                          width: 1.0,
                         ),
-                        Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  valueOrDefault<String>(
-                                    _model.endDate != null
-                                        ? functions.dateTh(_model.startDate)
-                                        : 'เลือกวันที่สิ้นสุด',
-                                    '-',
-                                  ),
-                                  maxLines: 1,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        letterSpacing: 0.0,
-                                      ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 16.0, 0.0),
+                            child: Container(
+                              width: 57.0,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(8.0),
+                                  bottomRight: Radius.circular(0.0),
+                                  topLeft: Radius.circular(8.0),
+                                  topRight: Radius.circular(0.0),
                                 ),
                               ),
-                            ],
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Icon(
+                                  Icons.calendar_month_sharp,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 36.0,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      _model.endDate != null
+                                          ? functions.dateTh(_model.endDate)
+                                          : 'เลือกวันที่สิ้นสุด',
+                                      '-',
+                                    ),
+                                    maxLines: 1,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 6.0, 0.0),
                 child: Row(
