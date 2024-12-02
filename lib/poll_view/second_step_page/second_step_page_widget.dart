@@ -229,8 +229,11 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                       },
                       onReorder: (int reorderableOldIndex,
                           int reorderableNewIndex) async {
-                        FFAppState().tmpQuestionDataList =
-                            questionList.toList().cast<QuestionDataStruct>();
+                        FFAppState().removeAtIndexFromTmpQuestionDataList(
+                            reorderableOldIndex);
+                        FFAppState().insertAtIndexInTmpQuestionDataList(
+                            reorderableNewIndex,
+                            questionList[reorderableOldIndex]);
                         FFAppState().update(() {});
 
                         safeSetState(() {});
