@@ -235,32 +235,41 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                               safeSetState(() => _model.topic = value));
 
                           if (_model.topic != null && _model.topic != '') {
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              useSafeArea: true,
-                              context: context,
-                              builder: (context) {
-                                return WebViewAware(
-                                  child: Padding(
-                                    padding: MediaQuery.viewInsetsOf(context),
-                                    child: TypeFormViewWidget(),
-                                  ),
-                                );
-                              },
-                            ).then((value) =>
-                                safeSetState(() => _model.optionList = value));
-
-                            if (_model.optionList != null &&
-                                (_model.optionList)!.isNotEmpty) {
+                            if (_model.typeID == 1) {
                               FFAppState()
                                   .addToTmpQuestionDataList(QuestionDataStruct(
                                 topic: _model.topic,
                                 type: _model.typeID,
-                                optionList: _model.optionList,
                               ));
                               safeSetState(() {});
+                            } else {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                useSafeArea: true,
+                                context: context,
+                                builder: (context) {
+                                  return WebViewAware(
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: TypeFormViewWidget(),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(
+                                  () => _model.optionList = value));
+
+                              if (_model.optionList != null &&
+                                  (_model.optionList)!.isNotEmpty) {
+                                FFAppState().addToTmpQuestionDataList(
+                                    QuestionDataStruct(
+                                  topic: _model.topic,
+                                  type: _model.typeID,
+                                  optionList: _model.optionList,
+                                ));
+                                safeSetState(() {});
+                              }
                             }
                           }
                         }
