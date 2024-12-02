@@ -59,3 +59,18 @@ DateTime getStartDayTime(DateTime currentDate) {
       DateTime(currentDate.year, currentDate.month, currentDate.day);
   return startOfDay;
 }
+
+List<QuestionDataStruct> reorderItems(
+  List<QuestionDataStruct> questionList,
+  int oldIndex,
+  int newIndex,
+) {
+  if (oldIndex < newIndex) {
+    newIndex -= 1;
+  }
+  final item = questionList.removeAt(oldIndex);
+
+  questionList.insert(newIndex, item);
+
+  return questionList;
+}
