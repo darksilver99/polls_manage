@@ -35,5 +35,17 @@ service cloud.firestore {
       allow write: if true;
       allow delete: if true;
     }
+
+    match /customer_list/{parent}/poll_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/poll_list/{document} {
+      allow read: if true;
+    }
+
   }
 }

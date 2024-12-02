@@ -10,6 +10,7 @@ import 'schema/config_record.dart';
 import 'schema/issue_list_record.dart';
 import 'schema/suggest_list_record.dart';
 import 'schema/customer_list_record.dart';
+import 'schema/poll_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -23,6 +24,7 @@ export 'schema/config_record.dart';
 export 'schema/issue_list_record.dart';
 export 'schema/suggest_list_record.dart';
 export 'schema/customer_list_record.dart';
+export 'schema/poll_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -204,6 +206,46 @@ Future<List<CustomerListRecord>> queryCustomerListRecordOnce({
     queryCollectionOnce(
       CustomerListRecord.collection,
       CustomerListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query PollListRecords (as a Stream and as a Future).
+Future<int> queryPollListRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PollListRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PollListRecord>> queryPollListRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PollListRecord.collection(parent),
+      PollListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PollListRecord>> queryPollListRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PollListRecord.collection(parent),
+      PollListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

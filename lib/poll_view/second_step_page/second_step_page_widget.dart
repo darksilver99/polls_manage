@@ -1,12 +1,17 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/select_type_view/select_type_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
+import '/poll_view/topic_form_view/topic_form_view_widget.dart';
+import '/poll_view/type_form_view/type_form_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'second_step_page_model.dart';
 export 'second_step_page_model.dart';
 
@@ -37,6 +42,8 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -126,86 +133,62 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 8.0, 16.0, 8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '1 ท่านพอใจในสิ่งนั้นหรือไม่',
-                                maxLines: 2,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
+                child: Builder(
+                  builder: (context) {
+                    final questionList =
+                        FFAppState().tmpQuestionDataList.toList();
+
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: List.generate(questionList.length,
+                          (questionListIndex) {
+                        final questionListItem =
+                            questionList[questionListIndex];
+                        return Container(
+                          width: double.infinity,
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 1.0,
                             ),
-                            Icon(
-                              Icons.navigate_next_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 32.0,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 8.0, 16.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    questionListItem.topic,
+                                    maxLines: 2,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 24.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.navigate_next_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 32.0,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 1.0,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 8.0, 16.0, 8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '2 ท่านพอใจในสิ่งนี้หรือไม่',
-                                maxLines: 2,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.navigate_next_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 32.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ].divide(SizedBox(height: 8.0)),
+                          ),
+                        );
+                      }).divide(SizedBox(height: 8.0)),
+                    );
+                  },
                 ),
               ),
               Padding(
@@ -215,8 +198,74 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          useSafeArea: true,
+                          context: context,
+                          builder: (context) {
+                            return WebViewAware(
+                              child: Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: SelectTypeViewWidget(),
+                              ),
+                            );
+                          },
+                        ).then((value) =>
+                            safeSetState(() => _model.typeID = value));
+
+                        if (_model.typeID != null) {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            useSafeArea: true,
+                            context: context,
+                            builder: (context) {
+                              return WebViewAware(
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: TopicFormViewWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) =>
+                              safeSetState(() => _model.topic = value));
+
+                          if (_model.topic != null && _model.topic != '') {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              useSafeArea: true,
+                              context: context,
+                              builder: (context) {
+                                return WebViewAware(
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: TypeFormViewWidget(),
+                                  ),
+                                );
+                              },
+                            ).then((value) =>
+                                safeSetState(() => _model.optionList = value));
+
+                            if (_model.optionList != null &&
+                                (_model.optionList)!.isNotEmpty) {
+                              FFAppState()
+                                  .addToTmpQuestionDataList(QuestionDataStruct(
+                                topic: _model.topic,
+                                type: _model.typeID,
+                                optionList: _model.optionList,
+                              ));
+                              safeSetState(() {});
+                            }
+                          }
+                        }
+
+                        safeSetState(() {});
                       },
                       text: 'เพิ่มข้อ',
                       icon: Icon(
@@ -244,7 +293,7 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 6.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
