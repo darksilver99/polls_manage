@@ -2,6 +2,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/question_pre_view/question_pre_view_widget.dart';
 import '/poll_view/select_type_view/select_type_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
 import '/poll_view/topic_form_view/topic_form_view_widget.dart';
