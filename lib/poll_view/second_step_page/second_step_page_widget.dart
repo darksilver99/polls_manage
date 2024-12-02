@@ -219,7 +219,10 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: TypeFormViewWidget(),
+                                              child: TypeFormViewWidget(
+                                                optionList:
+                                                    questionListItem.optionList,
+                                              ),
                                             ),
                                           );
                                         },
