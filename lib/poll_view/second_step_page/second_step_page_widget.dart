@@ -228,7 +228,13 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                         );
                       },
                       onReorder: (int reorderableOldIndex,
-                          int reorderableNewIndex) async {},
+                          int reorderableNewIndex) async {
+                        FFAppState().tmpQuestionDataList =
+                            questionList.toList().cast<QuestionDataStruct>();
+                        FFAppState().update(() {});
+
+                        safeSetState(() {});
+                      },
                     );
                   },
                 ),
