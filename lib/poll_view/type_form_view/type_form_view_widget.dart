@@ -39,8 +39,10 @@ class _TypeFormViewWidgetState extends State<TypeFormViewWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.optionList = widget!.optionList!.toList().cast<String>();
-      safeSetState(() {});
+      if (widget!.optionList != null && (widget!.optionList)!.isNotEmpty) {
+        _model.optionList = widget!.optionList!.toList().cast<String>();
+        safeSetState(() {});
+      }
     });
 
     _model.textController ??= TextEditingController();

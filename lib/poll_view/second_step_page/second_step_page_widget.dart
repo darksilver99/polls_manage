@@ -238,6 +238,13 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                                         );
                                         FFAppState().update(() {});
                                       }
+                                    } else {
+                                      FFAppState()
+                                          .updateTmpQuestionDataListAtIndex(
+                                        questionListIndex,
+                                        (e) => e..topic = _model.topicEdit,
+                                      );
+                                      FFAppState().update(() {});
                                     }
                                   }
                                 }
