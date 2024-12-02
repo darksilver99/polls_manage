@@ -194,6 +194,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           highlightColor: Colors.transparent,
                           onTap: () async {
                             FFAppState().tmpQuestionDataList = [];
+                            FFAppState().tmpPollData = PollDataStruct();
 
                             context.goNamed('FirstStepPage');
                           },

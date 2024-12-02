@@ -113,6 +113,16 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInTmpQuestionDataList(int index, QuestionDataStruct value) {
     tmpQuestionDataList.insert(index, value);
   }
+
+  PollDataStruct _tmpPollData = PollDataStruct();
+  PollDataStruct get tmpPollData => _tmpPollData;
+  set tmpPollData(PollDataStruct value) {
+    _tmpPollData = value;
+  }
+
+  void updateTmpPollDataStruct(Function(PollDataStruct) updateFn) {
+    updateFn(_tmpPollData);
+  }
 }
 
 void _safeInit(Function() initializeField) {
