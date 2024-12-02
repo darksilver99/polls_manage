@@ -1,7 +1,9 @@
+import '/backend/schema/structs/index.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/poll_pre_view/poll_pre_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
@@ -432,6 +434,27 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                             );
                             if ((_model.startDate != null) &&
                                 (_model.endDate != null)) {
+                              FFAppState().updateTmpPollDataStruct(
+                                (e) => e
+                                  ..startDate = _model.startDate
+                                  ..endDate = _model.endDate,
+                              );
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                useSafeArea: true,
+                                context: context,
+                                builder: (context) {
+                                  return WebViewAware(
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: PollPreViewWidget(),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+
                               await showDialog(
                                 context: context,
                                 builder: (dialogContext) {

@@ -466,6 +466,11 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                           await actions.hideKeyBoard(
                             context,
                           );
+                          FFAppState().updateTmpPollDataStruct(
+                            (e) => e
+                              ..questionList =
+                                  FFAppState().tmpQuestionDataList.toList(),
+                          );
 
                           context.pushNamed(
                             'LastStepPage',

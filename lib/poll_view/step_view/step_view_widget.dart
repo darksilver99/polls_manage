@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'step_view_model.dart';
@@ -80,8 +79,8 @@ class _StepViewWidgetState extends State<StepViewWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FaIcon(
-                        FontAwesomeIcons.arrowRight,
+                      Icon(
+                        Icons.navigate_next_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
                         size: 32.0,
                       ),
@@ -118,8 +117,8 @@ class _StepViewWidgetState extends State<StepViewWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FaIcon(
-                        FontAwesomeIcons.arrowRight,
+                      Icon(
+                        Icons.navigate_next_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
                         size: 32.0,
                       ),

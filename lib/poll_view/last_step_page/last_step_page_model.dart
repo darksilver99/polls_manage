@@ -1,7 +1,9 @@
+import '/backend/schema/structs/index.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/poll_pre_view/poll_pre_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;

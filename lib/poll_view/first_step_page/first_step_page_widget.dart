@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -307,6 +308,10 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                           !_model.formKey.currentState!.validate()) {
                         return;
                       }
+                      FFAppState().tmpPollData = PollDataStruct(
+                        subject: _model.textController1.text,
+                        detail: _model.textController2.text,
+                      );
 
                       context.pushNamed(
                         'SecondStepPage',
