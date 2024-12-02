@@ -374,6 +374,7 @@ class _TypeFormViewWidgetState extends State<TypeFormViewWidget> {
                                 .override(
                                   fontFamily: 'Kanit',
                                   color: Colors.white,
+                                  fontSize: 28.0,
                                   letterSpacing: 0.0,
                                 ),
                             elevation: 0.0,
