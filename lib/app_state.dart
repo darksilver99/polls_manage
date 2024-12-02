@@ -84,6 +84,35 @@ class FFAppState extends ChangeNotifier {
     _isSkipExpireAlert = value;
     prefs.setBool('ff_isSkipExpireAlert', value);
   }
+
+  List<QuestionDataStruct> _tmpQuestionDataList = [];
+  List<QuestionDataStruct> get tmpQuestionDataList => _tmpQuestionDataList;
+  set tmpQuestionDataList(List<QuestionDataStruct> value) {
+    _tmpQuestionDataList = value;
+  }
+
+  void addToTmpQuestionDataList(QuestionDataStruct value) {
+    tmpQuestionDataList.add(value);
+  }
+
+  void removeFromTmpQuestionDataList(QuestionDataStruct value) {
+    tmpQuestionDataList.remove(value);
+  }
+
+  void removeAtIndexFromTmpQuestionDataList(int index) {
+    tmpQuestionDataList.removeAt(index);
+  }
+
+  void updateTmpQuestionDataListAtIndex(
+    int index,
+    QuestionDataStruct Function(QuestionDataStruct) updateFn,
+  ) {
+    tmpQuestionDataList[index] = updateFn(_tmpQuestionDataList[index]);
+  }
+
+  void insertAtIndexInTmpQuestionDataList(int index, QuestionDataStruct value) {
+    tmpQuestionDataList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
