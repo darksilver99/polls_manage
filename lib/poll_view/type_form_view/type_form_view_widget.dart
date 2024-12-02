@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -11,7 +12,12 @@ import 'type_form_view_model.dart';
 export 'type_form_view_model.dart';
 
 class TypeFormViewWidget extends StatefulWidget {
-  const TypeFormViewWidget({super.key});
+  const TypeFormViewWidget({
+    super.key,
+    this.optionList,
+  });
+
+  final List<String>? optionList;
 
   @override
   State<TypeFormViewWidget> createState() => _TypeFormViewWidgetState();
@@ -30,6 +36,12 @@ class _TypeFormViewWidgetState extends State<TypeFormViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TypeFormViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.optionList = widget!.optionList!.toList().cast<String>();
+      safeSetState(() {});
+    });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();

@@ -179,7 +179,70 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                                       ),
                                     );
                                   },
-                                ).then((value) => safeSetState(() {}));
+                                ).then((value) =>
+                                    safeSetState(() => _model.isEdit = value));
+
+                                if ((_model.isEdit != null &&
+                                        _model.isEdit != '') &&
+                                    (_model.isEdit == 'edit')) {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return WebViewAware(
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: TopicFormViewWidget(
+                                            topic: questionListItem.topic,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(
+                                      () => _model.topicEdit = value));
+
+                                  if (_model.topicEdit != null &&
+                                      _model.topicEdit != '') {
+                                    if (questionListItem.type != 1) {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        useSafeArea: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return WebViewAware(
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: TypeFormViewWidget(),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(
+                                          () => _model.optionEditList = value));
+
+                                      if (_model.optionEditList != null &&
+                                          (_model.optionEditList)!.isNotEmpty) {
+                                        FFAppState()
+                                            .updateTmpQuestionDataListAtIndex(
+                                          questionListIndex,
+                                          (e) => e
+                                            ..topic = _model.topicEdit
+                                            ..optionList =
+                                                _model.optionEditList!.toList(),
+                                        );
+                                        FFAppState().update(() {});
+                                      }
+                                    }
+                                  }
+                                }
+
+                                safeSetState(() {});
                               },
                               child: Container(
                                 width: double.infinity,

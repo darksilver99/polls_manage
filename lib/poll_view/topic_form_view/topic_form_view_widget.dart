@@ -2,13 +2,19 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'topic_form_view_model.dart';
 export 'topic_form_view_model.dart';
 
 class TopicFormViewWidget extends StatefulWidget {
-  const TopicFormViewWidget({super.key});
+  const TopicFormViewWidget({
+    super.key,
+    this.topic,
+  });
+
+  final String? topic;
 
   @override
   State<TopicFormViewWidget> createState() => _TopicFormViewWidgetState();
@@ -27,6 +33,15 @@ class _TopicFormViewWidgetState extends State<TopicFormViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TopicFormViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget!.topic != null && widget!.topic != '') {
+        safeSetState(() {
+          _model.textController?.text = widget!.topic!;
+        });
+      }
+    });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();

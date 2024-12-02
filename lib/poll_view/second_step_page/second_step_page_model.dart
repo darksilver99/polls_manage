@@ -23,6 +23,12 @@ class SecondStepPageModel extends FlutterFlowModel<SecondStepPageWidget> {
   bool? isConfirm;
   // Model for StepView component.
   late StepViewModel stepViewModel;
+  // Stores action output result for [Bottom Sheet - QuestionPreView] action in Container widget.
+  String? isEdit;
+  // Stores action output result for [Bottom Sheet - TopicFormView] action in Container widget.
+  String? topicEdit;
+  // Stores action output result for [Bottom Sheet - TypeFormView] action in Container widget.
+  List<String>? optionEditList;
   // Stores action output result for [Bottom Sheet - SelectTypeView] action in Button widget.
   int? typeID;
   // Stores action output result for [Bottom Sheet - TopicFormView] action in Button widget.
