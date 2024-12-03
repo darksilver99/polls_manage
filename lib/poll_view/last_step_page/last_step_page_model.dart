@@ -23,6 +23,8 @@ class LastStepPageModel extends FlutterFlowModel<LastStepPageWidget> {
 
   DateTime? endDate;
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Action Block - confirmBlock] action in Button widget.
