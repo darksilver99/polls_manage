@@ -181,21 +181,62 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(
-                                        'แก้ไข',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                      child: Builder(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: GestureDetector(
+                                                      onTap: () =>
+                                                          FocusScope.of(
+                                                                  dialogContext)
+                                                              .unfocus(),
+                                                      child:
+                                                          InfoCustomViewWidget(
+                                                        title:
+                                                            'คำเตือน: การแก้ไข Poll อาจทำให้ข้อมูลคำตอบที่ได้รับก่อนหน้านี้ผิดพลาดหรือไม่สอดคล้องกับคำถามที่แก้ไขใหม่ กรุณาตรวจสอบให้แน่ใจก่อนดำเนินการแก้ไข เพื่อป้องกันผลกระทบต่อข้อมูลที่รวบรวมไว้แล้ว',
+                                                        status: 'error',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Text(
+                                            'แก้ไข',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .error,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w300,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w300,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -343,7 +384,7 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children:
                                       List.generate(questionListView.length,
-                                              (questionListViewIndex) {
+                                          (questionListViewIndex) {
                                     final questionListViewItem =
                                         questionListView[questionListViewIndex];
                                     return Padding(
@@ -519,17 +560,68 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                         ],
                                       ),
                                     );
-                                  })
-                                          .divide(SizedBox(height: 16.0))
-                                          .addToEnd(SizedBox(height: 120.0)),
+                                  }),
                                 );
                               },
                             ),
-                          ],
+                          ]
+                              .addToStart(SizedBox(height: 8.0))
+                              .addToEnd(SizedBox(height: 32.0)),
                         ),
                       ),
                     ),
                   ),
+                Builder(
+                  builder: (context) => Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: WebViewAware(
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      FocusScope.of(dialogContext).unfocus(),
+                                  child: InfoCustomViewWidget(
+                                    title: 'ส่งข้อมูลเรียบร้อยแล้ว',
+                                    status: 'success',
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      text: 'ส่งข้อมูล',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 57.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Kanit',
+                                  color: Colors.white,
+                                  fontSize: 28.0,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
