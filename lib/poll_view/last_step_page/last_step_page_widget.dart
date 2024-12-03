@@ -10,6 +10,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -32,6 +33,18 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LastStepPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().tmpPollData.startDate != null) {
+        _model.startDate = FFAppState().tmpPollData.startDate;
+        if (FFAppState().tmpPollData.endDate != null) {
+          _model.endDate = FFAppState().tmpPollData.endDate;
+        }
+
+        safeSetState(() {});
+      }
+    });
   }
 
   @override
@@ -43,6 +56,8 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
