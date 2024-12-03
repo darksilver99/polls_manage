@@ -44,6 +44,8 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -308,10 +310,18 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                           !_model.formKey.currentState!.validate()) {
                         return;
                       }
-                      FFAppState().tmpPollData = PollDataStruct(
-                        subject: _model.textController1.text,
-                        detail: _model.textController2.text,
-                      );
+                      if (FFAppState().tmpPollData.startDate != null) {
+                        FFAppState().updateTmpPollDataStruct(
+                          (e) => e
+                            ..subject = _model.textController1.text
+                            ..detail = _model.textController2.text,
+                        );
+                      } else {
+                        FFAppState().tmpPollData = PollDataStruct(
+                          subject: _model.textController1.text,
+                          detail: _model.textController2.text,
+                        );
+                      }
 
                       context.pushNamed(
                         'SecondStepPage',
