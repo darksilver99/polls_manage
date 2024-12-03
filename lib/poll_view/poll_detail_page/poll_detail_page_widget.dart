@@ -374,197 +374,258 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                 ],
                               ),
                             ),
-                            Builder(
-                              builder: (context) {
-                                final questionListView =
-                                    _model.pollResult?.questionList?.toList() ??
-                                        [];
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: Builder(
+                                builder: (context) {
+                                  final questionListView = _model
+                                          .pollResult?.questionList
+                                          ?.toList() ??
+                                      [];
 
-                                return Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children:
-                                      List.generate(questionListView.length,
-                                          (questionListViewIndex) {
-                                    final questionListViewItem =
-                                        questionListView[questionListViewIndex];
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 8.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    questionListViewItem.topic,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 16.0),
-                                            child: Builder(
-                                              builder: (context) {
-                                                if (questionListViewItem.type ==
-                                                    1) {
-                                                  return Container(
-                                                    width: double.infinity,
-                                                    height: 120.0,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children:
+                                        List.generate(questionListView.length,
+                                            (questionListViewIndex) {
+                                      final questionListViewItem =
+                                          questionListView[
+                                              questionListViewIndex];
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 0.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      questionListViewItem
+                                                          .topic,
+                                                      style: FlutterFlowTheme
                                                               .of(context)
-                                                          .secondaryBackground,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        width: 1.0,
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 20.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 16.0),
+                                              child: Builder(
+                                                builder: (context) {
+                                                  if (questionListViewItem
+                                                          .type ==
+                                                      1) {
+                                                    return Container(
+                                                      width: double.infinity,
+                                                      height: 120.0,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          width: 1.0,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final optionListView =
-                                                            questionListViewItem
-                                                                .optionList
-                                                                .toList();
+                                                    );
+                                                  } else {
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Builder(
+                                                        builder: (context) {
+                                                          final optionListView =
+                                                              questionListViewItem
+                                                                  .optionList
+                                                                  .toList();
 
-                                                        return Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: List.generate(
-                                                              optionListView
-                                                                  .length,
-                                                              (optionListViewIndex) {
-                                                            final optionListViewItem =
-                                                                optionListView[
-                                                                    optionListViewIndex];
-                                                            return Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      Builder(
-                                                                    builder:
-                                                                        (context) {
-                                                                      if (questionListViewItem
-                                                                              .type ==
-                                                                          2) {
-                                                                        return Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              0.0,
-                                                                              8.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.circle_outlined,
+                                                          return Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: List.generate(
+                                                                optionListView
+                                                                    .length,
+                                                                (optionListViewIndex) {
+                                                              final optionListViewItem =
+                                                                  optionListView[
+                                                                      optionListViewIndex];
+                                                              return Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        Builder(
+                                                                      builder:
+                                                                          (context) {
+                                                                        if (questionListViewItem.type ==
+                                                                            2) {
+                                                                          return Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                8.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.circle_outlined,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              size: 28.0,
+                                                                            ),
+                                                                          );
+                                                                        } else {
+                                                                          return Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                8.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.crop_square,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              size: 28.0,
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      optionListViewItem,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Kanit',
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
-                                                                            size:
-                                                                                28.0,
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w200,
                                                                           ),
-                                                                        );
-                                                                      } else {
-                                                                        return Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              0.0,
-                                                                              8.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.crop_square,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            size:
-                                                                                28.0,
-                                                                          ),
-                                                                        );
-                                                                      }
-                                                                    },
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    optionListViewItem,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Kanit',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                          fontSize:
-                                                                              18.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w200,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          }).divide(SizedBox(
-                                                              height: 8.0)),
-                                                        );
-                                                      },
-                                                    ),
-                                                  );
-                                                }
-                                              },
+                                                                ],
+                                                              );
+                                                            }).divide(SizedBox(
+                                                                height: 8.0)),
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                            Divider(
+                                              thickness: 2.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }),
+                                  );
+                                },
+                              ),
+                            ),
+                            Builder(
+                              builder: (context) => Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 32.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: WebViewAware(
+                                            child: GestureDetector(
+                                              onTap: () =>
+                                                  FocusScope.of(dialogContext)
+                                                      .unfocus(),
+                                              child: InfoCustomViewWidget(
+                                                title: 'ส่งข้อมูลเรียบร้อยแล้ว',
+                                                status: 'success',
+                                              ),
                                             ),
                                           ),
-                                          Divider(
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                        ],
-                                      ),
+                                        );
+                                      },
                                     );
-                                  }),
-                                );
-                              },
+                                  },
+                                  text: 'ส่งข้อมูล',
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 57.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                          fontSize: 28.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
                             ),
                           ]
                               .addToStart(SizedBox(height: 8.0))
@@ -573,57 +634,6 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                       ),
                     ),
                   ),
-                Builder(
-                  builder: (context) => Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: WebViewAware(
-                                child: GestureDetector(
-                                  onTap: () =>
-                                      FocusScope.of(dialogContext).unfocus(),
-                                  child: InfoCustomViewWidget(
-                                    title: 'ส่งข้อมูลเรียบร้อยแล้ว',
-                                    status: 'success',
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      text: 'ส่งข้อมูล',
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 57.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Kanit',
-                                  color: Colors.white,
-                                  fontSize: 28.0,
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
