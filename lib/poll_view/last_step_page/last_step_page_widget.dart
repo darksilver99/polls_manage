@@ -212,6 +212,11 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                           if (_model.datePicked1 != null) {
                             _model.startDate = _model.datePicked1;
                             _model.endDate = null;
+                            FFAppState().updateTmpPollDataStruct(
+                              (e) => e
+                                ..startDate = _model.startDate
+                                ..endDate = null,
+                            );
                             safeSetState(() {});
                           }
                         },
@@ -349,6 +354,9 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                             if (_model.datePicked2 != null) {
                               _model.endDate =
                                   functions.getEndDayTime(_model.datePicked2!);
+                              FFAppState().updateTmpPollDataStruct(
+                                (e) => e..endDate = _model.endDate,
+                              );
                               safeSetState(() {});
                             }
                           },
