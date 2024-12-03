@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
+import '/poll_view/text_field_answer_view/text_field_answer_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'poll_detail_page_widget.dart' show PollDetailPageWidget;
@@ -22,14 +23,24 @@ class PollDetailPageModel extends FlutterFlowModel<PollDetailPageWidget> {
 
   bool isLoading = true;
 
+  int? tmpAnswerIndex = 0;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Read Document] action in PollDetailPage widget.
   PollListRecord? pollResult;
+  // Models for TextFieldAnswerView dynamic component.
+  late FlutterFlowDynamicModels<TextFieldAnswerViewModel>
+      textFieldAnswerViewModels;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    textFieldAnswerViewModels =
+        FlutterFlowDynamicModels(() => TextFieldAnswerViewModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    textFieldAnswerViewModels.dispose();
+  }
 }

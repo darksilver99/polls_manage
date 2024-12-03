@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
+import '/poll_view/text_field_answer_view/text_field_answer_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,6 +46,18 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
       _model.pollResult =
           await PollListRecord.getDocumentOnce(widget!.pollDocument!.reference);
       if (_model.pollResult != null) {
+        FFAppState().tmpAnswerList = [];
+        while (_model.tmpAnswerIndex! <
+            widget!.pollDocument!.questionList.length) {
+          FFAppState().addToTmpAnswerList(AnswerDataStruct(
+            answer: [],
+            questionType:
+                (widget!.pollDocument?.questionList?[_model.tmpAnswerIndex!])
+                    ?.type,
+          ));
+          safeSetState(() {});
+          _model.tmpAnswerIndex = _model.tmpAnswerIndex! + 1;
+        }
         _model.isLoading = false;
         safeSetState(() {});
       } else {
@@ -432,22 +445,23 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                   if (questionListViewItem
                                                           .type ==
                                                       1) {
-                                                    return Container(
-                                                      width: double.infinity,
-                                                      height: 120.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          width: 1.0,
+                                                    return wrapWithModel(
+                                                      model: _model
+                                                          .textFieldAnswerViewModels
+                                                          .getModel(
+                                                        questionListViewIndex
+                                                            .toString(),
+                                                        questionListViewIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      child:
+                                                          TextFieldAnswerViewWidget(
+                                                        key: Key(
+                                                          'Keywrz_${questionListViewIndex.toString()}',
                                                         ),
+                                                        itemIndex:
+                                                            questionListViewIndex,
                                                       ),
                                                     );
                                                   } else {
