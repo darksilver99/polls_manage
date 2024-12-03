@@ -131,6 +131,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'LastStepPage',
           path: '/lastStepPage',
           builder: (context, params) => LastStepPageWidget(),
+        ),
+        FFRoute(
+          name: 'PollListPage',
+          path: '/pollListPage',
+          builder: (context, params) => PollListPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

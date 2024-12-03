@@ -1,13 +1,17 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/poll_pre_view/poll_pre_view_widget.dart';
+import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -502,6 +506,69 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                     if ((_model.isSave != null &&
                                             _model.isSave != '') &&
                                         (_model.isSave == 'save')) {
+                                      var pollListRecordReference1 =
+                                          PollListRecord.createDoc(FFAppState()
+                                              .customerData
+                                              .customerRef!);
+                                      await pollListRecordReference1.set({
+                                        ...createPollListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          status: 1,
+                                          startDate: FFAppState()
+                                              .tmpPollData
+                                              .startDate,
+                                          endDate:
+                                              FFAppState().tmpPollData.endDate,
+                                          subject:
+                                              FFAppState().tmpPollData.subject,
+                                          detail:
+                                              FFAppState().tmpPollData.detail,
+                                          isDraft: false,
+                                        ),
+                                        ...mapToFirestore(
+                                          {
+                                            'question_list':
+                                                getQuestionDataListFirestoreData(
+                                              FFAppState()
+                                                  .tmpPollData
+                                                  .questionList,
+                                            ),
+                                          },
+                                        ),
+                                      });
+                                      _model.insertedPoll =
+                                          PollListRecord.getDocumentFromData({
+                                        ...createPollListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          status: 1,
+                                          startDate: FFAppState()
+                                              .tmpPollData
+                                              .startDate,
+                                          endDate:
+                                              FFAppState().tmpPollData.endDate,
+                                          subject:
+                                              FFAppState().tmpPollData.subject,
+                                          detail:
+                                              FFAppState().tmpPollData.detail,
+                                          isDraft: false,
+                                        ),
+                                        ...mapToFirestore(
+                                          {
+                                            'question_list':
+                                                getQuestionDataListFirestoreData(
+                                              FFAppState()
+                                                  .tmpPollData
+                                                  .questionList,
+                                            ),
+                                          },
+                                        ),
+                                      }, pollListRecordReference1);
+
+                                      await _model.insertedPoll!.reference
+                                          .update(createPollListRecordData(
+                                        pollPath:
+                                            'customer_list/${FFAppState().customerData.customerRef?.id}/poll_list/${_model.insertedPoll?.reference.id}',
+                                      ));
                                       await showDialog(
                                         context: context,
                                         builder: (dialogContext) {
@@ -523,6 +590,29 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                           );
                                         },
                                       );
+
+                                      _model.pollResult =
+                                          await PollListRecord.getDocumentOnce(
+                                              _model.insertedPoll!.reference);
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        useSafeArea: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return WebViewAware(
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: QRCodePollViewWidget(
+                                                pollDocument:
+                                                    _model.pollResult!,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
 
                                       await actions.pushReplacement(
                                         context,
