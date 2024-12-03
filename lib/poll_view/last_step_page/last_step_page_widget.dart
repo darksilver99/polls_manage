@@ -43,9 +43,9 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
         if (FFAppState().tmpPollData.endDate != null) {
           _model.endDate = FFAppState().tmpPollData.endDate;
         }
-        _model.isLoading = false;
-        safeSetState(() {});
       }
+      _model.isLoading = false;
+      safeSetState(() {});
     });
   }
 
