@@ -56,6 +56,11 @@ class PollListRecord extends FirestoreRecord {
   bool get isDraft => _isDraft ?? false;
   bool hasIsDraft() => _isDraft != null;
 
+  // "poll_path" field.
+  String? _pollPath;
+  String get pollPath => _pollPath ?? '';
+  bool hasPollPath() => _pollPath != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -70,6 +75,7 @@ class PollListRecord extends FirestoreRecord {
       QuestionDataStruct.fromMap,
     );
     _isDraft = snapshotData['is_draft'] as bool?;
+    _pollPath = snapshotData['poll_path'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -119,6 +125,7 @@ Map<String, dynamic> createPollListRecordData({
   String? subject,
   String? detail,
   bool? isDraft,
+  String? pollPath,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -129,6 +136,7 @@ Map<String, dynamic> createPollListRecordData({
       'subject': subject,
       'detail': detail,
       'is_draft': isDraft,
+      'poll_path': pollPath,
     }.withoutNulls,
   );
 
@@ -148,7 +156,8 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
         e1?.subject == e2?.subject &&
         e1?.detail == e2?.detail &&
         listEquality.equals(e1?.questionList, e2?.questionList) &&
-        e1?.isDraft == e2?.isDraft;
+        e1?.isDraft == e2?.isDraft &&
+        e1?.pollPath == e2?.pollPath;
   }
 
   @override
@@ -160,7 +169,8 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
         e?.subject,
         e?.detail,
         e?.questionList,
-        e?.isDraft
+        e?.isDraft,
+        e?.pollPath
       ]);
 
   @override
