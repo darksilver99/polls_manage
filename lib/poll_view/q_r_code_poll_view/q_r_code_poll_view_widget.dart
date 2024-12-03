@@ -1,3 +1,4 @@
+import 'package:polls_manage/custom_toon/custom_toon.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '/backend/backend.dart';
@@ -182,7 +183,7 @@ class _QRCodePollViewWidgetState extends State<QRCodePollViewWidget> {
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   await actions.shareFile(
-                                    'path',
+                                    await getSaveAndGetImagePath(controller),
                                   );
                                 },
                                 text: 'แชร์ QR Code',
