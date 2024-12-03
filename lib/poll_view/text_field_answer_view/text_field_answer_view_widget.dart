@@ -55,7 +55,7 @@ class _TextFieldAnswerViewWidgetState extends State<TextFieldAnswerViewWidget> {
         focusNode: _model.textFieldFocusNode,
         onChanged: (_) => EasyDebounce.debounce(
           '_model.textController',
-          Duration(milliseconds: 2000),
+          Duration(milliseconds: 1),
           () async {
             FFAppState().updateTmpAnswerListAtIndex(
               widget!.itemIndex!,
