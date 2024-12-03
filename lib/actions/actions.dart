@@ -10,6 +10,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
 Future initConfig(BuildContext context) async {
@@ -114,5 +115,55 @@ Future initCustomer(BuildContext context) async {
       );
     }
     await action_blocks.initCustomer(context);
+  }
+}
+
+Future checkQRCode(BuildContext context) async {
+  var qrCode = '';
+  PollListRecord? pollResult;
+
+  qrCode = await FlutterBarcodeScanner.scanBarcode(
+    '#C62828', // scanning line color
+    'Cancel', // cancel button text
+    true, // whether to show the flash icon
+    ScanMode.QR,
+  );
+
+  if (qrCode != null && qrCode != '') {
+    pollResult = await PollListRecord.getDocumentOnce(
+        functions.getPollDocument(qrCode)!);
+    if (pollResult != null) {
+      context.pushNamed(
+        'PollDetailPage',
+        queryParameters: {
+          'pollDocument': serializeParam(
+            pollResult,
+            ParamType.Document,
+          ),
+        }.withoutNulls,
+        extra: <String, dynamic>{
+          'pollDocument': pollResult,
+        },
+      );
+    } else {
+      await showDialog(
+        context: context,
+        builder: (dialogContext) {
+          return Dialog(
+            elevation: 0,
+            insetPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            alignment: AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            child: WebViewAware(
+              child: InfoCustomViewWidget(
+                title: 'ไม่มีรายการนี้แล้ว',
+                status: 'warning',
+              ),
+            ),
+          );
+        },
+      );
+    }
   }
 }

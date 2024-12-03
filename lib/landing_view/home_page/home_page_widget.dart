@@ -1,20 +1,13 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -67,113 +60,64 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: Builder(
-                        builder: (context) => InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            _model.qrCode =
-                                await FlutterBarcodeScanner.scanBarcode(
-                              '#C62828', // scanning line color
-                              'Cancel', // cancel button text
-                              true, // whether to show the flash icon
-                              ScanMode.QR,
-                            );
-
-                            if (_model.qrCode != null && _model.qrCode != '') {
-                              _model.pollResult =
-                                  await PollListRecord.getDocumentOnce(functions
-                                      .getPollDocument(_model.qrCode)!);
-                              if (_model.pollResult != null) {
-                                context.pushNamed(
-                                  'PollDetailPage',
-                                  queryParameters: {
-                                    'pollDocument': serializeParam(
-                                      _model.pollResult,
-                                      ParamType.Document,
-                                    ),
-                                  }.withoutNulls,
-                                  extra: <String, dynamic>{
-                                    'pollDocument': _model.pollResult,
-                                  },
-                                );
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (dialogContext) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      insetPadding: EdgeInsets.zero,
-                                      backgroundColor: Colors.transparent,
-                                      alignment: AlignmentDirectional(0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                      child: WebViewAware(
-                                        child: InfoCustomViewWidget(
-                                          title: 'ไม่มีรายการนี้แล้ว',
-                                          status: 'warning',
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            }
-
-                            safeSetState(() {});
-                          },
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 3.0,
-                            shape: RoundedRectangleBorder(
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await action_blocks.checkQRCode(context);
+                        },
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 3.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Container(
+                            width: 100.0,
+                            height: MediaQuery.sizeOf(context).height * 0.3,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: Container(
-                              width: 100.0,
-                              height: MediaQuery.sizeOf(context).height * 0.3,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(32.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.qrcode,
-                                        color: FlutterFlowTheme.of(context)
-                                            .success,
-                                        size: 64.0,
-                                      ),
+                            child: Padding(
+                              padding: EdgeInsets.all(32.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 16.0),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.qrcode,
+                                      color:
+                                          FlutterFlowTheme.of(context).success,
+                                      size: 64.0,
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'สแกนเพื่อทำแบบสำรวจ,ความเห็น,ทดสอบ',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 26.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'สแกนเพื่อทำแบบสำรวจ,ความเห็น,ทดสอบ',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 26.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
