@@ -211,7 +211,7 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                       child:
                                                           InfoCustomViewWidget(
                                                         title:
-                                                            'คำเตือน: การแก้ไข Poll อาจทำให้ข้อมูลคำตอบที่ได้รับก่อนหน้านี้ผิดพลาดหรือไม่สอดคล้องกับคำถามที่แก้ไขใหม่ กรุณาตรวจสอบให้แน่ใจก่อนดำเนินการแก้ไข เพื่อป้องกันผลกระทบต่อข้อมูลที่รวบรวมไว้แล้ว',
+                                                            'คำเตือน: การแก้ไขอาจทำให้ข้อมูลคำตอบที่ได้รับก่อนหน้านี้ผิดพลาดหรือไม่สอดคล้องกับคำถามที่แก้ไขใหม่ กรุณาตรวจสอบให้แน่ใจก่อนดำเนินการแก้ไข เพื่อป้องกันผลกระทบต่อข้อมูลที่รวบรวมไว้แล้ว',
                                                         status: 'error',
                                                       ),
                                                     ),
@@ -408,8 +408,10 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Kanit',
-                                                          fontSize: 22.0,
+                                                          fontSize: 20.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w300,
                                                         ),
                                                   ),
                                                 ),
@@ -495,7 +497,7 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                                               Icon(
                                                                             Icons.circle_outlined,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                                FlutterFlowTheme.of(context).secondaryText,
                                                                             size:
                                                                                 28.0,
                                                                           ),
@@ -511,7 +513,7 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                                               Icon(
                                                                             Icons.crop_square,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                                FlutterFlowTheme.of(context).secondaryText,
                                                                             size:
                                                                                 28.0,
                                                                           ),
@@ -532,11 +534,11 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                                           color:
                                                                               FlutterFlowTheme.of(context).secondaryText,
                                                                           fontSize:
-                                                                              20.0,
+                                                                              18.0,
                                                                           letterSpacing:
                                                                               0.0,
                                                                           fontWeight:
-                                                                              FontWeight.w300,
+                                                                              FontWeight.w200,
                                                                         ),
                                                                   ),
                                                                 ),

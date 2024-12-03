@@ -74,3 +74,10 @@ List<QuestionDataStruct> reorderItems(
 
   return questionList;
 }
+
+DocumentReference? getPollDocument(String? pollPath) {
+  if (pollPath == null) {
+    return null;
+  }
+  return FirebaseFirestore.instance.doc(pollPath);
+}
