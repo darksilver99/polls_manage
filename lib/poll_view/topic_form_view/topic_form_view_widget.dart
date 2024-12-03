@@ -149,6 +149,7 @@ class _TopicFormViewWidgetState extends State<TopicFormViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 24.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -158,6 +159,7 @@ class _TopicFormViewWidgetState extends State<TopicFormViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 24.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -201,6 +203,7 @@ class _TopicFormViewWidgetState extends State<TopicFormViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 24.0,
                                         letterSpacing: 0.0,
                                       ),
                                   maxLines: 5,

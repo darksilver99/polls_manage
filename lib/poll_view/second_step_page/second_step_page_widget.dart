@@ -274,6 +274,16 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: Icon(
+                                          Icons.reorder_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                      ),
                                       Expanded(
                                         child: Text(
                                           questionListItem.topic,

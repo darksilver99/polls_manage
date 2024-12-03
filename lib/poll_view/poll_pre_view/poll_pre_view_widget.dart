@@ -132,10 +132,9 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                        child: Row(
+                      if (FFAppState().tmpPollData.detail != null &&
+                          FFAppState().tmpPollData.detail != '')
+                        Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
@@ -157,10 +156,9 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                             ),
                           ],
                         ),
-                      ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 16.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
