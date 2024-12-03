@@ -30,6 +30,8 @@ class LastStepPageModel extends FlutterFlowModel<LastStepPageWidget> {
   late StepViewModel stepViewModel;
   DateTime? datePicked1;
   DateTime? datePicked2;
+  // Stores action output result for [Bottom Sheet - PollPreView] action in Button widget.
+  String? isSave;
 
   @override
   void initState(BuildContext context) {

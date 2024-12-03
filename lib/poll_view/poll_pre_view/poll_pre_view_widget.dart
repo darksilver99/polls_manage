@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -60,11 +61,33 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 8.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  FFButtonWidget(
+                    onPressed: () async {
+                      Navigator.pop(context, 'save');
+                    },
+                    text: 'บันทึกข้อมูล',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).success,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Kanit',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                   InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -153,7 +176,7 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                             ),
                             Expanded(
                               child: Text(
-                                '${valueOrDefault<String>(
+                                'ระยะเวลา ${valueOrDefault<String>(
                                   functions.dateTh(
                                       FFAppState().tmpPollData.startDate),
                                   '-',
@@ -170,7 +193,7 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                       fontFamily: 'Kanit',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
-                                      fontSize: 16.0,
+                                      fontSize: 14.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w300,
                                     ),
@@ -187,7 +210,7 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: List.generate(questionListView.length,
-                                (questionListViewIndex) {
+                                    (questionListViewIndex) {
                               final questionListViewItem =
                                   questionListView[questionListViewIndex];
                               return Padding(
@@ -196,22 +219,27 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            questionListViewItem.topic,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 18.0,
-                                                  letterSpacing: 0.0,
-                                                ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              questionListViewItem.topic,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 22.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                     Builder(
                                       builder: (context) {
@@ -266,13 +294,46 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                                                       0.0,
                                                                       8.0,
                                                                       0.0),
-                                                          child: Icon(
-                                                            Icons
-                                                                .circle_outlined,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            size: 28.0,
+                                                          child: Builder(
+                                                            builder: (context) {
+                                                              if (questionListViewItem
+                                                                      .type ==
+                                                                  2) {
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .circle_outlined,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    size: 28.0,
+                                                                  ),
+                                                                );
+                                                              } else {
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .crop_square,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    size: 28.0,
+                                                                  ),
+                                                                );
+                                                              }
+                                                            },
                                                           ),
                                                         ),
                                                         Expanded(
@@ -284,6 +345,9 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Kanit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
                                                                   fontSize:
                                                                       20.0,
                                                                   letterSpacing:
@@ -313,7 +377,9 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                   ],
                                 ),
                               );
-                            }),
+                            })
+                                .divide(SizedBox(height: 16.0))
+                                .addToEnd(SizedBox(height: 120.0)),
                           );
                         },
                       ),
