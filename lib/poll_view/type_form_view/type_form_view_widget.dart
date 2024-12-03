@@ -326,7 +326,7 @@ class _TypeFormViewWidgetState extends State<TypeFormViewWidget> {
                                 }
                               },
                               child: Icon(
-                                Icons.add_circle_rounded,
+                                Icons.check_circle_rounded,
                                 color: FlutterFlowTheme.of(context).success,
                                 size: 32.0,
                               ),

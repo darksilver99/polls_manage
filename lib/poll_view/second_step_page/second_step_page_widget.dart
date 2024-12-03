@@ -1,4 +1,5 @@
 import '/backend/schema/structs/index.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -461,46 +462,70 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                       ),
                     ),
                     Expanded(
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          await actions.hideKeyBoard(
-                            context,
-                          );
-                          FFAppState().updateTmpPollDataStruct(
-                            (e) => e
-                              ..questionList =
-                                  FFAppState().tmpQuestionDataList.toList(),
-                          );
+                      child: Builder(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            await actions.hideKeyBoard(
+                              context,
+                            );
+                            if (FFAppState().tmpQuestionDataList.isNotEmpty) {
+                              FFAppState().updateTmpPollDataStruct(
+                                (e) => e
+                                  ..questionList =
+                                      FFAppState().tmpQuestionDataList.toList(),
+                              );
 
-                          context.pushNamed(
-                            'LastStepPage',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 0),
-                              ),
-                            },
-                          );
-                        },
-                        text: 'ถัดไป',
-                        options: FFButtonOptions(
-                          width: double.infinity,
-                          height: 57.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Kanit',
-                                    color: Colors.white,
-                                    fontSize: 28.0,
-                                    letterSpacing: 0.0,
+                              context.pushNamed(
+                                'LastStepPage',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
                                   ),
-                          elevation: 0.0,
-                          borderRadius: BorderRadius.circular(8.0),
+                                },
+                              );
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: WebViewAware(
+                                      child: InfoCustomViewWidget(
+                                        title: 'กรุณาเพิ่มคำถาม',
+                                        status: 'error',
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          text: 'ถัดไป',
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 57.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  color: Colors.white,
+                                  fontSize: 28.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
                       ),
                     ),
