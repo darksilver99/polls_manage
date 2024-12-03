@@ -174,15 +174,25 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                             ),
                             Expanded(
                               child: Text(
-                                'ระยะเวลา ${valueOrDefault<String>(
-                                  functions.dateTh(
-                                      FFAppState().tmpPollData.startDate),
-                                  '-',
-                                )} - ${valueOrDefault<String>(
-                                  functions
-                                      .dateTh(FFAppState().tmpPollData.endDate),
-                                  '-',
-                                )}',
+                                functions.dateTh(FFAppState()
+                                            .tmpPollData
+                                            .startDate) !=
+                                        functions.dateTh(
+                                            FFAppState().tmpPollData.endDate)
+                                    ? 'ระยะเวลา ${valueOrDefault<String>(
+                                        functions.dateTh(
+                                            FFAppState().tmpPollData.startDate),
+                                        '-',
+                                      )} - ${valueOrDefault<String>(
+                                        functions.dateTh(
+                                            FFAppState().tmpPollData.endDate),
+                                        '-',
+                                      )}'
+                                    : 'ระยะเวลา ${valueOrDefault<String>(
+                                        functions.dateTh(
+                                            FFAppState().tmpPollData.startDate),
+                                        '-',
+                                      )}',
                                 textAlign: TextAlign.start,
                                 maxLines: 1,
                                 style: FlutterFlowTheme.of(context)
