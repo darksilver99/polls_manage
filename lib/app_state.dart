@@ -123,6 +123,35 @@ class FFAppState extends ChangeNotifier {
   void updateTmpPollDataStruct(Function(PollDataStruct) updateFn) {
     updateFn(_tmpPollData);
   }
+
+  List<AnswerDataStruct> _tmpAnswerList = [];
+  List<AnswerDataStruct> get tmpAnswerList => _tmpAnswerList;
+  set tmpAnswerList(List<AnswerDataStruct> value) {
+    _tmpAnswerList = value;
+  }
+
+  void addToTmpAnswerList(AnswerDataStruct value) {
+    tmpAnswerList.add(value);
+  }
+
+  void removeFromTmpAnswerList(AnswerDataStruct value) {
+    tmpAnswerList.remove(value);
+  }
+
+  void removeAtIndexFromTmpAnswerList(int index) {
+    tmpAnswerList.removeAt(index);
+  }
+
+  void updateTmpAnswerListAtIndex(
+    int index,
+    AnswerDataStruct Function(AnswerDataStruct) updateFn,
+  ) {
+    tmpAnswerList[index] = updateFn(_tmpAnswerList[index]);
+  }
+
+  void insertAtIndexInTmpAnswerList(int index, AnswerDataStruct value) {
+    tmpAnswerList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
