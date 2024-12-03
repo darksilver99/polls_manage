@@ -136,6 +136,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PollListPage',
           path: '/pollListPage',
           builder: (context, params) => PollListPageWidget(),
+        ),
+        FFRoute(
+          name: 'PollDetailPage',
+          path: '/pollDetailPage',
+          asyncParams: {
+            'pollDocument': getDoc(
+                ['customer_list', 'poll_list'], PollListRecord.fromSnapshot),
+          },
+          builder: (context, params) => PollDetailPageWidget(
+            pollDocument: params.getParam(
+              'pollDocument',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

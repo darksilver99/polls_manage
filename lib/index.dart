@@ -14,3 +14,5 @@ export '/poll_view/last_step_page/last_step_page_widget.dart'
     show LastStepPageWidget;
 export '/poll_view/poll_list_page/poll_list_page_widget.dart'
     show PollListPageWidget;
+export '/poll_view/poll_detail_page/poll_detail_page_widget.dart'
+    show PollDetailPageWidget;
