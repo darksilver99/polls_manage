@@ -453,31 +453,36 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                     ),
                                   );
                                 },
-                              ).then((value) => safeSetState(() {}));
+                              ).then((value) =>
+                                  safeSetState(() => _model.isSave = value));
 
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: WebViewAware(
-                                      child: InfoCustomViewWidget(
-                                        title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                        status: 'success',
+                              if ((_model.isSave != null &&
+                                      _model.isSave != '') &&
+                                  (_model.isSave == 'save')) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: WebViewAware(
+                                        child: InfoCustomViewWidget(
+                                          title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                          status: 'success',
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    );
+                                  },
+                                );
 
-                              await actions.pushReplacement(
-                                context,
-                                null,
-                              );
+                                await actions.pushReplacement(
+                                  context,
+                                  null,
+                                );
+                              }
                             } else {
                               await showDialog(
                                 context: context,
@@ -499,6 +504,8 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                 },
                               );
                             }
+
+                            safeSetState(() {});
                           },
                           text: 'ดูตัวอย่าง',
                           options: FFButtonOptions(
