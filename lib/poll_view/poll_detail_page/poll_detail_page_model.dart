@@ -10,6 +10,7 @@ import '/poll_view/checkbox_answer_view/checkbox_answer_view_widget.dart';
 import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/radio_answer_view/radio_answer_view_widget.dart';
 import '/poll_view/text_field_answer_view/text_field_answer_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'poll_detail_page_widget.dart' show PollDetailPageWidget;
@@ -41,6 +42,8 @@ class PollDetailPageModel extends FlutterFlowModel<PollDetailPageWidget> {
 
   // Stores action output result for [Backend Call - Read Document] action in PollDetailPage widget.
   PollListRecord? pollResult;
+  // Stores action output result for [Action Block - confirmBlock] action in Icon widget.
+  bool? isConfirm;
   // Models for TextFieldAnswerView dynamic component.
   late FlutterFlowDynamicModels<TextFieldAnswerViewModel>
       textFieldAnswerViewModels;
