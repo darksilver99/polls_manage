@@ -1,3 +1,4 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
@@ -522,6 +523,9 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                         createDate: getCurrentTimestamp,
                                         pollRef:
                                             widget!.pollDocument?.reference,
+                                        createBy: loggedIn
+                                            ? currentUserReference
+                                            : null,
                                       ),
                                       ...mapToFirestore(
                                         {

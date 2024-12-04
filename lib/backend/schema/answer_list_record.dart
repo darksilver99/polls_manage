@@ -31,6 +31,11 @@ class AnswerListRecord extends FirestoreRecord {
   List<AnswerDataStruct> get answers => _answers ?? const [];
   bool hasAnswers() => _answers != null;
 
+  // "create_by" field.
+  DocumentReference? _createBy;
+  DocumentReference? get createBy => _createBy;
+  bool hasCreateBy() => _createBy != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -40,6 +45,7 @@ class AnswerListRecord extends FirestoreRecord {
       snapshotData['answers'],
       AnswerDataStruct.fromMap,
     );
+    _createBy = snapshotData['create_by'] as DocumentReference?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -84,11 +90,13 @@ class AnswerListRecord extends FirestoreRecord {
 Map<String, dynamic> createAnswerListRecordData({
   DateTime? createDate,
   DocumentReference? pollRef,
+  DocumentReference? createBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'create_date': createDate,
       'poll_ref': pollRef,
+      'create_by': createBy,
     }.withoutNulls,
   );
 
@@ -103,12 +111,13 @@ class AnswerListRecordDocumentEquality implements Equality<AnswerListRecord> {
     const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.pollRef == e2?.pollRef &&
-        listEquality.equals(e1?.answers, e2?.answers);
+        listEquality.equals(e1?.answers, e2?.answers) &&
+        e1?.createBy == e2?.createBy;
   }
 
   @override
-  int hash(AnswerListRecord? e) =>
-      const ListEquality().hash([e?.createDate, e?.pollRef, e?.answers]);
+  int hash(AnswerListRecord? e) => const ListEquality()
+      .hash([e?.createDate, e?.pollRef, e?.answers, e?.createBy]);
 
   @override
   bool isValidKey(Object? o) => o is AnswerListRecord;
