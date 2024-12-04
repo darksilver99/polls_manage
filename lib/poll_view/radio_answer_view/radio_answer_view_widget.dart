@@ -3,11 +3,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'checkbox_answer_view_model.dart';
-export 'checkbox_answer_view_model.dart';
+import 'radio_answer_view_model.dart';
+export 'radio_answer_view_model.dart';
 
-class CheckboxAnswerViewWidget extends StatefulWidget {
-  const CheckboxAnswerViewWidget({
+class RadioAnswerViewWidget extends StatefulWidget {
+  const RadioAnswerViewWidget({
     super.key,
     this.optionList,
     required this.itemIndex,
@@ -17,12 +17,11 @@ class CheckboxAnswerViewWidget extends StatefulWidget {
   final int? itemIndex;
 
   @override
-  State<CheckboxAnswerViewWidget> createState() =>
-      _CheckboxAnswerViewWidgetState();
+  State<RadioAnswerViewWidget> createState() => _RadioAnswerViewWidgetState();
 }
 
-class _CheckboxAnswerViewWidgetState extends State<CheckboxAnswerViewWidget> {
-  late CheckboxAnswerViewModel _model;
+class _RadioAnswerViewWidgetState extends State<RadioAnswerViewWidget> {
+  late RadioAnswerViewModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -33,7 +32,7 @@ class _CheckboxAnswerViewWidgetState extends State<CheckboxAnswerViewWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CheckboxAnswerViewModel());
+    _model = createModel(context, () => RadioAnswerViewModel());
   }
 
   @override
@@ -83,7 +82,7 @@ class _CheckboxAnswerViewWidgetState extends State<CheckboxAnswerViewWidget> {
                               safeSetState(() {});
                             },
                             child: Icon(
-                              Icons.check_box,
+                              Icons.radio_button_checked_rounded,
                               color: FlutterFlowTheme.of(context).primary,
                               size: 28.0,
                             ),
@@ -106,7 +105,7 @@ class _CheckboxAnswerViewWidgetState extends State<CheckboxAnswerViewWidget> {
                               safeSetState(() {});
                             },
                             child: Icon(
-                              Icons.check_box_outline_blank,
+                              Icons.circle_outlined,
                               color: FlutterFlowTheme.of(context).secondaryText,
                               size: 28.0,
                             ),
