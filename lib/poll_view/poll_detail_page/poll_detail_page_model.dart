@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/checkbox_answer_view/checkbox_answer_view_widget.dart';
-import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/radio_answer_view/radio_answer_view_widget.dart';
 import '/poll_view/text_field_answer_view/text_field_answer_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
