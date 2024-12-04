@@ -19,13 +19,25 @@ class CheckboxAnswerViewModel
     BuildContext context, {
     String? answer,
   }) async {
-    FFAppState().updateTmpAnswerListAtIndex(
-      widget!.itemIndex!,
-      (e) => e
-        ..answer = (String answer) {
-          return [answer];
-        }(answer!)
-            .toList(),
-    );
+    if (FFAppState()
+        .tmpAnswerList[widget!.itemIndex!]
+        .answer
+        .contains(answer)) {
+      FFAppState().updateTmpAnswerListAtIndex(
+        widget!.itemIndex!,
+        (e) => e
+          ..updateAnswer(
+            (e) => e[widget!.itemIndex!] = '',
+          ),
+      );
+    } else {
+      FFAppState().updateTmpAnswerListAtIndex(
+        widget!.itemIndex!,
+        (e) => e
+          ..updateAnswer(
+            (e) => e.add(answer!),
+          ),
+      );
+    }
   }
 }

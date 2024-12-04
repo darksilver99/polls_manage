@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/checkbox_answer_view/checkbox_answer_view_widget.dart';
 import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
+import '/poll_view/radio_answer_view/radio_answer_view_widget.dart';
 import '/poll_view/text_field_answer_view/text_field_answer_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -465,8 +466,10 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                             questionListViewIndex,
                                                       ),
                                                     );
-                                                  } else {
-                                                    return CheckboxAnswerViewWidget(
+                                                  } else if (questionListViewItem
+                                                          .type ==
+                                                      2) {
+                                                    return RadioAnswerViewWidget(
                                                       key: Key(
                                                           'Key7dj_${questionListViewIndex}_of_${questionListView.length}'),
                                                       optionList:
@@ -474,6 +477,19 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                               .optionList,
                                                       itemIndex:
                                                           questionListViewIndex,
+                                                    );
+                                                  } else {
+                                                    return Container(
+                                                      child:
+                                                          CheckboxAnswerViewWidget(
+                                                        key: Key(
+                                                            'Key61g_${questionListViewIndex}_of_${questionListView.length}'),
+                                                        itemIndex:
+                                                            questionListViewIndex,
+                                                        optionList:
+                                                            questionListViewItem
+                                                                .optionList,
+                                                      ),
                                                     );
                                                   }
                                                 },
