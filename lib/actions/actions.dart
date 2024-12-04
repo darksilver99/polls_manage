@@ -6,6 +6,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -130,8 +131,9 @@ Future checkQRCode(BuildContext context) async {
   );
 
   if (qrCode != null && qrCode != '') {
-    pollResult = await PollListRecord.getDocumentOnce(
-        functions.getPollDocument(qrCode)!);
+    pollResult = await actions.checkIsCorrectQrCode(
+      qrCode,
+    );
     if (pollResult != null) {
       context.pushNamed(
         'PollDetailPage',
