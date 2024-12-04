@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -77,14 +76,9 @@ class _CheckboxAnswerViewWidgetState extends State<CheckboxAnswerViewWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              FFAppState().updateTmpAnswerListAtIndex(
-                                widget!.itemIndex!,
-                                (e) => e
-                                  ..questionType = 2
-                                  ..answer = (String answer) {
-                                    return [answer];
-                                  }(optionListViewItem)
-                                      .toList(),
+                              await _model.checkData(
+                                context,
+                                answer: optionListViewItem,
                               );
                               safeSetState(() {});
                             },
@@ -105,14 +99,9 @@ class _CheckboxAnswerViewWidgetState extends State<CheckboxAnswerViewWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              FFAppState().updateTmpAnswerListAtIndex(
-                                widget!.itemIndex!,
-                                (e) => e
-                                  ..questionType = 2
-                                  ..answer = (String answer) {
-                                    return [answer];
-                                  }(optionListViewItem)
-                                      .toList(),
+                              await _model.checkData(
+                                context,
+                                answer: optionListViewItem,
                               );
                               safeSetState(() {});
                             },

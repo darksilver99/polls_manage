@@ -13,4 +13,19 @@ class CheckboxAnswerViewModel
 
   @override
   void dispose() {}
+
+  /// Action blocks.
+  Future checkData(
+    BuildContext context, {
+    String? answer,
+  }) async {
+    FFAppState().updateTmpAnswerListAtIndex(
+      widget!.itemIndex!,
+      (e) => e
+        ..answer = (String answer) {
+          return [answer];
+        }(answer!)
+            .toList(),
+    );
+  }
 }
