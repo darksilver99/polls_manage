@@ -28,6 +28,15 @@ class PollDetailPageModel extends FlutterFlowModel<PollDetailPageWidget> {
 
   int? tmpAnswerIndex = 0;
 
+  List<bool> passList = [];
+  void addToPassList(bool item) => passList.add(item);
+  void removeFromPassList(bool item) => passList.remove(item);
+  void removeAtIndexFromPassList(int index) => passList.removeAt(index);
+  void insertAtIndexInPassList(int index, bool item) =>
+      passList.insert(index, item);
+  void updatePassListAtIndex(int index, Function(bool) updateFn) =>
+      passList[index] = updateFn(passList[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Read Document] action in PollDetailPage widget.

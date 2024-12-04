@@ -60,6 +60,7 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
           ));
           safeSetState(() {});
           _model.tmpAnswerIndex = _model.tmpAnswerIndex! + 1;
+          _model.addToPassList(true);
         }
         _model.isLoading = false;
         safeSetState(() {});
@@ -481,6 +482,25 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
+                                                  if (!_model.passList[
+                                                      questionListViewIndex])
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0),
+                                                      child: Icon(
+                                                        Icons.error_rounded,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
                                                   Expanded(
                                                     child: Text(
                                                       questionListViewItem
@@ -577,53 +597,79 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                     16.0, 0.0, 16.0, 32.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    await AnswerListRecord.createDoc(widget!
-                                            .pollDocument!.parentReference)
-                                        .set({
-                                      ...createAnswerListRecordData(
-                                        createDate: getCurrentTimestamp,
-                                        pollRef:
-                                            widget!.pollDocument?.reference,
-                                        createBy: loggedIn
-                                            ? currentUserReference
-                                            : null,
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'answers':
-                                              getAnswerDataListFirestoreData(
-                                            FFAppState().tmpAnswerList,
-                                          ),
-                                        },
-                                      ),
-                                    });
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(dialogContext)
-                                                      .unfocus(),
-                                              child: InfoCustomViewWidget(
-                                                title: 'ส่งข้อมูลเรียบร้อยแล้ว',
-                                                status: 'success',
+                                    _model.tmpAnswerIndex = 0;
+                                    while (_model.tmpAnswerIndex! <
+                                        FFAppState().tmpAnswerList.length) {
+                                      if (FFAppState()
+                                          .tmpAnswerList[_model.tmpAnswerIndex!]
+                                          .answer
+                                          .isNotEmpty) {
+                                        _model.updatePassListAtIndex(
+                                          _model.tmpAnswerIndex!,
+                                          (_) => true,
+                                        );
+                                      } else {
+                                        _model.updatePassListAtIndex(
+                                          _model.tmpAnswerIndex!,
+                                          (_) => false,
+                                        );
+                                      }
+
+                                      _model.tmpAnswerIndex =
+                                          _model.tmpAnswerIndex! + 1;
+                                    }
+                                    if (_model.passList.contains(false)) {
+                                      safeSetState(() {});
+                                    } else {
+                                      await AnswerListRecord.createDoc(widget!
+                                              .pollDocument!.parentReference)
+                                          .set({
+                                        ...createAnswerListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          pollRef:
+                                              widget!.pollDocument?.reference,
+                                          createBy: loggedIn
+                                              ? currentUserReference
+                                              : null,
+                                        ),
+                                        ...mapToFirestore(
+                                          {
+                                            'answers':
+                                                getAnswerDataListFirestoreData(
+                                              FFAppState().tmpAnswerList,
+                                            ),
+                                          },
+                                        ),
+                                      });
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child: GestureDetector(
+                                                onTap: () =>
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus(),
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                      'ส่งข้อมูลเรียบร้อยแล้ว',
+                                                  status: 'success',
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    );
+                                          );
+                                        },
+                                      );
 
-                                    context.safePop();
+                                      context.safePop();
+                                    }
                                   },
                                   text: 'ส่งข้อมูล',
                                   options: FFButtonOptions(
