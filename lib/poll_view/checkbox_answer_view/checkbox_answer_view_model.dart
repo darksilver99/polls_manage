@@ -27,7 +27,7 @@ class CheckboxAnswerViewModel
         widget!.itemIndex!,
         (e) => e
           ..updateAnswer(
-            (e) => e[widget!.itemIndex!] = '',
+            (e) => e.remove(answer),
           ),
       );
     } else {
