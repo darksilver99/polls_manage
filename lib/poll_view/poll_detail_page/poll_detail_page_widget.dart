@@ -670,6 +670,16 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                             },
                                           ),
                                         });
+
+                                        await widget!.pollDocument!.reference
+                                            .update({
+                                          ...mapToFirestore(
+                                            {
+                                              'total_answer':
+                                                  FieldValue.increment(1),
+                                            },
+                                          ),
+                                        });
                                         await showDialog(
                                           context: context,
                                           builder: (dialogContext) {
