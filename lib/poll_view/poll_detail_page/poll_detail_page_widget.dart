@@ -515,6 +515,23 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                     16.0, 0.0, 16.0, 32.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
+                                    await AnswerListRecord.createDoc(widget!
+                                            .pollDocument!.parentReference)
+                                        .set({
+                                      ...createAnswerListRecordData(
+                                        createDate: getCurrentTimestamp,
+                                        pollRef:
+                                            widget!.pollDocument?.reference,
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'answers':
+                                              getAnswerDataListFirestoreData(
+                                            FFAppState().tmpAnswerList,
+                                          ),
+                                        },
+                                      ),
+                                    });
                                     await showDialog(
                                       context: context,
                                       builder: (dialogContext) {
@@ -540,6 +557,8 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                         );
                                       },
                                     );
+
+                                    context.safePop();
                                   },
                                   text: 'ส่งข้อมูล',
                                   options: FFButtonOptions(
