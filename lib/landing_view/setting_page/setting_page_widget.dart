@@ -207,7 +207,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   ],
                                 ),
                               ),
-                              if (FFAppState().configData.isReview)
+                              if (!FFAppState().configData.isReview)
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -397,7 +397,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   ],
                                 ),
                               ),
-                              if (FFAppState().configData.isReview)
+                              if (!FFAppState().configData.isReview)
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
