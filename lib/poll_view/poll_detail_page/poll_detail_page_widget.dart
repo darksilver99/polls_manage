@@ -5,6 +5,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/checkbox_answer_view/checkbox_answer_view_widget.dart';
 import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/text_field_answer_view/text_field_answer_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -465,108 +466,14 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                       ),
                                                     );
                                                   } else {
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Builder(
-                                                        builder: (context) {
-                                                          final optionListView =
-                                                              questionListViewItem
-                                                                  .optionList
-                                                                  .toList();
-
-                                                          return Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: List.generate(
-                                                                optionListView
-                                                                    .length,
-                                                                (optionListViewIndex) {
-                                                              final optionListViewItem =
-                                                                  optionListView[
-                                                                      optionListViewIndex];
-                                                              return Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        if (questionListViewItem.type ==
-                                                                            2) {
-                                                                          return Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                0.0,
-                                                                                8.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Icon(
-                                                                              Icons.circle_outlined,
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                                                              size: 28.0,
-                                                                            ),
-                                                                          );
-                                                                        } else {
-                                                                          return Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                0.0,
-                                                                                8.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Icon(
-                                                                              Icons.crop_square,
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                                                              size: 28.0,
-                                                                            ),
-                                                                          );
-                                                                        }
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Text(
-                                                                      optionListViewItem,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Kanit',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w200,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            }).divide(SizedBox(
-                                                                height: 8.0)),
-                                                          );
-                                                        },
-                                                      ),
+                                                    return CheckboxAnswerViewWidget(
+                                                      key: Key(
+                                                          'Key7dj_${questionListViewIndex}_of_${questionListView.length}'),
+                                                      optionList:
+                                                          questionListViewItem
+                                                              .optionList,
+                                                      itemIndex:
+                                                          questionListViewIndex,
                                                     );
                                                   }
                                                 },
