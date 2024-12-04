@@ -498,7 +498,7 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .error,
-                                                        size: 24.0,
+                                                        size: 18.0,
                                                       ),
                                                     ),
                                                   Expanded(
