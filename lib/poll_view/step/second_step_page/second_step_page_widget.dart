@@ -56,12 +56,10 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Expanded(
-                child: wrapWithModel(
-                  model: _model.draftViewModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: DraftViewWidget(),
-                ),
+              wrapWithModel(
+                model: _model.draftViewModel,
+                updateCallback: () => safeSetState(() {}),
+                child: DraftViewWidget(),
               ),
               wrapWithModel(
                 model: _model.stepViewModel,
