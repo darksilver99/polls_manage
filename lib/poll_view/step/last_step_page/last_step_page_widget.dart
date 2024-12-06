@@ -76,7 +76,9 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
               wrapWithModel(
                 model: _model.draftViewModel,
                 updateCallback: () => safeSetState(() {}),
-                child: DraftViewWidget(),
+                child: DraftViewWidget(
+                  showDraftButton: true,
+                ),
               ),
               wrapWithModel(
                 model: _model.stepViewModel,
