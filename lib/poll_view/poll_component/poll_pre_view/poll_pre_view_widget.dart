@@ -235,8 +235,10 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Kanit',
-                                                        fontSize: 22.0,
+                                                        fontSize: 20.0,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w300,
                                                       ),
                                             ),
                                           ),
@@ -354,14 +356,14 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                                                         'Kanit',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondaryText,
+                                                                        .primaryText,
                                                                     fontSize:
-                                                                        20.0,
+                                                                        18.0,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w300,
+                                                                            .w200,
                                                                   ),
                                                             ),
                                                           ),
