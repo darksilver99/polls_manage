@@ -143,24 +143,69 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Expanded(
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.mode_edit,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                child: Builder(
+                                                  builder: (context) => InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child: WebViewAware(
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () =>
+                                                                    FocusScope.of(
+                                                                            dialogContext)
+                                                                        .unfocus(),
+                                                                child:
+                                                                    InfoCustomViewWidget(
+                                                                  title:
+                                                                      'คำเตือน: การแก้ไขอาจทำให้ข้อมูลคำตอบที่ได้รับก่อนหน้านี้ผิดพลาดหรือไม่สอดคล้องกับคำถามที่แก้ไขใหม่ กรุณาตรวจสอบให้แน่ใจก่อนดำเนินการแก้ไข เพื่อป้องกันผลกระทบต่อข้อมูลที่รวบรวมไว้แล้ว',
+                                                                  status:
+                                                                      'warning',
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.mode_edit,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
                                                               .error,
-                                                      size: 16.0,
-                                                    ),
-                                                    Expanded(
-                                                      child: Text(
-                                                        'แก้ไข',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                          size: 16.0,
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            'แก้ไข',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
@@ -179,9 +224,11 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                                       TextDecoration
                                                                           .underline,
                                                                 ),
-                                                      ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
                                             ],
