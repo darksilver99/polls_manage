@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
+import '/poll_view/poll_component/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'poll_list_page_widget.dart' show PollListPageWidget;
 import 'package:flutter/material.dart';
@@ -15,6 +15,8 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class PollListPageModel extends FlutterFlowModel<PollListPageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Model for BackButtonView component.
+  late BackButtonViewModel backButtonViewModel;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, PollListRecord>? listViewPagingController;
@@ -22,10 +24,13 @@ class PollListPageModel extends FlutterFlowModel<PollListPageWidget> {
   List<StreamSubscription?> listViewStreamSubscriptions = [];
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    backButtonViewModel = createModel(context, () => BackButtonViewModel());
+  }
 
   @override
   void dispose() {
+    backButtonViewModel.dispose();
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
   }
