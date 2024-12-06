@@ -122,7 +122,9 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
+                                    fontSize: 24.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -142,7 +144,7 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                                       fontFamily: 'Kanit',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
-                                      fontSize: 16.0,
+                                      fontSize: 20.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w300,
                                     ),
@@ -203,6 +205,10 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                             ),
                           ],
                         ),
+                      ),
+                      Divider(
+                        thickness: 2.0,
+                        color: FlutterFlowTheme.of(context).alternate,
                       ),
                       Builder(
                         builder: (context) {
