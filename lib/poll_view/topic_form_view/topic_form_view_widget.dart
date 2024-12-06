@@ -154,7 +154,7 @@ class _TopicFormViewWidgetState extends State<TopicFormViewWidget> {
                                           fontWeight: FontWeight.w300,
                                         ),
                                     hintText:
-                                        'ระบุคำถาม เช่น คุณเห็นด้วยหรือไม่ ?',
+                                        'ระบุคำถาม เช่น ระดับความพอใจ, ความคิดเห็นเพิ่มเติม',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(

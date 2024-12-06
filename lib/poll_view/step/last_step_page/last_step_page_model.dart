@@ -5,10 +5,10 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/draft_view/draft_view_widget.dart';
 import '/poll_view/poll_pre_view/poll_pre_view_widget.dart';
 import '/poll_view/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
-import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'last_step_page_widget.dart' show LastStepPageWidget;
@@ -31,8 +31,8 @@ class LastStepPageModel extends FlutterFlowModel<LastStepPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Action Block - confirmBlock] action in Button widget.
-  bool? isConfirm;
+  // Model for DraftView component.
+  late DraftViewModel draftViewModel;
   // Model for StepView component.
   late StepViewModel stepViewModel;
   DateTime? datePicked1;
@@ -46,11 +46,13 @@ class LastStepPageModel extends FlutterFlowModel<LastStepPageWidget> {
 
   @override
   void initState(BuildContext context) {
+    draftViewModel = createModel(context, () => DraftViewModel());
     stepViewModel = createModel(context, () => StepViewModel());
   }
 
   @override
   void dispose() {
+    draftViewModel.dispose();
     stepViewModel.dispose();
   }
 }
