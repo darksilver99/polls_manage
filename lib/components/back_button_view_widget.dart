@@ -7,7 +7,12 @@ import 'back_button_view_model.dart';
 export 'back_button_view_model.dart';
 
 class BackButtonViewWidget extends StatefulWidget {
-  const BackButtonViewWidget({super.key});
+  const BackButtonViewWidget({
+    super.key,
+    required this.title,
+  });
+
+  final String? title;
 
   @override
   State<BackButtonViewWidget> createState() => _BackButtonViewWidgetState();
@@ -72,7 +77,10 @@ class _BackButtonViewWidgetState extends State<BackButtonViewWidget> {
         ),
         Expanded(
           child: Text(
-            'แบบสำรวจของฉัน',
+            valueOrDefault<String>(
+              widget!.title,
+              '-',
+            ),
             maxLines: 1,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Kanit',

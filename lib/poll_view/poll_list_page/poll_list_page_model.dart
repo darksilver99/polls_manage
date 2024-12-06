@@ -3,7 +3,7 @@ import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/poll_view/poll_component/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
+import '/poll_view/poll_component/more_poll_view/more_poll_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'poll_list_page_widget.dart' show PollListPageWidget;
 import 'package:flutter/material.dart';

@@ -9,6 +9,7 @@ import '/poll_view/poll_component/draft_view/draft_view_widget.dart';
 import '/poll_view/poll_component/poll_pre_view/poll_pre_view_widget.dart';
 import '/poll_view/poll_component/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/poll_component/step_view/step_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'last_step_page_widget.dart' show LastStepPageWidget;

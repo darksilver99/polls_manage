@@ -169,3 +169,18 @@ Future checkQRCode(BuildContext context) async {
     }
   }
 }
+
+Future insertTransactionData(
+  BuildContext context, {
+  required DocumentReference? pollReference,
+  required String? type,
+  required int? credit,
+}) async {
+  await TransactionListRecord.createDoc(FFAppState().customerData.customerRef!)
+      .set(createTransactionListRecordData(
+    createDate: getCurrentTimestamp,
+    type: type,
+    pollRef: pollReference,
+    credit: credit,
+  ));
+}

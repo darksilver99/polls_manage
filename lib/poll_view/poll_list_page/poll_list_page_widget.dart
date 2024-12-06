@@ -3,7 +3,7 @@ import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/poll_view/poll_component/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
+import '/poll_view/poll_component/more_poll_view/more_poll_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,7 +53,9 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
             wrapWithModel(
               model: _model.backButtonViewModel,
               updateCallback: () => safeSetState(() {}),
-              child: BackButtonViewWidget(),
+              child: BackButtonViewWidget(
+                title: 'รายการของฉัน',
+              ),
             ),
             Expanded(
               child: PagedListView<DocumentSnapshot<Object?>?,
@@ -181,32 +183,22 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            enableDrag: false,
-                                                            useSafeArea: true,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return WebViewAware(
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      QRCodePollViewWidget(
-                                                                    pollDocument:
-                                                                        listViewPollListRecord,
-                                                                  ),
-                                                                ),
-                                                              );
+                                                          context.pushNamed(
+                                                            'PollDetailPage',
+                                                            queryParameters: {
+                                                              'pollDocument':
+                                                                  serializeParam(
+                                                                listViewPollListRecord,
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
+                                                            }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              'pollDocument':
+                                                                  listViewPollListRecord,
                                                             },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
+                                                          );
                                                         },
                                                         child: Material(
                                                           color: Colors
@@ -244,29 +236,41 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                                     MainAxisAlignment
                                                                         .center,
                                                                 children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .qr_code_rounded,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    size: 18.0,
+                                                                  Expanded(
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .note_alt_outlined,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                      size:
+                                                                          18.0,
+                                                                    ),
                                                                   ),
-                                                                  Text(
-                                                                    'QR Code',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Kanit',
-                                                                          fontSize:
-                                                                              8.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w300,
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Text(
+                                                                          'ตอบ',
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          maxLines:
+                                                                              1,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Kanit',
+                                                                                fontSize: 8.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.w300,
+                                                                              ),
                                                                         ),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ],
                                                               ),
@@ -285,22 +289,32 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                       highlightColor:
                                                           Colors.transparent,
                                                       onTap: () async {
-                                                        context.pushNamed(
-                                                          'PollDetailPage',
-                                                          queryParameters: {
-                                                            'pollDocument':
-                                                                serializeParam(
-                                                              listViewPollListRecord,
-                                                              ParamType
-                                                                  .Document,
-                                                            ),
-                                                          }.withoutNulls,
-                                                          extra: <String,
-                                                              dynamic>{
-                                                            'pollDocument':
-                                                                listViewPollListRecord,
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          enableDrag: false,
+                                                          useSafeArea: true,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return WebViewAware(
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    MorePollViewWidget(
+                                                                  pollDocument:
+                                                                      listViewPollListRecord,
+                                                                ),
+                                                              ),
+                                                            );
                                                           },
-                                                        );
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
                                                       },
                                                       child: Material(
                                                         color:
@@ -338,29 +352,40 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                                   MainAxisAlignment
                                                                       .center,
                                                               children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .remove_red_eye_rounded,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  size: 18.0,
+                                                                Expanded(
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .keyboard_control,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    size: 18.0,
+                                                                  ),
                                                                 ),
-                                                                Text(
-                                                                  'ดู',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Kanit',
-                                                                        fontSize:
-                                                                            8.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w300,
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Expanded(
+                                                                      child:
+                                                                          Text(
+                                                                        'เพิ่มเติม',
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        maxLines:
+                                                                            1,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Kanit',
+                                                                              fontSize: 8.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w300,
+                                                                            ),
                                                                       ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
