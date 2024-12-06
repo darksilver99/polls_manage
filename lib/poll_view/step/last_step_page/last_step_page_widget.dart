@@ -9,6 +9,7 @@ import '/poll_view/poll_component/draft_view/draft_view_widget.dart';
 import '/poll_view/poll_component/poll_pre_view/poll_pre_view_widget.dart';
 import '/poll_view/poll_component/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/poll_view/poll_component/step_view/step_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -499,6 +500,13 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                           },
                                         ),
                                       }, pollListRecordReference1);
+                                      await action_blocks.insertTransactionData(
+                                        context,
+                                        pollReference:
+                                            _model.insertedPoll?.reference,
+                                        type: 'สร้าง',
+                                        credit: 2,
+                                      );
 
                                       await _model.insertedPoll!.reference
                                           .update(createPollListRecordData(

@@ -179,7 +179,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'แบบสำรวจของฉัน',
+                                            'รายการของฉัน',
                                             textAlign: TextAlign.center,
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
