@@ -59,7 +59,9 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
               wrapWithModel(
                 model: _model.draftViewModel,
                 updateCallback: () => safeSetState(() {}),
-                child: DraftViewWidget(),
+                child: DraftViewWidget(
+                  showDraftButton: true,
+                ),
               ),
               wrapWithModel(
                 model: _model.stepViewModel,

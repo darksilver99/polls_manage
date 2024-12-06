@@ -60,7 +60,9 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                 wrapWithModel(
                   model: _model.draftViewModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: DraftViewWidget(),
+                  child: DraftViewWidget(
+                    showDraftButton: false,
+                  ),
                 ),
                 wrapWithModel(
                   model: _model.stepViewModel,
