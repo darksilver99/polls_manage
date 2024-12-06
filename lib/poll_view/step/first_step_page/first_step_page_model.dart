@@ -2,8 +2,8 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/draft_view/draft_view_widget.dart';
 import '/poll_view/step_view/step_view_widget.dart';
-import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'first_step_page_widget.dart' show FirstStepPageWidget;
 import 'package:flutter/material.dart';
@@ -14,8 +14,8 @@ class FirstStepPageModel extends FlutterFlowModel<FirstStepPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
-  // Stores action output result for [Action Block - confirmBlock] action in Button widget.
-  bool? isConfirm;
+  // Model for DraftView component.
+  late DraftViewModel draftViewModel;
   // Model for StepView component.
   late StepViewModel stepViewModel;
   // State field(s) for TextField widget.
@@ -37,12 +37,14 @@ class FirstStepPageModel extends FlutterFlowModel<FirstStepPageWidget> {
 
   @override
   void initState(BuildContext context) {
+    draftViewModel = createModel(context, () => DraftViewModel());
     stepViewModel = createModel(context, () => StepViewModel());
     textController1Validator = _textController1Validator;
   }
 
   @override
   void dispose() {
+    draftViewModel.dispose();
     stepViewModel.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
