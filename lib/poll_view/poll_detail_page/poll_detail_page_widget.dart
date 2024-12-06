@@ -237,15 +237,11 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                         _model.pollResult?.subject,
                                         '-',
                                       ),
-                                      textAlign: TextAlign.start,
-                                      maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Kanit',
-                                            fontSize: 22.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
@@ -262,8 +258,6 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                           _model.pollResult?.detail,
                                           '-',
                                         ),
-                                        textAlign: TextAlign.start,
-                                        maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

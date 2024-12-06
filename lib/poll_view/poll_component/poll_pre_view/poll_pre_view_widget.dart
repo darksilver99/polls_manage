@@ -118,15 +118,11 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                           Expanded(
                             child: Text(
                               FFAppState().tmpPollData.subject,
-                              textAlign: TextAlign.start,
-                              maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
-                                    fontSize: 22.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
                                   ),
                             ),
                           ),
@@ -140,8 +136,6 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                             Expanded(
                               child: Text(
                                 FFAppState().tmpPollData.detail,
-                                textAlign: TextAlign.start,
-                                maxLines: 1,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
