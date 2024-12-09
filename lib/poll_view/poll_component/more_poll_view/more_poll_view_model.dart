@@ -26,6 +26,8 @@ class MorePollViewModel extends FlutterFlowModel<MorePollViewWidget> {
 
   ///  State fields for stateful widgets in this component.
 
+  // Stores action output result for [Custom Action - exportPDF] action in Column widget.
+  String? path2;
   // Stores action output result for [Custom Action - exportExcel] action in Column widget.
   String? path;
   // Stores action output result for [Action Block - confirmBlock] action in Column widget.
