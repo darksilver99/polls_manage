@@ -17,6 +17,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:polls_manage/custom_toon/custom_toon.dart';
 
 Future<String> exportExcel(DocumentReference pollReference) async {
   // Add your function code here!
@@ -41,7 +42,7 @@ Future<String> exportExcel(DocumentReference pollReference) async {
   }
 
   if (!isGranted) {
-    return '';
+    return 'No Data';
   }
 
   var excel = Excel.createExcel();
@@ -58,22 +59,19 @@ Future<String> exportExcel(DocumentReference pollReference) async {
   );
 
   // Add headers
-  List<String> header = [
-    "ชื่ออุปกรณ์",
-    "Serial Number",
-    "วันที่ซื้อ",
-    "ราคา",
-    "รูป",
-    "รายละเอียดเพิ่มเติม",
-    "สถานะปัจจุบัน",
-    "วันที่เพิ่มข้อมูล",
-  ];
+  List<String> header = await getHeader(pollReference);
+
+  if (header.isEmpty) {
+    return 'No Data';
+  }
+
+  header.add("วันที่ตอบ");
 
   // title
   var cell =
       sheetObject.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0));
   cell.value = TextCellValue(
-      'รายงานสรุปอุปกรณ์ทั้งหมด ข้อมูลวันที่ ${functions.dateTh(getCurrentTimestamp)}');
+      'รายงานสรุปคำตอบของแบบสำรวจทั้งหมด ข้อมูล ณ วันที่ ${functions.dateTh(getCurrentTimestamp)}');
   cell.cellStyle = CellStyle(fontSize: 22, bold: true);
 
   for (var i = 0; i < header.length; i++) {
@@ -86,7 +84,8 @@ Future<String> exportExcel(DocumentReference pollReference) async {
   // body
   QuerySnapshot<Map<String, dynamic>> dataList = await FirebaseFirestore
       .instance
-      .collection("${FFAppState().customerData.customerRef!.path}/asset_list")
+      .collection("${FFAppState().customerData.customerRef!.path}/answer_list")
+      .where("poll_ref", isEqualTo: pollReference)
       .orderBy("create_date", descending: true)
       .get();
 
@@ -96,57 +95,23 @@ Future<String> exportExcel(DocumentReference pollReference) async {
 
   for (int i = 0; i < dataList.size; i++) {
     var dataRecord = dataList.docs[i].data();
+    List<dynamic> answersList = dataRecord["answers"];
+    print(answersList.runtimeType);
+    print(answersList);
+    for (int j = 0; j < answersList.length; j++) {
+      sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2))
+        ..value = TextCellValue("${answersList[j]["answer"].join(',')}")
+        ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
 
-    // Set each value in the corresponding column
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 2))
-      ..value = TextCellValue("${dataRecord["subject"]}")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: i + 2))
-      ..value = TextCellValue(" ${dataRecord["serial_number"]}")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: i + 2))
-      ..value = TextCellValue(
-          "${functions.dateTh(dataRecord["purchase_date"].toDate())}")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: i + 2))
-      ..value = TextCellValue(" ${dataRecord["price"]}")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: i + 2))
-      ..value = dataRecord["image"] != null && dataRecord["image"] != ''
-          ? FormulaCellValue('HYPERLINK("${dataRecord["image"]}", "ดูรูป")')
-          : TextCellValue("-")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 5, rowIndex: i + 2))
-      ..value = TextCellValue("${dataRecord["detail"] ?? '-'}")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-
-    Color statusColor = functions.getColorStatus(dataRecord["status"]);
-    String colorHex =
-        statusColor.value.toRadixString(16).substring(2).toUpperCase();
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: i + 2))
-      ..value = TextCellValue("${dataRecord["status"]}")
-      ..cellStyle = CellStyle(
-          horizontalAlign: HorizontalAlign.Center,
-          fontColorHex: ExcelColor.fromHexString(colorHex));
-
-    sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: 7, rowIndex: i + 2))
-      ..value = TextCellValue(
-          "${functions.dateTimeTh(dataRecord["create_date"].toDate())}")
-      ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
+      if (j == (answersList.length - 1)) {
+        sheetObject.cell(CellIndex.indexByColumnRow(
+            columnIndex: answersList.length, rowIndex: i + 2))
+          ..value = TextCellValue(
+              "${functions.dateTimeTh(dataRecord["create_date"].toDate())}")
+          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
+      }
+    }
   }
 
   // Auto-size columns
@@ -160,7 +125,7 @@ Future<String> exportExcel(DocumentReference pollReference) async {
   //Directory dir = Directory('/storage/emulated/0/Download');
   List<int>? fileBytes = excel.save();
   var path = File(
-      '${dir.path}/รายงานสรุปอุปกรณ์ทั้งหมดข้อมูลวันที่${functions.dateTh(getCurrentTimestamp)}.xlsx')
+      '${dir.path}/รายงานสรุปคำตอบของแบบสำรวจทั้งหมดข้อมูลวันที่${functions.dateTh(getCurrentTimestamp)}.xlsx')
     ..createSync(recursive: true)
     ..writeAsBytesSync(fileBytes!);
 
