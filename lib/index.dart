@@ -16,3 +16,5 @@ export '/poll_view/poll_list_page/poll_list_page_widget.dart'
     show PollListPageWidget;
 export '/poll_view/poll_detail_page/poll_detail_page_widget.dart'
     show PollDetailPageWidget;
+export '/poll_view/poll_summary_page/poll_summary_page_widget.dart'
+    show PollSummaryPageWidget;

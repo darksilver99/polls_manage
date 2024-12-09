@@ -93,7 +93,7 @@ Future<String> exportPDF(PollListRecord pollReference) async {
 
   // Save the PDF
   Directory dir = await getApplicationDocumentsDirectory();
-  final filename = 'แบบสำรวจ.pdf';
+  final filename = 'Easy_poll.pdf';
   final file = File('${dir.path}/$filename');
   await file.writeAsBytes(await pdf.save());
 

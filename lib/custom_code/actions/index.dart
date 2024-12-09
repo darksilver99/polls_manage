@@ -8,3 +8,4 @@ export 'upload_image_to_firebase.dart' show uploadImageToFirebase;
 export 'export_excel.dart' show exportExcel;
 export 'check_is_correct_qr_code.dart' show checkIsCorrectQrCode;
 export 'export_p_d_f.dart' show exportPDF;
+export 'get_summary_data.dart' show getSummaryData;
