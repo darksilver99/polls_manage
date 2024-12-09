@@ -33,6 +33,7 @@ Future initConfig(BuildContext context) async {
     storeVersion: configResult?.storeVersion,
     appSuggestList: configResult?.appSuggestList,
     appOtherList: configResult?.appOtherList,
+    pollUrl: configResult?.pollUrl,
   );
 }
 
