@@ -266,11 +266,12 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                                           .resolve(Directionality.of(context)),
                                       child: WebViewAware(
                                         child: InfoCustomViewWidget(
-                                          title:
-                                              'เกิดข้อผิดพลาด เนื่องจากตรวจพบจำนวนคำตอบมีมากเกินไป',
+                                          title: _model.path2 ==
+                                                  'error Many answer'
+                                              ? 'เกิดข้อผิดพลาด เนื่องจากตรวจพบจำนวนคำตอบมีมากเกินไป'
+                                              : 'เกิดข้อผิดพลาด',
                                           status: 'error',
-                                          detail:
-                                              'กรุณาตรวจสอบ ${_model.path2}',
+                                          detail: _model.path2,
                                         ),
                                       ),
                                     );
