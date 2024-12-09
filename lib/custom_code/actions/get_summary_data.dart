@@ -10,10 +10,13 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<String?> getSummaryData(DocumentReference pollReference) async {
+Future<SummaryDataStruct?> getSummaryData(
+    DocumentReference pollReference) async {
   // Add your function code here!
+
   final firestore = FirebaseFirestore.instance;
 
+  // ดึงข้อมูลคำถามจาก Poll
   final pollDoc = await firestore.doc(pollReference.path).get();
 
   if (!pollDoc.exists) throw Exception('Poll not found');
@@ -21,6 +24,7 @@ Future<String?> getSummaryData(DocumentReference pollReference) async {
   final questionList =
       List<Map<String, dynamic>>.from(pollDoc.data()!['question_list'] ?? []);
 
+  // ดึงข้อมูลคำตอบจาก Answer List
   final answersQuery = await firestore
       .collection('${pollReference.parent.parent!.path}/answer_list')
       .where('poll_ref', isEqualTo: pollReference)
@@ -31,37 +35,47 @@ Future<String?> getSummaryData(DocumentReference pollReference) async {
       .expand((e) => e)
       .toList();
 
-  final results = <String, Map<String, int>>{};
+  // สร้างผลลัพธ์ในรูปแบบ SummaryDataStruct
+  List<SummaryDataStruct> summaryDataList = [];
 
   for (final question in questionList) {
     final topic = question['topic'];
     final type = question['type'];
-    final options = question['option_list'] ?? [];
+
+    List<String> options = List<String>.from(question['option_list'] ?? []);
 
     if (type == 2 || type == 3) {
-      // Initialize counts for each option
-      results[topic] = {for (var option in options) option: 0};
-    }
-  }
+      // สร้างคำตอบทั้งหมดในคำถามนี้เป็น 0 ก่อน
+      List<SummaryAnswerDataStruct> answerList = options.map((option) {
+        return SummaryAnswerDataStruct(
+          answer: option,
+          total: 0,
+        );
+      }).toList();
 
-  for (final answer in allAnswers) {
-    final questionType = answer['question_type'];
-    final userAnswers = List<String>.from(answer['answer']);
+      // นับจำนวนคำตอบจากทุกๆ answer
+      for (final answer in allAnswers) {
+        final questionType = answer['question_type'];
+        final userAnswers = List<String>.from(answer['answer']);
 
-    if (questionType == 2 || questionType == 3) {
-      for (final userAnswer in userAnswers) {
-        // Find corresponding topic and increment count
-        for (final topic in results.keys) {
-          if (results[topic]!.containsKey(userAnswer)) {
-            results[topic]![userAnswer] =
-                (results[topic]![userAnswer] ?? 0) + 1;
+        if (questionType == type) {
+          for (final userAnswer in userAnswers) {
+            for (final answerData in answerList) {
+              if (answerData.answer == userAnswer) {
+                answerData.total++;
+              }
+            }
           }
         }
       }
+
+      // เพิ่มข้อมูลลงใน summaryDataList
+      summaryDataList.add(SummaryDataStruct(
+        question: topic,
+        answers: answerList,
+      ));
     }
   }
 
-  print("results");
-  print(results);
-  return null;
+  return summaryDataList;
 }

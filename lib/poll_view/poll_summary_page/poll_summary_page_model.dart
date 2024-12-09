@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -14,7 +15,7 @@ class PollSummaryPageModel extends FlutterFlowModel<PollSummaryPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - getSummaryData] action in PollSummaryPage widget.
-  String? summaryData;
+  SummaryDataStruct? summaryData;
   // Model for BackButtonView component.
   late BackButtonViewModel backButtonViewModel;
 
