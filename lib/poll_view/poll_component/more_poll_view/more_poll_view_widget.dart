@@ -252,7 +252,9 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                               _model.path2 = await actions.exportPDF(
                                 widget!.pollDocument!,
                               );
-                              if (_model.path2 == 'No Data') {
+                              if ((String str) {
+                                return str.contains("error");
+                              }(_model.path2!)) {
                                 await showDialog(
                                   context: context,
                                   builder: (dialogContext) {
@@ -264,8 +266,11 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                                           .resolve(Directionality.of(context)),
                                       child: WebViewAware(
                                         child: InfoCustomViewWidget(
-                                          title: 'ไม่มีข้อมูล',
-                                          status: 'warning',
+                                          title:
+                                              'เกิดข้อผิดพลาด เนื่องจากตรวจพบจำนวนคำตอบมีมากเกินไป',
+                                          status: 'error',
+                                          detail:
+                                              'กรุณาตรวจสอบ ${_model.path2}',
                                         ),
                                       ),
                                     );
