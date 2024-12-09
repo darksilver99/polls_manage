@@ -150,6 +150,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'PollSummaryPage',
+          path: '/pollSummaryPage',
+          asyncParams: {
+            'pollDocument': getDoc(
+                ['customer_list', 'poll_list'], PollListRecord.fromSnapshot),
+          },
+          builder: (context, params) => PollSummaryPageWidget(
+            pollDocument: params.getParam(
+              'pollDocument',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
