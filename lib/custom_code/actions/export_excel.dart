@@ -18,8 +18,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 
-Future exportExcel() async {
+Future<String> exportExcel(DocumentReference pollReference) async {
   // Add your function code here!
+
   bool isGranted = false;
   if (Platform.isAndroid) {
     final deviceInfo = DeviceInfoPlugin();

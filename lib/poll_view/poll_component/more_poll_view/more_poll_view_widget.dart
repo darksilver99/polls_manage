@@ -368,24 +368,35 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: WebViewAware(
-                                      child: InfoCustomViewWidget(
-                                        title: 'Coming soon...',
-                                        status: 'warning',
-                                      ),
-                                    ),
-                                  );
-                                },
+                              _model.path = await actions.exportExcel(
+                                widget!.pollDocument!.reference,
                               );
+                              if (_model.path == 'No Data') {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: WebViewAware(
+                                        child: InfoCustomViewWidget(
+                                          title: 'ไม่มีข้อมูล',
+                                          status: 'warning',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                await actions.shareFile(
+                                  _model.path,
+                                );
+                              }
+
+                              safeSetState(() {});
                             },
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
