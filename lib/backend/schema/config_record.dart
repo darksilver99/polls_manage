@@ -76,6 +76,11 @@ class ConfigRecord extends FirestoreRecord {
   List<AppSuggestDataStruct> get appOtherList => _appOtherList ?? const [];
   bool hasAppOtherList() => _appOtherList != null;
 
+  // "poll_url" field.
+  String? _pollUrl;
+  String get pollUrl => _pollUrl ?? '';
+  bool hasPollUrl() => _pollUrl != null;
+
   void _initializeFields() {
     _contact = getDataList(snapshotData['contact']);
     _freeDay = castToType<int>(snapshotData['free_day']);
@@ -95,6 +100,7 @@ class ConfigRecord extends FirestoreRecord {
       snapshotData['app_other_list'],
       AppSuggestDataStruct.fromMap,
     );
+    _pollUrl = snapshotData['poll_url'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -139,6 +145,7 @@ Map<String, dynamic> createConfigRecordData({
   String? storeAndroidLink,
   String? storeIosLink,
   int? storeVersion,
+  String? pollUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -150,6 +157,7 @@ Map<String, dynamic> createConfigRecordData({
       'store_android_link': storeAndroidLink,
       'store_ios_link': storeIosLink,
       'store_version': storeVersion,
+      'poll_url': pollUrl,
     }.withoutNulls,
   );
 
@@ -173,7 +181,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.storeIosLink == e2?.storeIosLink &&
         e1?.storeVersion == e2?.storeVersion &&
         listEquality.equals(e1?.appSuggestList, e2?.appSuggestList) &&
-        listEquality.equals(e1?.appOtherList, e2?.appOtherList);
+        listEquality.equals(e1?.appOtherList, e2?.appOtherList) &&
+        e1?.pollUrl == e2?.pollUrl;
   }
 
   @override
@@ -189,7 +198,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.storeIosLink,
         e?.storeVersion,
         e?.appSuggestList,
-        e?.appOtherList
+        e?.appOtherList,
+        e?.pollUrl
       ]);
 
   @override

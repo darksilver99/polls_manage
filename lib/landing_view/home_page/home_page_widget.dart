@@ -85,26 +85,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                               child: Container(
                                 width: 100.0,
-                                height: MediaQuery.sizeOf(context).height * 0.3,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(32.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      32.0, 16.0, 32.0, 16.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 16.0),
+                                            0.0, 0.0, 0.0, 8.0),
                                         child: FaIcon(
                                           FontAwesomeIcons.qrcode,
                                           color: FlutterFlowTheme.of(context)
                                               .success,
-                                          size: 64.0,
+                                          size: 54.0,
                                         ),
                                       ),
                                       Row(
@@ -119,7 +119,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Kanit',
-                                                        fontSize: 26.0,
+                                                        fontSize: 24.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,

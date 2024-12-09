@@ -22,6 +22,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
     int? storeVersion,
     List<AppSuggestDataStruct>? appSuggestList,
     List<AppSuggestDataStruct>? appOtherList,
+    String? pollUrl,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _contact = contact,
         _freeDay = freeDay,
@@ -35,6 +36,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _storeVersion = storeVersion,
         _appSuggestList = appSuggestList,
         _appOtherList = appOtherList,
+        _pollUrl = pollUrl,
         super(firestoreUtilData);
 
   // "contact" field.
@@ -142,6 +144,13 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasAppOtherList() => _appOtherList != null;
 
+  // "poll_url" field.
+  String? _pollUrl;
+  String get pollUrl => _pollUrl ?? '';
+  set pollUrl(String? val) => _pollUrl = val;
+
+  bool hasPollUrl() => _pollUrl != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         contact: getDataList(data['contact']),
@@ -162,6 +171,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
           data['app_other_list'],
           AppSuggestDataStruct.fromMap,
         ),
+        pollUrl: data['poll_url'] as String?,
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -181,6 +191,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'store_version': _storeVersion,
         'app_suggest_list': _appSuggestList?.map((e) => e.toMap()).toList(),
         'app_other_list': _appOtherList?.map((e) => e.toMap()).toList(),
+        'poll_url': _pollUrl,
       }.withoutNulls;
 
   @override
@@ -236,6 +247,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
           _appOtherList,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'poll_url': serializeParam(
+          _pollUrl,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -303,6 +318,11 @@ class ConfigDataStruct extends FFFirebaseStruct {
           true,
           structBuilder: AppSuggestDataStruct.fromSerializableMap,
         ),
+        pollUrl: deserializeParam(
+          data['poll_url'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -323,7 +343,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         storeIosLink == other.storeIosLink &&
         storeVersion == other.storeVersion &&
         listEquality.equals(appSuggestList, other.appSuggestList) &&
-        listEquality.equals(appOtherList, other.appOtherList);
+        listEquality.equals(appOtherList, other.appOtherList) &&
+        pollUrl == other.pollUrl;
   }
 
   @override
@@ -339,7 +360,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         storeIosLink,
         storeVersion,
         appSuggestList,
-        appOtherList
+        appOtherList,
+        pollUrl
       ]);
 }
 
@@ -352,6 +374,7 @@ ConfigDataStruct createConfigDataStruct({
   String? storeAndroidLink,
   String? storeIosLink,
   int? storeVersion,
+  String? pollUrl,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -366,6 +389,7 @@ ConfigDataStruct createConfigDataStruct({
       storeAndroidLink: storeAndroidLink,
       storeIosLink: storeIosLink,
       storeVersion: storeVersion,
+      pollUrl: pollUrl,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

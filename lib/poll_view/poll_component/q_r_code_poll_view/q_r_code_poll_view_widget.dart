@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -47,6 +48,8 @@ class _QRCodePollViewWidgetState extends State<QRCodePollViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -151,7 +154,9 @@ class _QRCodePollViewWidgetState extends State<QRCodePollViewWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 32.0),
                                       child: BarcodeWidget(
-                                        data: widget!.pollDocument!.pollPath,
+                                        data: functions.getPollQRCode(
+                                            widget!.pollDocument!.pollPath,
+                                            FFAppState().configData.pollUrl),
                                         barcode: Barcode.qrCode(),
                                         width: 250.0,
                                         height: 250.0,

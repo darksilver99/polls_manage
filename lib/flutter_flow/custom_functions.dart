@@ -81,3 +81,11 @@ DocumentReference? getPollDocument(String? pollPath) {
   }
   return FirebaseFirestore.instance.doc(pollPath);
 }
+
+String getPollQRCode(
+  String pollPath,
+  String pollURL,
+) {
+  List<String> tmp = pollPath.split("/");
+  return "$pollURL${tmp[1]}_${tmp[3]}";
+}
