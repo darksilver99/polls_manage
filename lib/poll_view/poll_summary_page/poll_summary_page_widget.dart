@@ -65,6 +65,10 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
                 title: 'สรุปผลการตอบ',
               ),
             ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [],
+            ),
           ],
         ),
       ),
