@@ -93,6 +93,8 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
               groupSpace: 8.0,
               alignment: BarChartAlignment.spaceEvenly,
               chartStylingInfo: ChartStylingInfo(
+                enableTooltip: true,
+                tooltipBackgroundColor: Colors.transparent,
                 backgroundColor:
                     FlutterFlowTheme.of(context).secondaryBackground,
                 showGrid: true,
