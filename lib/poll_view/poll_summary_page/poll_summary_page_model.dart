@@ -15,7 +15,7 @@ class PollSummaryPageModel extends FlutterFlowModel<PollSummaryPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - getSummaryData] action in PollSummaryPage widget.
-  SummaryDataStruct? summaryData;
+  List<SummaryDataStruct>? summaryData;
   // Model for BackButtonView component.
   late BackButtonViewModel backButtonViewModel;
 
