@@ -45,10 +45,10 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+          padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 8.0),
           child: Container(
             width: double.infinity,
             height: 230.0,
@@ -63,9 +63,14 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
               xLabels:
                   widget!.summaryData!.answers.map((e) => e.answer).toList(),
               barWidth: 16.0,
-              barBorderRadius: BorderRadius.circular(8.0),
+              barBorderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(0.0),
+                bottomRight: Radius.circular(0.0),
+                topLeft: Radius.circular(0.0),
+                topRight: Radius.circular(0.0),
+              ),
               groupSpace: 8.0,
-              alignment: BarChartAlignment.spaceAround,
+              alignment: BarChartAlignment.spaceEvenly,
               chartStylingInfo: ChartStylingInfo(
                 backgroundColor:
                     FlutterFlowTheme.of(context).secondaryBackground,
