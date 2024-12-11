@@ -40,6 +40,7 @@ Future<List<SummaryDataStruct>?> getSummaryData(
   for (final question in questionList) {
     final topic = question['topic'];
     final type = question['type'];
+    final id = question['topic_id'];
 
     List<String> options = List<String>.from(question['option_list'] ?? []);
 
@@ -55,9 +56,10 @@ Future<List<SummaryDataStruct>?> getSummaryData(
       // นับจำนวนคำตอบจากทุกๆ answer
       for (final answer in allAnswers) {
         final questionType = answer['question_type'];
+        final topicID = answer['topic_id'];
         final userAnswers = List<String>.from(answer['answer']);
 
-        if (questionType == type) {
+        if (questionType == type && id == topicID) {
           for (final userAnswer in userAnswers) {
             for (final answerData in answerList) {
               if (answerData.answer == userAnswer) {
