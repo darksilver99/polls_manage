@@ -70,33 +70,35 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
               ),
             ),
             if (!_model.isLoading)
-              Builder(
-                builder: (context) {
-                  final summaryList = _model.summaryData?.toList() ?? [];
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    final summaryList = _model.summaryData?.toList() ?? [];
 
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children:
-                          List.generate(summaryList.length, (summaryListIndex) {
-                        final summaryListItem = summaryList[summaryListIndex];
-                        return wrapWithModel(
-                          model: _model.chartViewModels.getModel(
-                            summaryListIndex.toString(),
-                            summaryListIndex,
-                          ),
-                          updateCallback: () => safeSetState(() {}),
-                          child: ChartViewWidget(
-                            key: Key(
-                              'Key81v_${summaryListIndex.toString()}',
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: List.generate(summaryList.length,
+                            (summaryListIndex) {
+                          final summaryListItem = summaryList[summaryListIndex];
+                          return wrapWithModel(
+                            model: _model.chartViewModels.getModel(
+                              summaryListIndex.toString(),
+                              summaryListIndex,
                             ),
-                            summaryData: summaryListItem,
-                          ),
-                        );
-                      }).divide(SizedBox(height: 16.0)),
-                    ),
-                  );
-                },
+                            updateCallback: () => safeSetState(() {}),
+                            child: ChartViewWidget(
+                              key: Key(
+                                'Key81v_${summaryListIndex.toString()}',
+                              ),
+                              summaryData: summaryListItem,
+                            ),
+                          );
+                        }).divide(SizedBox(height: 16.0)),
+                      ),
+                    );
+                  },
+                ),
               ),
           ],
         ),

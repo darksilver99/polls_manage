@@ -86,7 +86,10 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
           children: [
             Expanded(
               child: Text(
-                'Hello World',
+                valueOrDefault<String>(
+                  widget!.summaryData?.question,
+                  '-',
+                ),
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Kanit',
