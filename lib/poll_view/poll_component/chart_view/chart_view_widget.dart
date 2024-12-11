@@ -44,6 +44,12 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final chartPieChartColorsList = [
+      Color(0xFF8F46E9),
+      Color(0xFF6F28CB),
+      Color(0xFF2536A4),
+      Color(0xFF4A57C1)
+    ];
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -52,34 +58,21 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
           child: Container(
             width: 370.0,
             height: 230.0,
-            child: FlutterFlowBarChart(
-              barData: [
-                FFBarChartData(
-                  yData:
-                      widget!.summaryData!.answers.map((e) => e.total).toList(),
-                  color: FlutterFlowTheme.of(context).primary,
-                )
-              ],
-              xLabels:
-                  widget!.summaryData!.answers.map((e) => e.answer).toList(),
-              barWidth: 16.0,
-              barBorderRadius: BorderRadius.circular(8.0),
-              groupSpace: 8.0,
-              alignment: BarChartAlignment.spaceAround,
-              chartStylingInfo: ChartStylingInfo(
-                backgroundColor:
-                    FlutterFlowTheme.of(context).secondaryBackground,
-                showGrid: true,
-                borderColor: FlutterFlowTheme.of(context).secondaryText,
-                borderWidth: 1.0,
+            child: FlutterFlowPieChart(
+              data: FFPieChartData(
+                values:
+                    widget!.summaryData!.answers.map((e) => e.total).toList(),
+                colors: chartPieChartColorsList,
+                radius: [100.0],
               ),
-              axisBounds: AxisBounds(),
-              xAxisLabelInfo: AxisLabelInfo(
-                reservedSize: 28.0,
-              ),
-              yAxisLabelInfo: AxisLabelInfo(
-                reservedSize: 42.0,
-              ),
+              donutHoleRadius: 0.0,
+              donutHoleColor: Colors.transparent,
+              sectionLabelType: PieChartSectionLabelType.value,
+              sectionLabelStyle:
+                  FlutterFlowTheme.of(context).headlineSmall.override(
+                        fontFamily: 'Kanit',
+                        letterSpacing: 0.0,
+                      ),
             ),
           ),
         ),
