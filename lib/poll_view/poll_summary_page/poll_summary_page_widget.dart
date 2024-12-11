@@ -4,6 +4,7 @@ import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/poll_view/poll_component/chart_view/chart_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -39,6 +40,8 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
       _model.summaryData = await actions.getSummaryData(
         widget!.pollDocument!.reference,
       );
+      _model.isLoading = false;
+      safeSetState(() {});
     });
   }
 
@@ -66,10 +69,35 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
                 title: 'สรุปผลการตอบ',
               ),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [],
-            ),
+            if (!_model.isLoading)
+              Builder(
+                builder: (context) {
+                  final summaryList = _model.summaryData?.toList() ?? [];
+
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children:
+                          List.generate(summaryList.length, (summaryListIndex) {
+                        final summaryListItem = summaryList[summaryListIndex];
+                        return wrapWithModel(
+                          model: _model.chartViewModels.getModel(
+                            summaryListIndex.toString(),
+                            summaryListIndex,
+                          ),
+                          updateCallback: () => safeSetState(() {}),
+                          child: ChartViewWidget(
+                            key: Key(
+                              'Key81v_${summaryListIndex.toString()}',
+                            ),
+                            summaryData: summaryListItem,
+                          ),
+                        );
+                      }).divide(SizedBox(height: 16.0)),
+                    ),
+                  );
+                },
+              ),
           ],
         ),
       ),
