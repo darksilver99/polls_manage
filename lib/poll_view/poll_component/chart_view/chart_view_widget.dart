@@ -48,7 +48,28 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 8.0),
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Text(
+                  valueOrDefault<String>(
+                    widget!.summaryData?.question,
+                    '-',
+                  ),
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Kanit',
+                        letterSpacing: 0.0,
+                      ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
           child: Container(
             width: double.infinity,
             height: 230.0,
@@ -93,24 +114,6 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
               ),
             ),
           ),
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: Text(
-                valueOrDefault<String>(
-                  widget!.summaryData?.question,
-                  '-',
-                ),
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Kanit',
-                      letterSpacing: 0.0,
-                    ),
-              ),
-            ),
-          ],
         ),
       ],
     );
