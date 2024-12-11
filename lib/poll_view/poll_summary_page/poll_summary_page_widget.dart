@@ -94,7 +94,7 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
                               summaryData: summaryListItem,
                             ),
                           );
-                        }).divide(SizedBox(height: 16.0)),
+                        }),
                       ),
                     );
                   },
