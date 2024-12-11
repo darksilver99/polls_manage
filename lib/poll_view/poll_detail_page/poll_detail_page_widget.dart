@@ -57,6 +57,9 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
             questionType:
                 (widget!.pollDocument?.questionList?[_model.tmpAnswerIndex!])
                     ?.type,
+            topicId:
+                (widget!.pollDocument?.questionList?[_model.tmpAnswerIndex!])
+                    ?.topicId,
           ));
           safeSetState(() {});
           _model.tmpAnswerIndex = _model.tmpAnswerIndex! + 1;
