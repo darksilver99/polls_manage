@@ -93,7 +93,6 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
               groupSpace: 8.0,
               alignment: BarChartAlignment.spaceEvenly,
               chartStylingInfo: ChartStylingInfo(
-                enableTooltip: true,
                 backgroundColor:
                     FlutterFlowTheme.of(context).secondaryBackground,
                 showGrid: true,
@@ -111,7 +110,13 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
                 reservedSize: 28.0,
               ),
               yAxisLabelInfo: AxisLabelInfo(
-                reservedSize: 42.0,
+                showLabels: true,
+                labelTextStyle: TextStyle(
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  fontSize: 12.0,
+                ),
+                labelInterval: 12.0,
+                reservedSize: 24.0,
               ),
             ),
           ),
