@@ -97,6 +97,7 @@ class FlutterFlowBarChart extends StatelessWidget {
         return BarChartGroupData(
             x: groupInt,
             barsSpace: barSpace,
+            showingTooltipIndicators: [0],
             barRods: groupData.asMap().entries.map((rod) {
               final rodInt = rod.key;
               final rodSettings = barData[rodInt];
@@ -154,8 +155,19 @@ class FlutterFlowBarChart extends StatelessWidget {
         barTouchData: BarTouchData(
           handleBuiltInTouches: chartStylingInfo.enableTooltip,
           touchTooltipData: BarTouchTooltipData(
+            fitInsideVertically: true,
             getTooltipColor: (group) =>
                 chartStylingInfo.tooltipBackgroundColor ?? Colors.black,
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              return BarTooltipItem(
+                '${rod.toY.toInt()}',
+                const TextStyle(
+                  color: Colors.black,
+                  fontSize: 12
+                ),
+              );
+            },
+
           ),
         ),
         alignment: alignment,
