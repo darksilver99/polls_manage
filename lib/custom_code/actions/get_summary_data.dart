@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<SummaryDataStruct?> getSummaryData(
+Future<List<SummaryDataStruct>?> getSummaryData(
     DocumentReference pollReference) async {
   // Add your function code here!
-
   final firestore = FirebaseFirestore.instance;
 
   // ดึงข้อมูลคำถามจาก Poll
