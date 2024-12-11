@@ -11,6 +11,7 @@ import '/poll_view/poll_component/topic_form_view/topic_form_view_widget.dart';
 import '/poll_view/poll_component/type_form_view/type_form_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -314,6 +315,13 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                                   .addToTmpQuestionDataList(QuestionDataStruct(
                                 topic: _model.topic,
                                 type: _model.typeID,
+                                topicId: random_data.randomString(
+                                  5,
+                                  5,
+                                  true,
+                                  true,
+                                  true,
+                                ),
                               ));
                               safeSetState(() {});
                             } else {
@@ -341,6 +349,13 @@ class _SecondStepPageWidgetState extends State<SecondStepPageWidget> {
                                   topic: _model.topic,
                                   type: _model.typeID,
                                   optionList: _model.optionList,
+                                  topicId: random_data.randomString(
+                                    5,
+                                    5,
+                                    true,
+                                    true,
+                                    true,
+                                  ),
                                 ));
                                 safeSetState(() {});
                               }
