@@ -80,6 +80,12 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
               ),
               axisBounds: AxisBounds(),
               xAxisLabelInfo: AxisLabelInfo(
+                showLabels: true,
+                labelTextStyle: TextStyle(
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  fontSize: 12.0,
+                ),
+                labelInterval: 10.0,
                 reservedSize: 28.0,
               ),
               yAxisLabelInfo: AxisLabelInfo(
