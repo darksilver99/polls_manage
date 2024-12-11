@@ -115,6 +115,12 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
             ),
           ),
         ),
+        Divider(
+          thickness: 2.0,
+          indent: 16.0,
+          endIndent: 6.0,
+          color: FlutterFlowTheme.of(context).alternate,
+        ),
       ],
     );
   }
