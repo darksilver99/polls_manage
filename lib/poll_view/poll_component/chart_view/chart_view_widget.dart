@@ -69,7 +69,9 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
               chartStylingInfo: ChartStylingInfo(
                 backgroundColor:
                     FlutterFlowTheme.of(context).secondaryBackground,
-                showBorder: false,
+                showGrid: true,
+                borderColor: FlutterFlowTheme.of(context).secondaryText,
+                borderWidth: 1.0,
               ),
               axisBounds: AxisBounds(),
               xAxisLabelInfo: AxisLabelInfo(
