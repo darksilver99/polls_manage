@@ -66,6 +66,11 @@ class PollListRecord extends FirestoreRecord {
   int get totalAnswer => _totalAnswer ?? 0;
   bool hasTotalAnswer() => _totalAnswer != null;
 
+  // "update_date" field.
+  DateTime? _updateDate;
+  DateTime? get updateDate => _updateDate;
+  bool hasUpdateDate() => _updateDate != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -82,6 +87,7 @@ class PollListRecord extends FirestoreRecord {
     _isDraft = snapshotData['is_draft'] as bool?;
     _pollPath = snapshotData['poll_path'] as String?;
     _totalAnswer = castToType<int>(snapshotData['total_answer']);
+    _updateDate = snapshotData['update_date'] as DateTime?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -133,6 +139,7 @@ Map<String, dynamic> createPollListRecordData({
   bool? isDraft,
   String? pollPath,
   int? totalAnswer,
+  DateTime? updateDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +152,7 @@ Map<String, dynamic> createPollListRecordData({
       'is_draft': isDraft,
       'poll_path': pollPath,
       'total_answer': totalAnswer,
+      'update_date': updateDate,
     }.withoutNulls,
   );
 
@@ -166,7 +174,8 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
         listEquality.equals(e1?.questionList, e2?.questionList) &&
         e1?.isDraft == e2?.isDraft &&
         e1?.pollPath == e2?.pollPath &&
-        e1?.totalAnswer == e2?.totalAnswer;
+        e1?.totalAnswer == e2?.totalAnswer &&
+        e1?.updateDate == e2?.updateDate;
   }
 
   @override
@@ -180,7 +189,8 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
         e?.questionList,
         e?.isDraft,
         e?.pollPath,
-        e?.totalAnswer
+        e?.totalAnswer,
+        e?.updateDate
       ]);
 
   @override

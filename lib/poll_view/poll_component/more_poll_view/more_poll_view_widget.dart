@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -651,6 +652,23 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                                   );
                                 },
                               );
+
+                              FFAppState().tmpQuestionDataList = widget!
+                                  .pollDocument!.questionList
+                                  .toList()
+                                  .cast<QuestionDataStruct>();
+                              FFAppState().tmpPollData = PollDataStruct(
+                                subject: widget!.pollDocument?.subject,
+                                detail: widget!.pollDocument?.detail,
+                                startDate: widget!.pollDocument?.startDate,
+                                endDate: widget!.pollDocument?.endDate,
+                                questionList:
+                                    widget!.pollDocument?.questionList,
+                                isDraft: false,
+                                pollReference: widget!.pollDocument?.reference,
+                              );
+
+                              context.pushNamed('FirstStepPage');
                             },
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
