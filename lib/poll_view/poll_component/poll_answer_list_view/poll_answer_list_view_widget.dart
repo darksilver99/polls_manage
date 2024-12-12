@@ -120,57 +120,63 @@ class _PollAnswerListViewWidgetState extends State<PollAnswerListViewWidget> {
                 ],
               ),
             ),
-            Builder(
-              builder: (context) {
-                final answerListView =
-                    widget!.summaryData?.answers?.toList() ?? [];
+            Expanded(
+              child: Builder(
+                builder: (context) {
+                  final answerListView =
+                      widget!.summaryData?.answers?.toList() ?? [];
 
-                return ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: answerListView.length,
-                  itemBuilder: (context, answerListViewIndex) {
-                    final answerListViewItem =
-                        answerListView[answerListViewIndex];
-                    return Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 8.0, 0.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    '${answerListViewItem.total > 1 ? '(${answerListViewItem.total.toString()}) ' : ''}${answerListViewItem.answer}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 20.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                  return ListView.builder(
+                    padding: EdgeInsets.fromLTRB(
+                      0,
+                      0,
+                      0,
+                      16.0,
+                    ),
+                    scrollDirection: Axis.vertical,
+                    itemCount: answerListView.length,
+                    itemBuilder: (context, answerListViewIndex) {
+                      final answerListViewItem =
+                          answerListView[answerListViewIndex];
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 8.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 8.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '${answerListViewItem.total > 1 ? '(${answerListViewItem.total.toString()}) ' : ''}${answerListViewItem.answer}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Divider(
-                            thickness: 1.0,
-                            color: FlutterFlowTheme.of(context).alternate,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
+                            Divider(
+                              thickness: 1.0,
+                              color: FlutterFlowTheme.of(context).alternate,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ].addToStart(SizedBox(height: 16.0)).addToEnd(SizedBox(height: 32.0)),
         ),
