@@ -27,6 +27,7 @@ Future<List<SummaryDataStruct>?> getSummaryData(
   final answersQuery = await firestore
       .collection('${pollReference.parent.parent!.path}/answer_list')
       .where('poll_ref', isEqualTo: pollReference)
+      .orderBy('create_date', descending: true)
       .get();
 
   final allAnswers = answersQuery.docs
