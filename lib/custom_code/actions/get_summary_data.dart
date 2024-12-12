@@ -44,11 +44,24 @@ Future<List<SummaryDataStruct>?> getSummaryData(
 
     List<String> options = List<String>.from(question['option_list'] ?? []);
 
+    // สำหรับ type == 1: ดึงคำตอบทั้งหมดที่เกี่ยวข้องกับคำถามนี้
+    if (type == 1 && options.isEmpty) {
+      final relatedAnswers = allAnswers
+          .where((answer) =>
+              answer['question_type'] == 1 && answer['topic_id'] == id)
+          .map((answer) => List<String>.from(answer['answer']))
+          .expand((e) => e)
+          .toSet()
+          .toList(); // ใช้ `toSet()` เพื่อลบคำตอบที่ซ้ำกัน
+
+      options = relatedAnswers;
+    }
+
     // สร้างคำตอบทั้งหมดในคำถามนี้เป็น 0 ก่อน
     List<SummaryAnswerDataStruct> answerList = options.map((option) {
       return SummaryAnswerDataStruct(
         answer: option,
-        total: 0,
+        total: 0, // เริ่มต้นค่า total เป็น 0 เสมอ
       );
     }).toList();
 
@@ -62,7 +75,13 @@ Future<List<SummaryDataStruct>?> getSummaryData(
         for (final userAnswer in userAnswers) {
           for (final answerData in answerList) {
             if (answerData.answer == userAnswer) {
-              answerData.total++;
+              if (type == 1) {
+                // เพิ่มเฉพาะกรณี type == 1 และคำตอบตรงกัน
+                answerData.total++;
+              } else if (type == 2 || type == 3) {
+                // กรณี type == 2, 3 ใช้ logic เดิม
+                answerData.total++;
+              }
             }
           }
         }
@@ -77,11 +96,11 @@ Future<List<SummaryDataStruct>?> getSummaryData(
     ));
   }
 
-  summaryDataList.forEach((e) {
+  /*summaryDataList.forEach((e) {
     print(e.type);
     print(e.question);
     print(e.answers);
     print("-----------");
-  });
+  });*/
   return summaryDataList;
 }

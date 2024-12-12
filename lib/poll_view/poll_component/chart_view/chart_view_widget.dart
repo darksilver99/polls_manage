@@ -54,12 +54,7 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
             children: [
               Expanded(
                 child: Text(
-                  valueOrDefault<String>(
-                    widget!.summaryData?.question,
-                    '-',
-                  ),
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
+                  'Hello World',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Kanit',
                         fontSize: 18.0,
@@ -123,7 +118,7 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
         Divider(
           thickness: 2.0,
           indent: 16.0,
-          endIndent: 6.0,
+          endIndent: 16.0,
           color: FlutterFlowTheme.of(context).alternate,
         ),
       ],
