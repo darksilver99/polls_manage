@@ -665,7 +665,7 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Icon(
-                                          Icons.upload_file,
+                                          Icons.edit_outlined,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           size: 24.0,
