@@ -79,7 +79,7 @@ class _ChartViewWidgetState extends State<ChartViewWidget> {
                 FFBarChartData(
                   yData:
                       widget!.summaryData!.answers.map((e) => e.total).toList(),
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: Color(0xFFA2DEFF),
                 )
               ],
               xLabels:
