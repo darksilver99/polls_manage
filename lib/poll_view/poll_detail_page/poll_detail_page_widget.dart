@@ -54,12 +54,12 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
             widget!.pollDocument!.questionList.length) {
           FFAppState().addToTmpAnswerList(AnswerDataStruct(
             answer: [],
-            questionType:
-                (widget!.pollDocument?.questionList?[_model.tmpAnswerIndex!])
-                    ?.type,
-            topicId:
-                (widget!.pollDocument?.questionList?[_model.tmpAnswerIndex!])
-                    ?.topicId,
+            questionType: (widget!.pollDocument?.questionList
+                    ?.elementAtOrNull(_model.tmpAnswerIndex!))
+                ?.type,
+            topicId: (widget!.pollDocument?.questionList
+                    ?.elementAtOrNull(_model.tmpAnswerIndex!))
+                ?.topicId,
           ));
           safeSetState(() {});
           _model.tmpAnswerIndex = _model.tmpAnswerIndex! + 1;
@@ -79,7 +79,10 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                   .resolve(Directionality.of(context)),
               child: WebViewAware(
                 child: GestureDetector(
-                  onTap: () => FocusScope.of(dialogContext).unfocus(),
+                  onTap: () {
+                    FocusScope.of(dialogContext).unfocus();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
                   child: InfoCustomViewWidget(
                     title: 'ไม่มีรายการนี้แล้ว',
                     status: 'error',
@@ -111,7 +114,10 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
 
     return Builder(
       builder: (context) => GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
         child: WillPopScope(
           onWillPop: () async => false,
           child: Scaffold(
@@ -300,8 +306,9 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    if (!_model.passList[
-                                                        questionListViewIndex])
+                                                    if (!_model.passList
+                                                        .elementAtOrNull(
+                                                            questionListViewIndex)!)
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
@@ -421,8 +428,9 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                       while (_model.tmpAnswerIndex! <
                                           FFAppState().tmpAnswerList.length) {
                                         if (FFAppState()
-                                            .tmpAnswerList[
-                                                _model.tmpAnswerIndex!]
+                                            .tmpAnswerList
+                                            .elementAtOrNull(
+                                                _model.tmpAnswerIndex!)!
                                             .answer
                                             .isNotEmpty) {
                                           _model.updatePassListAtIndex(
@@ -487,9 +495,13 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                                               context)),
                                               child: WebViewAware(
                                                 child: GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          dialogContext)
-                                                      .unfocus(),
+                                                  onTap: () {
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
                                                   child: InfoCustomViewWidget(
                                                     title:
                                                         'ส่งข้อมูลเรียบร้อยแล้ว',

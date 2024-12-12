@@ -44,39 +44,43 @@ Future<List<SummaryDataStruct>?> getSummaryData(
 
     List<String> options = List<String>.from(question['option_list'] ?? []);
 
-    if (type == 2 || type == 3) {
-      // สร้างคำตอบทั้งหมดในคำถามนี้เป็น 0 ก่อน
-      List<SummaryAnswerDataStruct> answerList = options.map((option) {
-        return SummaryAnswerDataStruct(
-          answer: option,
-          total: 0,
-        );
-      }).toList();
+    // สร้างคำตอบทั้งหมดในคำถามนี้เป็น 0 ก่อน
+    List<SummaryAnswerDataStruct> answerList = options.map((option) {
+      return SummaryAnswerDataStruct(
+        answer: option,
+        total: 0,
+        type: type,
+      );
+    }).toList();
 
-      // นับจำนวนคำตอบจากทุกๆ answer
-      for (final answer in allAnswers) {
-        final questionType = answer['question_type'];
-        final topicID = answer['topic_id'];
-        final userAnswers = List<String>.from(answer['answer']);
+    // นับจำนวนคำตอบจากทุกๆ answer
+    for (final answer in allAnswers) {
+      final questionType = answer['question_type'];
+      final topicID = answer['topic_id'];
+      final userAnswers = List<String>.from(answer['answer']);
 
-        if (questionType == type && id == topicID) {
-          for (final userAnswer in userAnswers) {
-            for (final answerData in answerList) {
-              if (answerData.answer == userAnswer) {
-                answerData.total++;
-              }
+      if (questionType == type && id == topicID) {
+        for (final userAnswer in userAnswers) {
+          for (final answerData in answerList) {
+            if (answerData.answer == userAnswer) {
+              answerData.total++;
             }
           }
         }
       }
-
-      // เพิ่มข้อมูลลงใน summaryDataList
-      summaryDataList.add(SummaryDataStruct(
-        question: topic,
-        answers: answerList,
-      ));
     }
+
+    // เพิ่มข้อมูลลงใน summaryDataList
+    summaryDataList.add(SummaryDataStruct(
+      question: topic,
+      answers: answerList,
+    ));
   }
 
+  summaryDataList.forEach((e) {
+    print(e.question);
+    print(e.answers);
+    print("-----------");
+  });
   return summaryDataList;
 }

@@ -589,11 +589,13 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                           children: [
                                             if (FFAppState()
                                                         .configData
-                                                        .contact[0] !=
+                                                        .contact
+                                                        .elementAtOrNull(0) !=
                                                     null &&
                                                 FFAppState()
                                                         .configData
-                                                        .contact[0] !=
+                                                        .contact
+                                                        .elementAtOrNull(0) !=
                                                     '')
                                               InkWell(
                                                 splashColor: Colors.transparent,
@@ -606,7 +608,8 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                                     scheme: 'tel',
                                                     path: FFAppState()
                                                         .configData
-                                                        .contact[0],
+                                                        .contact
+                                                        .elementAtOrNull(0)!,
                                                   ));
                                                 },
                                                 child: FaIcon(
@@ -619,11 +622,13 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                               ),
                                             if (FFAppState()
                                                         .configData
-                                                        .contact[1] !=
+                                                        .contact
+                                                        .elementAtOrNull(1) !=
                                                     null &&
                                                 FFAppState()
                                                         .configData
-                                                        .contact[1] !=
+                                                        .contact
+                                                        .elementAtOrNull(1) !=
                                                     '')
                                               InkWell(
                                                 splashColor: Colors.transparent,
@@ -634,7 +639,8 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                                 onTap: () async {
                                                   await launchURL(FFAppState()
                                                       .configData
-                                                      .contact[1]);
+                                                      .contact
+                                                      .elementAtOrNull(1)!);
                                                 },
                                                 child: FaIcon(
                                                   FontAwesomeIcons.line,
@@ -646,11 +652,13 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                               ),
                                             if (FFAppState()
                                                         .configData
-                                                        .contact[2] !=
+                                                        .contact
+                                                        .elementAtOrNull(2) !=
                                                     null &&
                                                 FFAppState()
                                                         .configData
-                                                        .contact[2] !=
+                                                        .contact
+                                                        .elementAtOrNull(2) !=
                                                     '')
                                               InkWell(
                                                 splashColor: Colors.transparent,
@@ -661,7 +669,8 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                                 onTap: () async {
                                                   await launchURL(FFAppState()
                                                       .configData
-                                                      .contact[2]);
+                                                      .contact
+                                                      .elementAtOrNull(2)!);
                                                 },
                                                 child: FaIcon(
                                                   FontAwesomeIcons
@@ -672,11 +681,13 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                               ),
                                             if (FFAppState()
                                                         .configData
-                                                        .contact[3] !=
+                                                        .contact
+                                                        .elementAtOrNull(3) !=
                                                     null &&
                                                 FFAppState()
                                                         .configData
-                                                        .contact[3] !=
+                                                        .contact
+                                                        .elementAtOrNull(3) !=
                                                     '')
                                               InkWell(
                                                 splashColor: Colors.transparent,
@@ -687,7 +698,8 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                                 onTap: () async {
                                                   await launchURL(FFAppState()
                                                       .configData
-                                                      .contact[3]);
+                                                      .contact
+                                                      .elementAtOrNull(3)!);
                                                 },
                                                 child: FaIcon(
                                                   FontAwesomeIcons
