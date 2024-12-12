@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,10 @@ export 'poll_answer_list_view_model.dart';
 class PollAnswerListViewWidget extends StatefulWidget {
   const PollAnswerListViewWidget({
     super.key,
-    required this.topic,
-    required this.answerList,
+    required this.summaryData,
   });
 
-  final String? topic;
-  final List<String>? answerList;
+  final SummaryDataStruct? summaryData;
 
   @override
   State<PollAnswerListViewWidget> createState() =>
@@ -100,7 +99,7 @@ class _PollAnswerListViewWidgetState extends State<PollAnswerListViewWidget> {
                         Expanded(
                           child: Text(
                             valueOrDefault<String>(
-                              widget!.topic,
+                              widget!.summaryData?.question,
                               '-',
                             ),
                             textAlign: TextAlign.start,
@@ -123,7 +122,8 @@ class _PollAnswerListViewWidgetState extends State<PollAnswerListViewWidget> {
             ),
             Builder(
               builder: (context) {
-                final answerListView = widget!.answerList!.toList();
+                final answerListView =
+                    widget!.summaryData?.answers?.toList() ?? [];
 
                 return ListView.builder(
                   padding: EdgeInsets.zero,
@@ -147,7 +147,7 @@ class _PollAnswerListViewWidgetState extends State<PollAnswerListViewWidget> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    answerListViewItem,
+                                    '${answerListViewItem.total > 1 ? '(${answerListViewItem.total.toString()}) ' : ''}${answerListViewItem.answer}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
