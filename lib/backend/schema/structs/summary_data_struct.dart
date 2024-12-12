@@ -12,9 +12,11 @@ class SummaryDataStruct extends FFFirebaseStruct {
   SummaryDataStruct({
     String? question,
     List<SummaryAnswerDataStruct>? answers,
+    int? type,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _question = question,
         _answers = answers,
+        _type = type,
         super(firestoreUtilData);
 
   // "question" field.
@@ -35,6 +37,15 @@ class SummaryDataStruct extends FFFirebaseStruct {
 
   bool hasAnswers() => _answers != null;
 
+  // "type" field.
+  int? _type;
+  int get type => _type ?? 0;
+  set type(int? val) => _type = val;
+
+  void incrementType(int amount) => type = type + amount;
+
+  bool hasType() => _type != null;
+
   static SummaryDataStruct fromMap(Map<String, dynamic> data) =>
       SummaryDataStruct(
         question: data['question'] as String?,
@@ -42,6 +53,7 @@ class SummaryDataStruct extends FFFirebaseStruct {
           data['answers'],
           SummaryAnswerDataStruct.fromMap,
         ),
+        type: castToType<int>(data['type']),
       );
 
   static SummaryDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -51,6 +63,7 @@ class SummaryDataStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'question': _question,
         'answers': _answers?.map((e) => e.toMap()).toList(),
+        'type': _type,
       }.withoutNulls;
 
   @override
@@ -63,6 +76,10 @@ class SummaryDataStruct extends FFFirebaseStruct {
           _answers,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'type': serializeParam(
+          _type,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -79,6 +96,11 @@ class SummaryDataStruct extends FFFirebaseStruct {
           true,
           structBuilder: SummaryAnswerDataStruct.fromSerializableMap,
         ),
+        type: deserializeParam(
+          data['type'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -89,15 +111,17 @@ class SummaryDataStruct extends FFFirebaseStruct {
     const listEquality = ListEquality();
     return other is SummaryDataStruct &&
         question == other.question &&
-        listEquality.equals(answers, other.answers);
+        listEquality.equals(answers, other.answers) &&
+        type == other.type;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([question, answers]);
+  int get hashCode => const ListEquality().hash([question, answers, type]);
 }
 
 SummaryDataStruct createSummaryDataStruct({
   String? question,
+  int? type,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -105,6 +129,7 @@ SummaryDataStruct createSummaryDataStruct({
 }) =>
     SummaryDataStruct(
       question: question,
+      type: type,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
