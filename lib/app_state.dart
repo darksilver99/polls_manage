@@ -114,7 +114,8 @@ class FFAppState extends ChangeNotifier {
     tmpQuestionDataList.insert(index, value);
   }
 
-  PollDataStruct _tmpPollData = PollDataStruct();
+  PollDataStruct _tmpPollData = PollDataStruct.fromSerializableMap(
+      jsonDecode('{\"question_list\":\"[]\",\"is_draft\":\"false\"}'));
   PollDataStruct get tmpPollData => _tmpPollData;
   set tmpPollData(PollDataStruct value) {
     _tmpPollData = value;

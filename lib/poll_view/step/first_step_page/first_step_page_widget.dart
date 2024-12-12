@@ -6,6 +6,7 @@ import '/poll_view/poll_component/draft_view/draft_view_widget.dart';
 import '/poll_view/poll_component/step_view/step_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'first_step_page_model.dart';
@@ -27,6 +28,22 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => FirstStepPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().tmpPollData.subject != null &&
+          FFAppState().tmpPollData.subject != '') {
+        safeSetState(() {
+          _model.textController1?.text = FFAppState().tmpPollData.subject;
+        });
+      }
+      if (FFAppState().tmpPollData.detail != null &&
+          FFAppState().tmpPollData.detail != '') {
+        safeSetState(() {
+          _model.textController2?.text = FFAppState().tmpPollData.detail;
+        });
+      }
+    });
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();

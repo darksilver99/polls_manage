@@ -15,12 +15,16 @@ class PollDataStruct extends FFFirebaseStruct {
     DateTime? startDate,
     DateTime? endDate,
     List<QuestionDataStruct>? questionList,
+    bool? isDraft,
+    DocumentReference? pollReference,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _subject = subject,
         _detail = detail,
         _startDate = startDate,
         _endDate = endDate,
         _questionList = questionList,
+        _isDraft = isDraft,
+        _pollReference = pollReference,
         super(firestoreUtilData);
 
   // "subject" field.
@@ -62,6 +66,20 @@ class PollDataStruct extends FFFirebaseStruct {
 
   bool hasQuestionList() => _questionList != null;
 
+  // "is_draft" field.
+  bool? _isDraft;
+  bool get isDraft => _isDraft ?? false;
+  set isDraft(bool? val) => _isDraft = val;
+
+  bool hasIsDraft() => _isDraft != null;
+
+  // "poll_reference" field.
+  DocumentReference? _pollReference;
+  DocumentReference? get pollReference => _pollReference;
+  set pollReference(DocumentReference? val) => _pollReference = val;
+
+  bool hasPollReference() => _pollReference != null;
+
   static PollDataStruct fromMap(Map<String, dynamic> data) => PollDataStruct(
         subject: data['subject'] as String?,
         detail: data['detail'] as String?,
@@ -71,6 +89,8 @@ class PollDataStruct extends FFFirebaseStruct {
           data['question_list'],
           QuestionDataStruct.fromMap,
         ),
+        isDraft: data['is_draft'] as bool?,
+        pollReference: data['poll_reference'] as DocumentReference?,
       );
 
   static PollDataStruct? maybeFromMap(dynamic data) =>
@@ -82,6 +102,8 @@ class PollDataStruct extends FFFirebaseStruct {
         'start_date': _startDate,
         'end_date': _endDate,
         'question_list': _questionList?.map((e) => e.toMap()).toList(),
+        'is_draft': _isDraft,
+        'poll_reference': _pollReference,
       }.withoutNulls;
 
   @override
@@ -106,6 +128,14 @@ class PollDataStruct extends FFFirebaseStruct {
           _questionList,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'is_draft': serializeParam(
+          _isDraft,
+          ParamType.bool,
+        ),
+        'poll_reference': serializeParam(
+          _pollReference,
+          ParamType.DocumentReference,
         ),
       }.withoutNulls;
 
@@ -137,6 +167,17 @@ class PollDataStruct extends FFFirebaseStruct {
           true,
           structBuilder: QuestionDataStruct.fromSerializableMap,
         ),
+        isDraft: deserializeParam(
+          data['is_draft'],
+          ParamType.bool,
+          false,
+        ),
+        pollReference: deserializeParam(
+          data['poll_reference'],
+          ParamType.DocumentReference,
+          false,
+          collectionNamePath: ['customer_list', 'poll_list'],
+        ),
       );
 
   @override
@@ -150,12 +191,21 @@ class PollDataStruct extends FFFirebaseStruct {
         detail == other.detail &&
         startDate == other.startDate &&
         endDate == other.endDate &&
-        listEquality.equals(questionList, other.questionList);
+        listEquality.equals(questionList, other.questionList) &&
+        isDraft == other.isDraft &&
+        pollReference == other.pollReference;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([subject, detail, startDate, endDate, questionList]);
+  int get hashCode => const ListEquality().hash([
+        subject,
+        detail,
+        startDate,
+        endDate,
+        questionList,
+        isDraft,
+        pollReference
+      ]);
 }
 
 PollDataStruct createPollDataStruct({
@@ -163,6 +213,8 @@ PollDataStruct createPollDataStruct({
   String? detail,
   DateTime? startDate,
   DateTime? endDate,
+  bool? isDraft,
+  DocumentReference? pollReference,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -173,6 +225,8 @@ PollDataStruct createPollDataStruct({
       detail: detail,
       startDate: startDate,
       endDate: endDate,
+      isDraft: isDraft,
+      pollReference: pollReference,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

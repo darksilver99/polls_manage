@@ -364,6 +364,10 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                                 questionList:
                                                                     listViewPollListRecord
                                                                         .questionList,
+                                                                isDraft: true,
+                                                                pollReference:
+                                                                    listViewPollListRecord
+                                                                        .reference,
                                                               );
 
                                                               context.pushNamed(

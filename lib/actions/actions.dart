@@ -5,6 +5,7 @@ import '/component/confirm_custom_view/confirm_custom_view_widget.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/poll_view/poll_component/q_r_code_poll_view/q_r_code_poll_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -184,4 +185,347 @@ Future insertTransactionData(
     pollRef: pollReference,
     credit: credit,
   ));
+}
+
+Future insertDraftPoll(BuildContext context) async {
+  PollListRecord? insertedDarft;
+
+  var pollListRecordReference =
+      PollListRecord.createDoc(FFAppState().customerData.customerRef!);
+  await pollListRecordReference.set({
+    ...createPollListRecordData(
+      createDate: getCurrentTimestamp,
+      status: 1,
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: true,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpQuestionDataList,
+        ),
+      },
+    ),
+  });
+  insertedDarft = PollListRecord.getDocumentFromData({
+    ...createPollListRecordData(
+      createDate: getCurrentTimestamp,
+      status: 1,
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: true,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpQuestionDataList,
+        ),
+      },
+    ),
+  }, pollListRecordReference);
+  await action_blocks.insertTransactionData(
+    context,
+    pollReference: insertedDarft?.reference,
+    type: 'สร้างแบบร่าง',
+    credit: 0,
+  );
+
+  await insertedDarft!.reference.update(createPollListRecordData(
+    pollPath:
+        'customer_list/${FFAppState().customerData.customerRef?.id}/poll_list/${insertedDarft?.reference.id}',
+  ));
+  await showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return Dialog(
+        elevation: 0,
+        insetPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        alignment:
+            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+        child: WebViewAware(
+          child: InfoCustomViewWidget(
+            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            status: 'success',
+          ),
+        ),
+      );
+    },
+  );
+
+  await actions.pushReplacement(
+    context,
+    null,
+  );
+}
+
+Future insertPoll(BuildContext context) async {
+  PollListRecord? insertedPoll;
+  PollListRecord? pollResult;
+
+  var pollListRecordReference1 =
+      PollListRecord.createDoc(FFAppState().customerData.customerRef!);
+  await pollListRecordReference1.set({
+    ...createPollListRecordData(
+      createDate: getCurrentTimestamp,
+      status: 1,
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: false,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpPollData.questionList,
+        ),
+      },
+    ),
+  });
+  insertedPoll = PollListRecord.getDocumentFromData({
+    ...createPollListRecordData(
+      createDate: getCurrentTimestamp,
+      status: 1,
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: false,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpPollData.questionList,
+        ),
+      },
+    ),
+  }, pollListRecordReference1);
+  await action_blocks.insertTransactionData(
+    context,
+    pollReference: insertedPoll?.reference,
+    type: 'สร้าง',
+    credit: 2,
+  );
+
+  await insertedPoll!.reference.update(createPollListRecordData(
+    pollPath:
+        'customer_list/${FFAppState().customerData.customerRef?.id}/poll_list/${insertedPoll?.reference.id}',
+  ));
+  await showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return Dialog(
+        elevation: 0,
+        insetPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        alignment:
+            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+        child: WebViewAware(
+          child: InfoCustomViewWidget(
+            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            status: 'success',
+          ),
+        ),
+      );
+    },
+  );
+
+  pollResult = await PollListRecord.getDocumentOnce(insertedPoll!.reference);
+  await showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    enableDrag: false,
+    useSafeArea: true,
+    context: context,
+    builder: (context) {
+      return WebViewAware(
+        child: Padding(
+          padding: MediaQuery.viewInsetsOf(context),
+          child: QRCodePollViewWidget(
+            pollDocument: pollResult!,
+          ),
+        ),
+      );
+    },
+  );
+
+  await actions.pushReplacement(
+    context,
+    null,
+  );
+}
+
+Future updatePoll(BuildContext context) async {
+  await FFAppState().tmpPollData.pollReference!.update({
+    ...createPollListRecordData(
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: false,
+      updateDate: getCurrentTimestamp,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpQuestionDataList,
+        ),
+      },
+    ),
+  });
+  await action_blocks.insertTransactionData(
+    context,
+    pollReference: FFAppState().tmpPollData.pollReference,
+    type: 'แก้ไข',
+    credit: 1,
+  );
+  await showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return Dialog(
+        elevation: 0,
+        insetPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        alignment:
+            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+        child: WebViewAware(
+          child: InfoCustomViewWidget(
+            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            status: 'success',
+          ),
+        ),
+      );
+    },
+  );
+
+  await actions.pushReplacement(
+    context,
+    null,
+  );
+}
+
+Future updateDraftPoll(BuildContext context) async {
+  await FFAppState().tmpPollData.pollReference!.update({
+    ...createPollListRecordData(
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: true,
+      updateDate: getCurrentTimestamp,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpQuestionDataList,
+        ),
+      },
+    ),
+  });
+  await action_blocks.insertTransactionData(
+    context,
+    pollReference: FFAppState().tmpPollData.pollReference,
+    type: 'แก้ไขแบบร่าง',
+    credit: 1,
+  );
+  await showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return Dialog(
+        elevation: 0,
+        insetPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        alignment:
+            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+        child: WebViewAware(
+          child: InfoCustomViewWidget(
+            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            status: 'success',
+          ),
+        ),
+      );
+    },
+  );
+
+  await actions.pushReplacement(
+    context,
+    null,
+  );
+}
+
+Future updateDraftToReal(BuildContext context) async {
+  PollListRecord? pollResult;
+
+  await FFAppState().tmpPollData.pollReference!.update({
+    ...createPollListRecordData(
+      startDate: FFAppState().tmpPollData.startDate,
+      endDate: FFAppState().tmpPollData.endDate,
+      subject: FFAppState().tmpPollData.subject,
+      detail: FFAppState().tmpPollData.detail,
+      isDraft: false,
+      updateDate: getCurrentTimestamp,
+    ),
+    ...mapToFirestore(
+      {
+        'question_list': getQuestionDataListFirestoreData(
+          FFAppState().tmpQuestionDataList,
+        ),
+      },
+    ),
+  });
+  await action_blocks.insertTransactionData(
+    context,
+    pollReference: FFAppState().tmpPollData.pollReference,
+    type: 'สร้าง',
+    credit: 2,
+  );
+  await showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return Dialog(
+        elevation: 0,
+        insetPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        alignment:
+            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+        child: WebViewAware(
+          child: InfoCustomViewWidget(
+            title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
+            status: 'success',
+          ),
+        ),
+      );
+    },
+  );
+
+  pollResult = await PollListRecord.getDocumentOnce(
+      FFAppState().tmpPollData.pollReference!);
+  await showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    enableDrag: false,
+    useSafeArea: true,
+    context: context,
+    builder: (context) {
+      return WebViewAware(
+        child: Padding(
+          padding: MediaQuery.viewInsetsOf(context),
+          child: QRCodePollViewWidget(
+            pollDocument: pollResult!,
+          ),
+        ),
+      );
+    },
+  );
+
+  await actions.pushReplacement(
+    context,
+    null,
+  );
 }
