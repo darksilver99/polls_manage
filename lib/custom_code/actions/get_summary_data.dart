@@ -49,7 +49,6 @@ Future<List<SummaryDataStruct>?> getSummaryData(
       return SummaryAnswerDataStruct(
         answer: option,
         total: 0,
-        type: type,
       );
     }).toList();
 
@@ -73,11 +72,13 @@ Future<List<SummaryDataStruct>?> getSummaryData(
     // เพิ่มข้อมูลลงใน summaryDataList
     summaryDataList.add(SummaryDataStruct(
       question: topic,
+      type: type,
       answers: answerList,
     ));
   }
 
   summaryDataList.forEach((e) {
+    print(e.type);
     print(e.question);
     print(e.answers);
     print("-----------");
