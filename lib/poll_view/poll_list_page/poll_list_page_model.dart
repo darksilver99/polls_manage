@@ -1,9 +1,13 @@
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/poll_view/poll_component/more_poll_view/more_poll_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'poll_list_page_widget.dart' show PollListPageWidget;
 import 'package:flutter/material.dart';
@@ -22,6 +26,9 @@ class PollListPageModel extends FlutterFlowModel<PollListPageWidget> {
   PagingController<DocumentSnapshot?, PollListRecord>? listViewPagingController;
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
+
+  // Stores action output result for [Action Block - confirmBlock] action in Container widget.
+  bool? isConfirm;
 
   @override
   void initState(BuildContext context) {
