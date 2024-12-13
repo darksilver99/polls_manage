@@ -66,6 +66,11 @@ class PollListRecord extends FirestoreRecord {
   int get maxAnswer => _maxAnswer ?? 0;
   bool hasMaxAnswer() => _maxAnswer != null;
 
+  // "edit_expire" field.
+  DateTime? _editExpire;
+  DateTime? get editExpire => _editExpire;
+  bool hasEditExpire() => _editExpire != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -82,6 +87,7 @@ class PollListRecord extends FirestoreRecord {
     _totalAnswer = castToType<int>(snapshotData['total_answer']);
     _updateDate = snapshotData['update_date'] as DateTime?;
     _maxAnswer = castToType<int>(snapshotData['max_answer']);
+    _editExpire = snapshotData['edit_expire'] as DateTime?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -133,6 +139,7 @@ Map<String, dynamic> createPollListRecordData({
   int? totalAnswer,
   DateTime? updateDate,
   int? maxAnswer,
+  DateTime? editExpire,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +152,7 @@ Map<String, dynamic> createPollListRecordData({
       'total_answer': totalAnswer,
       'update_date': updateDate,
       'max_answer': maxAnswer,
+      'edit_expire': editExpire,
     }.withoutNulls,
   );
 
@@ -166,7 +174,8 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
         e1?.pollPath == e2?.pollPath &&
         e1?.totalAnswer == e2?.totalAnswer &&
         e1?.updateDate == e2?.updateDate &&
-        e1?.maxAnswer == e2?.maxAnswer;
+        e1?.maxAnswer == e2?.maxAnswer &&
+        e1?.editExpire == e2?.editExpire;
   }
 
   @override
@@ -180,7 +189,8 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
         e?.pollPath,
         e?.totalAnswer,
         e?.updateDate,
-        e?.maxAnswer
+        e?.maxAnswer,
+        e?.editExpire
       ]);
 
   @override

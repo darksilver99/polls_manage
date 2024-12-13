@@ -102,3 +102,10 @@ int getCreditRate(
 
   return 0;
 }
+
+DateTime getNextTime(
+  int min,
+  DateTime currentDate,
+) {
+  return currentDate.add(Duration(minutes: min));
+}

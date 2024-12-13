@@ -633,41 +633,65 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: WebViewAware(
-                                      child: InfoCustomViewWidget(
-                                        title:
-                                            'คำเตือน: การแก้ไขอาจทำให้ข้อมูลคำตอบที่ได้รับก่อนหน้านี้ผิดพลาดหรือไม่สอดคล้องกับคำถามที่แก้ไขใหม่ กรุณาตรวจสอบให้แน่ใจก่อนดำเนินการแก้ไข เพื่อป้องกันผลกระทบต่อข้อมูลที่รวบรวมไว้แล้ว',
-                                        status: 'warning',
+                              if (getCurrentTimestamp >
+                                  widget!.pollDocument!.editExpire!) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: WebViewAware(
+                                        child: InfoCustomViewWidget(
+                                          title:
+                                              'ขออภัยไม่สามารถแก้ไขรายการนี้ได้แล้ว',
+                                          status: 'error',
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    );
+                                  },
+                                );
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: WebViewAware(
+                                        child: InfoCustomViewWidget(
+                                          title:
+                                              'คำเตือน: การแก้ไขอาจทำให้ข้อมูลคำตอบที่ได้รับก่อนหน้านี้ผิดพลาดหรือไม่สอดคล้องกับคำถามที่แก้ไขใหม่ กรุณาตรวจสอบให้แน่ใจก่อนดำเนินการแก้ไข เพื่อป้องกันผลกระทบต่อข้อมูลที่รวบรวมไว้แล้ว',
+                                          status: 'warning',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
 
-                              FFAppState().tmpQuestionDataList = widget!
-                                  .pollDocument!.questionList
-                                  .toList()
-                                  .cast<QuestionDataStruct>();
-                              FFAppState().tmpPollData = PollDataStruct(
-                                subject: widget!.pollDocument?.subject,
-                                detail: widget!.pollDocument?.detail,
-                                questionList:
-                                    widget!.pollDocument?.questionList,
-                                isDraft: false,
-                                pollReference: widget!.pollDocument?.reference,
-                                maxAnswer: widget!.pollDocument?.maxAnswer,
-                              );
+                                FFAppState().tmpQuestionDataList = widget!
+                                    .pollDocument!.questionList
+                                    .toList()
+                                    .cast<QuestionDataStruct>();
+                                FFAppState().tmpPollData = PollDataStruct(
+                                  subject: widget!.pollDocument?.subject,
+                                  detail: widget!.pollDocument?.detail,
+                                  questionList:
+                                      widget!.pollDocument?.questionList,
+                                  isDraft: false,
+                                  pollReference:
+                                      widget!.pollDocument?.reference,
+                                  maxAnswer: widget!.pollDocument?.maxAnswer,
+                                );
 
-                              context.pushNamed('FirstStepPage');
+                                context.pushNamed('FirstStepPage');
+                              }
                             },
                             child: Column(
                               mainAxisSize: MainAxisSize.max,

@@ -287,6 +287,7 @@ Future insertPoll(BuildContext context) async {
       detail: FFAppState().tmpPollData.detail,
       isDraft: false,
       maxAnswer: FFAppState().tmpPollData.maxAnswer,
+      editExpire: functions.getNextTime(60, getCurrentTimestamp),
     ),
     ...mapToFirestore(
       {
@@ -304,6 +305,7 @@ Future insertPoll(BuildContext context) async {
       detail: FFAppState().tmpPollData.detail,
       isDraft: false,
       maxAnswer: FFAppState().tmpPollData.maxAnswer,
+      editExpire: functions.getNextTime(60, getCurrentTimestamp),
     ),
     ...mapToFirestore(
       {
@@ -338,6 +340,8 @@ Future insertPoll(BuildContext context) async {
           child: InfoCustomViewWidget(
             title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
             status: 'success',
+            detail:
+                'คุณสามารถแก้ไขแบบสำรวจนี้ได้ภายใน 1 ชั่วโมงหลังจากการสร้าง หลังจากนั้นจะไม่สามารถแก้ไขได้อีก',
           ),
         ),
       );
@@ -475,6 +479,7 @@ Future updateDraftToReal(BuildContext context) async {
       isDraft: false,
       updateDate: getCurrentTimestamp,
       maxAnswer: FFAppState().tmpPollData.maxAnswer,
+      editExpire: functions.getNextTime(60, getCurrentTimestamp),
     ),
     ...mapToFirestore(
       {
@@ -504,6 +509,8 @@ Future updateDraftToReal(BuildContext context) async {
           child: InfoCustomViewWidget(
             title: 'บันทึกข้อมูลเรียบร้อยแล้ว',
             status: 'success',
+            detail:
+                'คุณสามารถแก้ไขแบบสำรวจนี้ได้ภายใน 1 ชั่วโมงหลังจากการสร้าง หลังจากนั้นจะไม่สามารถแก้ไขได้อีก',
           ),
         ),
       );
