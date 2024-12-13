@@ -49,119 +49,123 @@ class _DraftViewWidgetState extends State<DraftViewWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Visibility(
-      visible: !((FFAppState().tmpPollData.isDraft == false) &&
-          (FFAppState().tmpPollData.pollReference != null)),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                if (widget!.showDraftButton)
-                  Builder(
-                    builder: (context) => FFButtonWidget(
-                      onPressed: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: WebViewAware(
-                                child: ConfirmCustomViewWidget(
-                                  title: 'ต้องการบันทึกแบบร่าง?',
-                                ),
-                              ),
-                            );
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              if (widget!.showDraftButton)
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (!((FFAppState().tmpPollData.isDraft == false) &&
+                        (FFAppState().tmpPollData.pollReference != null)))
+                      Builder(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return Dialog(
+                                  elevation: 0,
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.transparent,
+                                  alignment: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  child: WebViewAware(
+                                    child: ConfirmCustomViewWidget(
+                                      title: 'ต้องการบันทึกแบบร่าง?',
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) =>
+                                safeSetState(() => _model.isConfirm2 = value));
+
+                            if (_model.isConfirm2!) {
+                              if (FFAppState().tmpPollData.isDraft) {
+                                await action_blocks.updateDraftPoll(context);
+                              } else {
+                                await action_blocks.insertDraftPoll(context);
+                              }
+                            }
+
+                            safeSetState(() {});
                           },
-                        ).then((value) =>
-                            safeSetState(() => _model.isConfirm2 = value));
-
-                        if (_model.isConfirm2!) {
-                          if (FFAppState().tmpPollData.isDraft) {
-                            await action_blocks.updateDraftPoll(context);
-                          } else {
-                            await action_blocks.insertDraftPoll(context);
-                          }
-                        }
-
-                        safeSetState(() {});
-                      },
-                      text: 'บันทึกแบบร่าง',
-                      options: FFButtonOptions(
-                        height: 32.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFF63B6FF),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
+                          text: 'บันทึกแบบร่าง',
+                          options: FFButtonOptions(
+                            height: 32.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFF63B6FF),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
                                   fontFamily: 'Kanit',
                                   color: Colors.white,
                                   fontSize: 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w300,
                                 ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      _model.isConfirm = await action_blocks.confirmBlock(
-                        context,
-                        title: 'ต้องการยกเลิก?',
-                      );
-                      if (_model.isConfirm!) {
-                        await actions.pushReplacement(
-                          context,
-                          null,
-                        );
-                      }
-
-                      safeSetState(() {});
-                    },
-                    child: Text(
-                      'ยกเลิก',
-                      textAlign: TextAlign.end,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Kanit',
-                            color: FlutterFlowTheme.of(context).error,
-                            fontSize: 14.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w300,
-                            decoration: TextDecoration.underline,
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                    ),
+                        ),
+                      ),
+                  ],
+                ),
+              Expanded(
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    _model.isConfirm = await action_blocks.confirmBlock(
+                      context,
+                      title: 'ต้องการยกเลิก?',
+                    );
+                    if (_model.isConfirm!) {
+                      await actions.pushReplacement(
+                        context,
+                        null,
+                      );
+                    }
+
+                    safeSetState(() {});
+                  },
+                  child: Text(
+                    'ยกเลิก',
+                    textAlign: TextAlign.end,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Kanit',
+                          color: FlutterFlowTheme.of(context).error,
+                          fontSize: 14.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w300,
+                          decoration: TextDecoration.underline,
+                        ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Divider(
-            height: 32.0,
-            thickness: 2.0,
-            indent: 16.0,
-            endIndent: 16.0,
-            color: FlutterFlowTheme.of(context).alternate,
-          ),
-        ],
-      ),
+        ),
+        Divider(
+          height: 32.0,
+          thickness: 2.0,
+          indent: 16.0,
+          endIndent: 16.0,
+          color: FlutterFlowTheme.of(context).alternate,
+        ),
+      ],
     );
   }
 }
