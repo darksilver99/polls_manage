@@ -14,11 +14,13 @@ class CustomerDataStruct extends FFFirebaseStruct {
     DocumentReference? customerRef,
     String? customerName,
     List<CreditRateDataStruct>? creditRate,
+    int? credit,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _expireDate = expireDate,
         _customerRef = customerRef,
         _customerName = customerName,
         _creditRate = creditRate,
+        _credit = credit,
         super(firestoreUtilData);
 
   // "expire_date" field.
@@ -53,6 +55,15 @@ class CustomerDataStruct extends FFFirebaseStruct {
 
   bool hasCreditRate() => _creditRate != null;
 
+  // "credit" field.
+  int? _credit;
+  int get credit => _credit ?? 0;
+  set credit(int? val) => _credit = val;
+
+  void incrementCredit(int amount) => credit = credit + amount;
+
+  bool hasCredit() => _credit != null;
+
   static CustomerDataStruct fromMap(Map<String, dynamic> data) =>
       CustomerDataStruct(
         expireDate: data['expire_date'] as DateTime?,
@@ -62,6 +73,7 @@ class CustomerDataStruct extends FFFirebaseStruct {
           data['credit_rate'],
           CreditRateDataStruct.fromMap,
         ),
+        credit: castToType<int>(data['credit']),
       );
 
   static CustomerDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -73,6 +85,7 @@ class CustomerDataStruct extends FFFirebaseStruct {
         'customer_ref': _customerRef,
         'customer_name': _customerName,
         'credit_rate': _creditRate?.map((e) => e.toMap()).toList(),
+        'credit': _credit,
       }.withoutNulls;
 
   @override
@@ -93,6 +106,10 @@ class CustomerDataStruct extends FFFirebaseStruct {
           _creditRate,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'credit': serializeParam(
+          _credit,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -120,6 +137,11 @@ class CustomerDataStruct extends FFFirebaseStruct {
           true,
           structBuilder: CreditRateDataStruct.fromSerializableMap,
         ),
+        credit: deserializeParam(
+          data['credit'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -132,18 +154,20 @@ class CustomerDataStruct extends FFFirebaseStruct {
         expireDate == other.expireDate &&
         customerRef == other.customerRef &&
         customerName == other.customerName &&
-        listEquality.equals(creditRate, other.creditRate);
+        listEquality.equals(creditRate, other.creditRate) &&
+        credit == other.credit;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([expireDate, customerRef, customerName, creditRate]);
+      .hash([expireDate, customerRef, customerName, creditRate, credit]);
 }
 
 CustomerDataStruct createCustomerDataStruct({
   DateTime? expireDate,
   DocumentReference? customerRef,
   String? customerName,
+  int? credit,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -153,6 +177,7 @@ CustomerDataStruct createCustomerDataStruct({
       expireDate: expireDate,
       customerRef: customerRef,
       customerName: customerName,
+      credit: credit,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

@@ -46,6 +46,11 @@ class CustomerListRecord extends FirestoreRecord {
   List<CreditRateDataStruct> get creditRate => _creditRate ?? const [];
   bool hasCreditRate() => _creditRate != null;
 
+  // "credit" field.
+  int? _credit;
+  int get credit => _credit ?? 0;
+  bool hasCredit() => _credit != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -56,6 +61,7 @@ class CustomerListRecord extends FirestoreRecord {
       snapshotData['credit_rate'],
       CreditRateDataStruct.fromMap,
     );
+    _credit = castToType<int>(snapshotData['credit']);
   }
 
   static CollectionReference get collection =>
@@ -98,6 +104,7 @@ Map<String, dynamic> createCustomerListRecordData({
   int? status,
   DateTime? expireDate,
   String? customerName,
+  int? credit,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -106,6 +113,7 @@ Map<String, dynamic> createCustomerListRecordData({
       'status': status,
       'expire_date': expireDate,
       'customer_name': customerName,
+      'credit': credit,
     }.withoutNulls,
   );
 
@@ -124,7 +132,8 @@ class CustomerListRecordDocumentEquality
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
         e1?.customerName == e2?.customerName &&
-        listEquality.equals(e1?.creditRate, e2?.creditRate);
+        listEquality.equals(e1?.creditRate, e2?.creditRate) &&
+        e1?.credit == e2?.credit;
   }
 
   @override
@@ -134,7 +143,8 @@ class CustomerListRecordDocumentEquality
         e?.status,
         e?.expireDate,
         e?.customerName,
-        e?.creditRate
+        e?.creditRate,
+        e?.credit
       ]);
 
   @override
