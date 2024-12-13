@@ -355,12 +355,6 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                                 detail:
                                                                     listViewPollListRecord
                                                                         .detail,
-                                                                startDate:
-                                                                    listViewPollListRecord
-                                                                        .startDate,
-                                                                endDate:
-                                                                    listViewPollListRecord
-                                                                        .endDate,
                                                                 questionList:
                                                                     listViewPollListRecord
                                                                         .questionList,
@@ -368,6 +362,9 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                                 pollReference:
                                                                     listViewPollListRecord
                                                                         .reference,
+                                                                maxAnswer:
+                                                                    listViewPollListRecord
+                                                                        .maxAnswer,
                                                               );
 
                                                               context.pushNamed(

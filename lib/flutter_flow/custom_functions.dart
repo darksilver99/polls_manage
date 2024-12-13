@@ -89,3 +89,16 @@ String getPollQRCode(
   List<String> tmp = pollPath.split("/");
   return "$pollURL${tmp[1]}_${tmp[3]}";
 }
+
+int getCreditRate(
+  int total,
+  List<CreditRateDataStruct> creditRateList,
+) {
+  for (var creditRate in creditRateList) {
+    if (creditRate.totalAnswer == total) {
+      return creditRate.credit;
+    }
+  }
+
+  return 0;
+}

@@ -35,6 +35,7 @@ Future initConfig(BuildContext context) async {
     appSuggestList: configResult?.appSuggestList,
     appOtherList: configResult?.appOtherList,
     pollUrl: configResult?.pollUrl,
+    defaultCreditRate: configResult?.defaultCreditRate,
   );
 }
 
@@ -86,16 +87,26 @@ Future initCustomer(BuildContext context) async {
       expireDate: customerResult?.expireDate,
       customerRef: customerResult?.reference,
       customerName: customerResult?.customerName,
+      creditRate: customerResult?.creditRate,
     );
   } else {
-    await CustomerListRecord.collection.doc().set(createCustomerListRecordData(
-          createDate: getCurrentTimestamp,
-          createBy: currentUserReference,
-          status: 1,
-          expireDate: functions.getEndDayTime(functions.getNextDay(
-              FFAppState().configData.freeDay, getCurrentTimestamp)),
-          customerName: currentUserEmail,
-        ));
+    await CustomerListRecord.collection.doc().set({
+      ...createCustomerListRecordData(
+        createDate: getCurrentTimestamp,
+        createBy: currentUserReference,
+        status: 1,
+        expireDate: functions.getEndDayTime(functions.getNextDay(
+            FFAppState().configData.freeDay, getCurrentTimestamp)),
+        customerName: currentUserEmail,
+      ),
+      ...mapToFirestore(
+        {
+          'credit_rate': getCreditRateDataListFirestoreData(
+            FFAppState().configData.defaultCreditRate,
+          ),
+        },
+      ),
+    });
     if (!FFAppState().configData.isReview) {
       await showDialog(
         context: context,
@@ -196,11 +207,10 @@ Future insertDraftPoll(BuildContext context) async {
     ...createPollListRecordData(
       createDate: getCurrentTimestamp,
       status: 1,
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: true,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -214,11 +224,10 @@ Future insertDraftPoll(BuildContext context) async {
     ...createPollListRecordData(
       createDate: getCurrentTimestamp,
       status: 1,
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: true,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -274,11 +283,10 @@ Future insertPoll(BuildContext context) async {
     ...createPollListRecordData(
       createDate: getCurrentTimestamp,
       status: 1,
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: false,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -292,11 +300,10 @@ Future insertPoll(BuildContext context) async {
     ...createPollListRecordData(
       createDate: getCurrentTimestamp,
       status: 1,
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: false,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -310,7 +317,8 @@ Future insertPoll(BuildContext context) async {
     context,
     pollReference: insertedPoll?.reference,
     type: 'สร้าง',
-    credit: 2,
+    credit: functions.getCreditRate(FFAppState().tmpPollData.maxAnswer,
+        FFAppState().customerData.creditRate.toList()),
   );
 
   await insertedPoll!.reference.update(createPollListRecordData(
@@ -364,12 +372,11 @@ Future insertPoll(BuildContext context) async {
 Future updatePoll(BuildContext context) async {
   await FFAppState().tmpPollData.pollReference!.update({
     ...createPollListRecordData(
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: false,
       updateDate: getCurrentTimestamp,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -383,7 +390,7 @@ Future updatePoll(BuildContext context) async {
     context,
     pollReference: FFAppState().tmpPollData.pollReference,
     type: 'แก้ไข',
-    credit: 1,
+    credit: 0,
   );
   await showDialog(
     context: context,
@@ -413,12 +420,11 @@ Future updatePoll(BuildContext context) async {
 Future updateDraftPoll(BuildContext context) async {
   await FFAppState().tmpPollData.pollReference!.update({
     ...createPollListRecordData(
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: true,
       updateDate: getCurrentTimestamp,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -432,7 +438,7 @@ Future updateDraftPoll(BuildContext context) async {
     context,
     pollReference: FFAppState().tmpPollData.pollReference,
     type: 'แก้ไขแบบร่าง',
-    credit: 1,
+    credit: 0,
   );
   await showDialog(
     context: context,
@@ -464,12 +470,11 @@ Future updateDraftToReal(BuildContext context) async {
 
   await FFAppState().tmpPollData.pollReference!.update({
     ...createPollListRecordData(
-      startDate: FFAppState().tmpPollData.startDate,
-      endDate: FFAppState().tmpPollData.endDate,
       subject: FFAppState().tmpPollData.subject,
       detail: FFAppState().tmpPollData.detail,
       isDraft: false,
       updateDate: getCurrentTimestamp,
+      maxAnswer: FFAppState().tmpPollData.maxAnswer,
     ),
     ...mapToFirestore(
       {
@@ -483,7 +488,8 @@ Future updateDraftToReal(BuildContext context) async {
     context,
     pollReference: FFAppState().tmpPollData.pollReference,
     type: 'สร้าง',
-    credit: 2,
+    credit: functions.getCreditRate(FFAppState().tmpPollData.maxAnswer,
+        FFAppState().customerData.creditRate.toList()),
   );
   await showDialog(
     context: context,

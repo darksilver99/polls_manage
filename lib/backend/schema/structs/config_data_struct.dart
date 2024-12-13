@@ -23,6 +23,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
     List<AppSuggestDataStruct>? appSuggestList,
     List<AppSuggestDataStruct>? appOtherList,
     String? pollUrl,
+    List<CreditRateDataStruct>? defaultCreditRate,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _contact = contact,
         _freeDay = freeDay,
@@ -37,6 +38,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _appSuggestList = appSuggestList,
         _appOtherList = appOtherList,
         _pollUrl = pollUrl,
+        _defaultCreditRate = defaultCreditRate,
         super(firestoreUtilData);
 
   // "contact" field.
@@ -151,6 +153,19 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasPollUrl() => _pollUrl != null;
 
+  // "default_credit_rate" field.
+  List<CreditRateDataStruct>? _defaultCreditRate;
+  List<CreditRateDataStruct> get defaultCreditRate =>
+      _defaultCreditRate ?? const [];
+  set defaultCreditRate(List<CreditRateDataStruct>? val) =>
+      _defaultCreditRate = val;
+
+  void updateDefaultCreditRate(Function(List<CreditRateDataStruct>) updateFn) {
+    updateFn(_defaultCreditRate ??= []);
+  }
+
+  bool hasDefaultCreditRate() => _defaultCreditRate != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         contact: getDataList(data['contact']),
@@ -172,6 +187,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
           AppSuggestDataStruct.fromMap,
         ),
         pollUrl: data['poll_url'] as String?,
+        defaultCreditRate: getStructList(
+          data['default_credit_rate'],
+          CreditRateDataStruct.fromMap,
+        ),
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -192,6 +211,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'app_suggest_list': _appSuggestList?.map((e) => e.toMap()).toList(),
         'app_other_list': _appOtherList?.map((e) => e.toMap()).toList(),
         'poll_url': _pollUrl,
+        'default_credit_rate':
+            _defaultCreditRate?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -251,6 +272,11 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'poll_url': serializeParam(
           _pollUrl,
           ParamType.String,
+        ),
+        'default_credit_rate': serializeParam(
+          _defaultCreditRate,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -323,6 +349,12 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        defaultCreditRate: deserializeStructParam<CreditRateDataStruct>(
+          data['default_credit_rate'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: CreditRateDataStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -344,7 +376,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         storeVersion == other.storeVersion &&
         listEquality.equals(appSuggestList, other.appSuggestList) &&
         listEquality.equals(appOtherList, other.appOtherList) &&
-        pollUrl == other.pollUrl;
+        pollUrl == other.pollUrl &&
+        listEquality.equals(defaultCreditRate, other.defaultCreditRate);
   }
 
   @override
@@ -361,7 +394,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         storeVersion,
         appSuggestList,
         appOtherList,
-        pollUrl
+        pollUrl,
+        defaultCreditRate
       ]);
 }
 

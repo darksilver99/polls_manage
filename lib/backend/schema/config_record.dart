@@ -81,6 +81,12 @@ class ConfigRecord extends FirestoreRecord {
   String get pollUrl => _pollUrl ?? '';
   bool hasPollUrl() => _pollUrl != null;
 
+  // "default_credit_rate" field.
+  List<CreditRateDataStruct>? _defaultCreditRate;
+  List<CreditRateDataStruct> get defaultCreditRate =>
+      _defaultCreditRate ?? const [];
+  bool hasDefaultCreditRate() => _defaultCreditRate != null;
+
   void _initializeFields() {
     _contact = getDataList(snapshotData['contact']);
     _freeDay = castToType<int>(snapshotData['free_day']);
@@ -101,6 +107,10 @@ class ConfigRecord extends FirestoreRecord {
       AppSuggestDataStruct.fromMap,
     );
     _pollUrl = snapshotData['poll_url'] as String?;
+    _defaultCreditRate = getStructList(
+      snapshotData['default_credit_rate'],
+      CreditRateDataStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -182,7 +192,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.storeVersion == e2?.storeVersion &&
         listEquality.equals(e1?.appSuggestList, e2?.appSuggestList) &&
         listEquality.equals(e1?.appOtherList, e2?.appOtherList) &&
-        e1?.pollUrl == e2?.pollUrl;
+        e1?.pollUrl == e2?.pollUrl &&
+        listEquality.equals(e1?.defaultCreditRate, e2?.defaultCreditRate);
   }
 
   @override
@@ -199,7 +210,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.storeVersion,
         e?.appSuggestList,
         e?.appOtherList,
-        e?.pollUrl
+        e?.pollUrl,
+        e?.defaultCreditRate
       ]);
 
   @override

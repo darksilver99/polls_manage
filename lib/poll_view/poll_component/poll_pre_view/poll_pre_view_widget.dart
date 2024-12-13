@@ -2,9 +2,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'poll_pre_view_model.dart';
@@ -152,60 +150,6 @@ class _PollPreViewWidgetState extends State<PollPreViewWidget> {
                             ),
                           ],
                         ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 16.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 8.0, 0.0),
-                              child: FaIcon(
-                                FontAwesomeIcons.clock,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                functions.dateTh(FFAppState()
-                                            .tmpPollData
-                                            .startDate) !=
-                                        functions.dateTh(
-                                            FFAppState().tmpPollData.endDate)
-                                    ? 'ระยะเวลา ${valueOrDefault<String>(
-                                        functions.dateTh(
-                                            FFAppState().tmpPollData.startDate),
-                                        '-',
-                                      )} - ${valueOrDefault<String>(
-                                        functions.dateTh(
-                                            FFAppState().tmpPollData.endDate),
-                                        '-',
-                                      )}'
-                                    : 'ระยะเวลา ${valueOrDefault<String>(
-                                        functions.dateTh(
-                                            FFAppState().tmpPollData.startDate),
-                                        '-',
-                                      )}',
-                                textAlign: TextAlign.start,
-                                maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       Divider(
                         thickness: 2.0,
                         color: FlutterFlowTheme.of(context).alternate,

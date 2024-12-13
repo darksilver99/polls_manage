@@ -26,16 +26,6 @@ class PollListRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
-  // "start_date" field.
-  DateTime? _startDate;
-  DateTime? get startDate => _startDate;
-  bool hasStartDate() => _startDate != null;
-
-  // "end_date" field.
-  DateTime? _endDate;
-  DateTime? get endDate => _endDate;
-  bool hasEndDate() => _endDate != null;
-
   // "subject" field.
   String? _subject;
   String get subject => _subject ?? '';
@@ -71,13 +61,16 @@ class PollListRecord extends FirestoreRecord {
   DateTime? get updateDate => _updateDate;
   bool hasUpdateDate() => _updateDate != null;
 
+  // "max_answer" field.
+  int? _maxAnswer;
+  int get maxAnswer => _maxAnswer ?? 0;
+  bool hasMaxAnswer() => _maxAnswer != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _status = castToType<int>(snapshotData['status']);
-    _startDate = snapshotData['start_date'] as DateTime?;
-    _endDate = snapshotData['end_date'] as DateTime?;
     _subject = snapshotData['subject'] as String?;
     _detail = snapshotData['detail'] as String?;
     _questionList = getStructList(
@@ -88,6 +81,7 @@ class PollListRecord extends FirestoreRecord {
     _pollPath = snapshotData['poll_path'] as String?;
     _totalAnswer = castToType<int>(snapshotData['total_answer']);
     _updateDate = snapshotData['update_date'] as DateTime?;
+    _maxAnswer = castToType<int>(snapshotData['max_answer']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -132,27 +126,25 @@ class PollListRecord extends FirestoreRecord {
 Map<String, dynamic> createPollListRecordData({
   DateTime? createDate,
   int? status,
-  DateTime? startDate,
-  DateTime? endDate,
   String? subject,
   String? detail,
   bool? isDraft,
   String? pollPath,
   int? totalAnswer,
   DateTime? updateDate,
+  int? maxAnswer,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'create_date': createDate,
       'status': status,
-      'start_date': startDate,
-      'end_date': endDate,
       'subject': subject,
       'detail': detail,
       'is_draft': isDraft,
       'poll_path': pollPath,
       'total_answer': totalAnswer,
       'update_date': updateDate,
+      'max_answer': maxAnswer,
     }.withoutNulls,
   );
 
@@ -167,30 +159,28 @@ class PollListRecordDocumentEquality implements Equality<PollListRecord> {
     const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.status == e2?.status &&
-        e1?.startDate == e2?.startDate &&
-        e1?.endDate == e2?.endDate &&
         e1?.subject == e2?.subject &&
         e1?.detail == e2?.detail &&
         listEquality.equals(e1?.questionList, e2?.questionList) &&
         e1?.isDraft == e2?.isDraft &&
         e1?.pollPath == e2?.pollPath &&
         e1?.totalAnswer == e2?.totalAnswer &&
-        e1?.updateDate == e2?.updateDate;
+        e1?.updateDate == e2?.updateDate &&
+        e1?.maxAnswer == e2?.maxAnswer;
   }
 
   @override
   int hash(PollListRecord? e) => const ListEquality().hash([
         e?.createDate,
         e?.status,
-        e?.startDate,
-        e?.endDate,
         e?.subject,
         e?.detail,
         e?.questionList,
         e?.isDraft,
         e?.pollPath,
         e?.totalAnswer,
-        e?.updateDate
+        e?.updateDate,
+        e?.maxAnswer
       ]);
 
   @override
