@@ -44,6 +44,8 @@ class PollDetailPageModel extends FlutterFlowModel<PollDetailPageWidget> {
   // Models for TextFieldAnswerView dynamic component.
   late FlutterFlowDynamicModels<TextFieldAnswerViewModel>
       textFieldAnswerViewModels;
+  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  PollListRecord? pollDocument;
 
   @override
   void initState(BuildContext context) {

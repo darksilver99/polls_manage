@@ -700,6 +700,13 @@ class _PollListPageWidgetState extends State<PollListPageWidget> {
                                                         FormatType.decimal,
                                                     decimalType:
                                                         DecimalType.automatic,
+                                                  )}/${formatNumber(
+                                                    listViewPollListRecord
+                                                        .maxAnswer,
+                                                    formatType:
+                                                        FormatType.decimal,
+                                                    decimalType:
+                                                        DecimalType.automatic,
                                                   )})',
                                                   textAlign: TextAlign.start,
                                                   maxLines: 1,
