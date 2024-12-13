@@ -158,31 +158,31 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 8.0, 0.0),
-                                                    child: Text(
-                                                      'เครดิต ${FFAppState().customerData.credit.toString()}',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Kanit',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            fontSize: 22.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
+                                                    child: FaIcon(
+                                                      FontAwesomeIcons.coins,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .warning,
+                                                      size: 22.0,
                                                     ),
                                                   ),
-                                                  FaIcon(
-                                                    FontAwesomeIcons.coins,
-                                                    color: FlutterFlowTheme.of(
+                                                  Text(
+                                                    'เครดิต ${FFAppState().customerData.credit.toString()}',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
                                                             context)
-                                                        .warning,
-                                                    size: 24.0,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                        ),
                                                   ),
                                                 ],
                                               ),
