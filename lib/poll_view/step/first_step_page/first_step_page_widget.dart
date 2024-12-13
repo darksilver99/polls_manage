@@ -263,7 +263,7 @@ class _FirstStepPageWidgetState extends State<FirstStepPageWidget> {
                           !_model.formKey.currentState!.validate()) {
                         return;
                       }
-                      if (FFAppState().tmpPollData.startDate != null) {
+                      if (FFAppState().tmpPollData.pollReference != null) {
                         FFAppState().updateTmpPollDataStruct(
                           (e) => e
                             ..subject = _model.textController1.text
