@@ -660,12 +660,11 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                               FFAppState().tmpPollData = PollDataStruct(
                                 subject: widget!.pollDocument?.subject,
                                 detail: widget!.pollDocument?.detail,
-                                startDate: widget!.pollDocument?.startDate,
-                                endDate: widget!.pollDocument?.endDate,
                                 questionList:
                                     widget!.pollDocument?.questionList,
                                 isDraft: false,
                                 pollReference: widget!.pollDocument?.reference,
+                                maxAnswer: widget!.pollDocument?.maxAnswer,
                               );
 
                               context.pushNamed('FirstStepPage');

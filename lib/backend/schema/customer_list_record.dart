@@ -41,12 +41,21 @@ class CustomerListRecord extends FirestoreRecord {
   String get customerName => _customerName ?? '';
   bool hasCustomerName() => _customerName != null;
 
+  // "credit_rate" field.
+  List<CreditRateDataStruct>? _creditRate;
+  List<CreditRateDataStruct> get creditRate => _creditRate ?? const [];
+  bool hasCreditRate() => _creditRate != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
     _expireDate = snapshotData['expire_date'] as DateTime?;
     _customerName = snapshotData['customer_name'] as String?;
+    _creditRate = getStructList(
+      snapshotData['credit_rate'],
+      CreditRateDataStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -109,16 +118,24 @@ class CustomerListRecordDocumentEquality
 
   @override
   bool equals(CustomerListRecord? e1, CustomerListRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
-        e1?.customerName == e2?.customerName;
+        e1?.customerName == e2?.customerName &&
+        listEquality.equals(e1?.creditRate, e2?.creditRate);
   }
 
   @override
-  int hash(CustomerListRecord? e) => const ListEquality().hash(
-      [e?.createDate, e?.createBy, e?.status, e?.expireDate, e?.customerName]);
+  int hash(CustomerListRecord? e) => const ListEquality().hash([
+        e?.createDate,
+        e?.createBy,
+        e?.status,
+        e?.expireDate,
+        e?.customerName,
+        e?.creditRate
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is CustomerListRecord;

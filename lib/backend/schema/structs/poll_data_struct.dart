@@ -12,19 +12,17 @@ class PollDataStruct extends FFFirebaseStruct {
   PollDataStruct({
     String? subject,
     String? detail,
-    DateTime? startDate,
-    DateTime? endDate,
     List<QuestionDataStruct>? questionList,
     bool? isDraft,
     DocumentReference? pollReference,
+    int? maxAnswer,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _subject = subject,
         _detail = detail,
-        _startDate = startDate,
-        _endDate = endDate,
         _questionList = questionList,
         _isDraft = isDraft,
         _pollReference = pollReference,
+        _maxAnswer = maxAnswer,
         super(firestoreUtilData);
 
   // "subject" field.
@@ -40,20 +38,6 @@ class PollDataStruct extends FFFirebaseStruct {
   set detail(String? val) => _detail = val;
 
   bool hasDetail() => _detail != null;
-
-  // "start_date" field.
-  DateTime? _startDate;
-  DateTime? get startDate => _startDate;
-  set startDate(DateTime? val) => _startDate = val;
-
-  bool hasStartDate() => _startDate != null;
-
-  // "end_date" field.
-  DateTime? _endDate;
-  DateTime? get endDate => _endDate;
-  set endDate(DateTime? val) => _endDate = val;
-
-  bool hasEndDate() => _endDate != null;
 
   // "question_list" field.
   List<QuestionDataStruct>? _questionList;
@@ -80,17 +64,25 @@ class PollDataStruct extends FFFirebaseStruct {
 
   bool hasPollReference() => _pollReference != null;
 
+  // "max_answer" field.
+  int? _maxAnswer;
+  int get maxAnswer => _maxAnswer ?? 0;
+  set maxAnswer(int? val) => _maxAnswer = val;
+
+  void incrementMaxAnswer(int amount) => maxAnswer = maxAnswer + amount;
+
+  bool hasMaxAnswer() => _maxAnswer != null;
+
   static PollDataStruct fromMap(Map<String, dynamic> data) => PollDataStruct(
         subject: data['subject'] as String?,
         detail: data['detail'] as String?,
-        startDate: data['start_date'] as DateTime?,
-        endDate: data['end_date'] as DateTime?,
         questionList: getStructList(
           data['question_list'],
           QuestionDataStruct.fromMap,
         ),
         isDraft: data['is_draft'] as bool?,
         pollReference: data['poll_reference'] as DocumentReference?,
+        maxAnswer: castToType<int>(data['max_answer']),
       );
 
   static PollDataStruct? maybeFromMap(dynamic data) =>
@@ -99,11 +91,10 @@ class PollDataStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'subject': _subject,
         'detail': _detail,
-        'start_date': _startDate,
-        'end_date': _endDate,
         'question_list': _questionList?.map((e) => e.toMap()).toList(),
         'is_draft': _isDraft,
         'poll_reference': _pollReference,
+        'max_answer': _maxAnswer,
       }.withoutNulls;
 
   @override
@@ -115,14 +106,6 @@ class PollDataStruct extends FFFirebaseStruct {
         'detail': serializeParam(
           _detail,
           ParamType.String,
-        ),
-        'start_date': serializeParam(
-          _startDate,
-          ParamType.DateTime,
-        ),
-        'end_date': serializeParam(
-          _endDate,
-          ParamType.DateTime,
         ),
         'question_list': serializeParam(
           _questionList,
@@ -137,6 +120,10 @@ class PollDataStruct extends FFFirebaseStruct {
           _pollReference,
           ParamType.DocumentReference,
         ),
+        'max_answer': serializeParam(
+          _maxAnswer,
+          ParamType.int,
+        ),
       }.withoutNulls;
 
   static PollDataStruct fromSerializableMap(Map<String, dynamic> data) =>
@@ -149,16 +136,6 @@ class PollDataStruct extends FFFirebaseStruct {
         detail: deserializeParam(
           data['detail'],
           ParamType.String,
-          false,
-        ),
-        startDate: deserializeParam(
-          data['start_date'],
-          ParamType.DateTime,
-          false,
-        ),
-        endDate: deserializeParam(
-          data['end_date'],
-          ParamType.DateTime,
           false,
         ),
         questionList: deserializeStructParam<QuestionDataStruct>(
@@ -178,6 +155,11 @@ class PollDataStruct extends FFFirebaseStruct {
           false,
           collectionNamePath: ['customer_list', 'poll_list'],
         ),
+        maxAnswer: deserializeParam(
+          data['max_answer'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -189,32 +171,23 @@ class PollDataStruct extends FFFirebaseStruct {
     return other is PollDataStruct &&
         subject == other.subject &&
         detail == other.detail &&
-        startDate == other.startDate &&
-        endDate == other.endDate &&
         listEquality.equals(questionList, other.questionList) &&
         isDraft == other.isDraft &&
-        pollReference == other.pollReference;
+        pollReference == other.pollReference &&
+        maxAnswer == other.maxAnswer;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([
-        subject,
-        detail,
-        startDate,
-        endDate,
-        questionList,
-        isDraft,
-        pollReference
-      ]);
+  int get hashCode => const ListEquality()
+      .hash([subject, detail, questionList, isDraft, pollReference, maxAnswer]);
 }
 
 PollDataStruct createPollDataStruct({
   String? subject,
   String? detail,
-  DateTime? startDate,
-  DateTime? endDate,
   bool? isDraft,
   DocumentReference? pollReference,
+  int? maxAnswer,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -223,10 +196,9 @@ PollDataStruct createPollDataStruct({
     PollDataStruct(
       subject: subject,
       detail: detail,
-      startDate: startDate,
-      endDate: endDate,
       isDraft: isDraft,
       pollReference: pollReference,
+      maxAnswer: maxAnswer,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

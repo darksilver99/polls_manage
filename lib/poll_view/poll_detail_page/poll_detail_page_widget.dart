@@ -11,11 +11,9 @@ import '/poll_view/poll_component/radio_answer_view/radio_answer_view_widget.dar
 import '/poll_view/poll_component/text_field_answer_view/text_field_answer_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -215,60 +213,6 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                     ),
                                   ],
                                 ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 16.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 8.0, 0.0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.clock,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        functions.dateTh(_model
-                                                    .pollResult?.startDate) !=
-                                                functions.dateTh(
-                                                    _model.pollResult?.endDate)
-                                            ? 'ระยะเวลา ${valueOrDefault<String>(
-                                                functions.dateTh(_model
-                                                    .pollResult?.startDate),
-                                                '-',
-                                              )} - ${valueOrDefault<String>(
-                                                functions.dateTh(
-                                                    _model.pollResult?.endDate),
-                                                '-',
-                                              )}'
-                                            : 'ระยะเวลา ${valueOrDefault<String>(
-                                                functions.dateTh(_model
-                                                    .pollResult?.startDate),
-                                                '-',
-                                              )}',
-                                        textAlign: TextAlign.start,
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
                               Divider(
                                 thickness: 2.0,
                                 color: FlutterFlowTheme.of(context).alternate,
