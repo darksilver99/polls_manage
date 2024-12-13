@@ -119,7 +119,7 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 0.0, 16.0, 0.0),
+                                        16.0, 8.0, 16.0, 8.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -131,12 +131,14 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w300,
                                                 ),
                                           ),
                                         ),
                                         Builder(
                                           builder: (context) {
-                                            if (creditRateViewItem.credit ==
+                                            if (creditRateViewItem
+                                                    .totalAnswer ==
                                                 FFAppState()
                                                     .tmpPollData
                                                     .maxAnswer) {
