@@ -179,8 +179,8 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
                                       ),
                                       Divider(
                                         thickness: 2.0,
-                                        indent: 16.0,
-                                        endIndent: 16.0,
+                                        indent: 8.0,
+                                        endIndent: 8.0,
                                         color: FlutterFlowTheme.of(context)
                                             .alternate,
                                       ),
