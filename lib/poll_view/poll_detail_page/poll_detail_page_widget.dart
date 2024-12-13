@@ -394,36 +394,44 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
                                       if (_model.passList.contains(false)) {
                                         safeSetState(() {});
                                       } else {
-                                        await AnswerListRecord.createDoc(widget!
-                                                .pollDocument!.parentReference)
-                                            .set({
-                                          ...createAnswerListRecordData(
-                                            createDate: getCurrentTimestamp,
-                                            pollRef:
-                                                widget!.pollDocument?.reference,
-                                            createBy: loggedIn
-                                                ? currentUserReference
-                                                : null,
-                                          ),
-                                          ...mapToFirestore(
-                                            {
-                                              'answers':
-                                                  getAnswerDataListFirestoreData(
-                                                FFAppState().tmpAnswerList,
-                                              ),
-                                            },
-                                          ),
-                                        });
+                                        _model.pollDocument =
+                                            await PollListRecord
+                                                .getDocumentOnce(widget!
+                                                    .pollDocument!.reference);
+                                        if (_model.pollDocument!.totalAnswer <
+                                            _model.pollDocument!.maxAnswer) {
+                                          await AnswerListRecord.createDoc(
+                                                  widget!.pollDocument!
+                                                      .parentReference)
+                                              .set({
+                                            ...createAnswerListRecordData(
+                                              createDate: getCurrentTimestamp,
+                                              pollRef: widget!
+                                                  .pollDocument?.reference,
+                                              createBy: loggedIn
+                                                  ? currentUserReference
+                                                  : null,
+                                            ),
+                                            ...mapToFirestore(
+                                              {
+                                                'answers':
+                                                    getAnswerDataListFirestoreData(
+                                                  FFAppState().tmpAnswerList,
+                                                ),
+                                              },
+                                            ),
+                                          });
 
-                                        await widget!.pollDocument!.reference
-                                            .update({
-                                          ...mapToFirestore(
-                                            {
-                                              'total_answer':
-                                                  FieldValue.increment(1),
-                                            },
-                                          ),
-                                        });
+                                          await widget!.pollDocument!.reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'total_answer':
+                                                    FieldValue.increment(1),
+                                              },
+                                            ),
+                                          });
+                                        }
                                         await showDialog(
                                           context: context,
                                           builder: (dialogContext) {
@@ -459,6 +467,8 @@ class _PollDetailPageWidgetState extends State<PollDetailPageWidget> {
 
                                         context.safePop();
                                       }
+
+                                      safeSetState(() {});
                                     },
                                     text: 'ส่งข้อมูล',
                                     options: FFButtonOptions(

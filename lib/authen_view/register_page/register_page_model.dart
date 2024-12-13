@@ -3,7 +3,7 @@ import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/main_background_view/main_background_view_widget.dart';
 import '/component/web_view/web_view_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/components/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -20,6 +20,8 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   final formKey = GlobalKey<FormState>();
   // Model for MainBackgroundView component.
   late MainBackgroundViewModel mainBackgroundViewModel;
+  // Model for BackButtonView component.
+  late BackButtonViewModel backButtonViewModel;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? emailTextController;
@@ -83,6 +85,7 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   void initState(BuildContext context) {
     mainBackgroundViewModel =
         createModel(context, () => MainBackgroundViewModel());
+    backButtonViewModel = createModel(context, () => BackButtonViewModel());
     emailTextControllerValidator = _emailTextControllerValidator;
     passwordVisibility1 = false;
     passwordTextControllerValidator = _passwordTextControllerValidator;
@@ -95,6 +98,7 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   @override
   void dispose() {
     mainBackgroundViewModel.dispose();
+    backButtonViewModel.dispose();
     textFieldFocusNode1?.dispose();
     emailTextController?.dispose();
 
