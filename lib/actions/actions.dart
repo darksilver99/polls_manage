@@ -88,6 +88,7 @@ Future initCustomer(BuildContext context) async {
       customerRef: customerResult?.reference,
       customerName: customerResult?.customerName,
       creditRate: customerResult?.creditRate,
+      credit: customerResult?.credit,
     );
   } else {
     await CustomerListRecord.collection.doc().set({
