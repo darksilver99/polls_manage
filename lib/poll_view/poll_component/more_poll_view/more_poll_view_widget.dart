@@ -575,7 +575,7 @@ class _MorePollViewWidgetState extends State<MorePollViewWidget> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  'ดูข้อมูลสรุปผลการตอบในรูปแบบกราฟและสถิติ (เฉพาะคำตอบแบบตัวเลือก)',
+                                                  'ดูข้อมูลสรุปผลการตอบในรูปแบบกราฟและสถิติ',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
