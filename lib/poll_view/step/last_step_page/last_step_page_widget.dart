@@ -92,75 +92,109 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                 (creditRateViewIndex) {
                               final creditRateViewItem =
                                   creditRateView[creditRateViewIndex];
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  FFAppState().updateTmpPollDataStruct(
-                                    (e) => e
-                                      ..maxAnswer =
-                                          creditRateViewItem.totalAnswer,
-                                  );
-                                  safeSetState(() {});
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    border: Border.all(
+                              return Builder(
+                                builder: (context) => InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    if (!((FFAppState().tmpPollData.isDraft ==
+                                            false) &&
+                                        (FFAppState()
+                                                .tmpPollData
+                                                .pollReference !=
+                                            null))) {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'ไม่สามารถเปลี่ยนแปลงจำนวนผู้ตอบได้แล้ว',
+                                                status: 'error',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      FFAppState().updateTmpPollDataStruct(
+                                        (e) => e
+                                          ..maxAnswer =
+                                              creditRateViewItem.totalAnswer,
+                                      );
+                                      safeSetState(() {});
+                                    }
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      width: 1.0,
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
                                     ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 8.0, 16.0, 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            creditRateViewItem.subject,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 8.0, 16.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              creditRateViewItem.subject,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                            ),
                                           ),
-                                        ),
-                                        Builder(
-                                          builder: (context) {
-                                            if (creditRateViewItem
-                                                    .totalAnswer ==
-                                                FFAppState()
-                                                    .tmpPollData
-                                                    .maxAnswer) {
-                                              return Icon(
-                                                Icons.check_circle_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 32.0,
-                                              );
-                                            } else {
-                                              return Icon(
-                                                Icons.radio_button_off_outlined,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 32.0,
-                                              );
-                                            }
-                                          },
-                                        ),
-                                      ],
+                                          Builder(
+                                            builder: (context) {
+                                              if (creditRateViewItem
+                                                      .totalAnswer ==
+                                                  FFAppState()
+                                                      .tmpPollData
+                                                      .maxAnswer) {
+                                                return Icon(
+                                                  Icons.check_circle_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 32.0,
+                                                );
+                                              } else {
+                                                return Icon(
+                                                  Icons
+                                                      .radio_button_off_outlined,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 32.0,
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
