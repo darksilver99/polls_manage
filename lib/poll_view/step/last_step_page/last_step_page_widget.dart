@@ -105,6 +105,13 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                                 .tmpPollData
                                                 .pollReference !=
                                             null))) {
+                                      FFAppState().updateTmpPollDataStruct(
+                                        (e) => e
+                                          ..maxAnswer =
+                                              creditRateViewItem.totalAnswer,
+                                      );
+                                      safeSetState(() {});
+                                    } else {
                                       await showDialog(
                                         context: context,
                                         builder: (dialogContext) {
@@ -126,13 +133,6 @@ class _LastStepPageWidgetState extends State<LastStepPageWidget> {
                                           );
                                         },
                                       );
-                                    } else {
-                                      FFAppState().updateTmpPollDataStruct(
-                                        (e) => e
-                                          ..maxAnswer =
-                                              creditRateViewItem.totalAnswer,
-                                      );
-                                      safeSetState(() {});
                                     }
                                   },
                                   child: Container(
