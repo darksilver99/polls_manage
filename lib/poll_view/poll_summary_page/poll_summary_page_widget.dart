@@ -96,7 +96,7 @@ class _PollSummaryPageWidgetState extends State<PollSummaryPageWidget> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 4.0),
+                                            0.0, 8.0, 0.0, 4.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
